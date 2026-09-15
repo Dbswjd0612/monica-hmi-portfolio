@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/orbit.css">
 <script src="/js/image-slot.js" defer></script>
 <script src="/js/orbit.js" defer></script>
@@ -17,9 +18,11 @@
 <div style="--hl:#2A3037;--mut:#9BA2A8;--fnt:#868E96;--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--body:Geist,ui-sans-serif,system-ui,sans-serif;min-height:100vh;background:#101215;position:relative;overflow:hidden">
 
 <nav class="pad" style="position:relative;z-index:5;max-width:1180px;margin:0 auto;padding:26px 52px;display:flex;align-items:center;gap:28px;border-bottom:1px solid rgba(42,48,55,.8)">
-<a href="/" style="display:flex;align-items:center;gap:11px"><span style="width:8px;height:8px;background:#F97316"></span><span style="font:500 12px var(--mono);letter-spacing:.2em;text-transform:uppercase">Monica Hwang</span></a>
+<a href="/" style="display:flex;align-items:center;gap:9px"><img src="/public/images/home/monica-hwang-logo-2.png" alt="Monica Hwang logo" style="width:30px;height:30px;display:block"><span style="font:500 10.8px 'IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase">Monica Hwang</span></a>
 <div style="margin-left:auto;display:flex;align-items:center;gap:26px;font:400 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--mut)">
-<a class="nl" href="/" style="color:inherit">← All work</a>
+<a class="nl" href="/#work" style="color:inherit">Projects</a>
+<a class="nl" href="#" style="color:inherit">Resume</a>
+<a class="nl" href="/about" style="color:inherit">About</a>
 </div>
 </nav>
 
@@ -61,7 +64,7 @@
 <a id="orbit-proto-full" href="#" target="_blank" rel="noopener" style="margin-left:auto;font:400 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--hl);border-radius:2px;padding:6px 11px">Open full screen ↗</a>
 </div>
 <div class="proto-wrap" style="position:relative;aspect-ratio:16 / 9;border:1px solid #22262B;border-radius:1px;overflow:hidden;background:#0A0C0F">
-<iframe id="orbit-proto" src="" title="ORBIT interactive prototype — Fleet Overview" loading="lazy" allow="fullscreen" style="position:absolute;top:0;left:0;width:1440px;height:810px;border:0;transform-origin:top left;background:#0A0C0F"></iframe>
+<iframe id="orbit-proto" src="/prototype/" title="ORBIT interactive prototype — Fleet Overview" loading="lazy" allow="fullscreen" style="position:absolute;top:0;left:0;width:1440px;height:810px;border:0;transform-origin:top left;background:#0A0C0F"></iframe>
 <div id="orbit-proto-empty" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;padding:20px;background:repeating-linear-gradient(45deg,#0A0C0F 0 6px,#0D1014 6px 12px)">
 <span style="font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fnt)">Interactive prototype</span>
 <span style="font-family:var(--body);font-size:13px;font-weight:300;color:#5C636A">Coming online shortly</span>
@@ -88,14 +91,7 @@
 <p style="font-family:var(--body);margin:0;font-size:16.5px;line-height:1.75;font-weight:300;color:#8F969D;max-width:40ch;text-wrap:pretty">I grounded the project in a single failure scenario: <span style="color:#E8EAEC">R-142 encounters an obstruction, attempts to recover autonomously, and asks for human attention only when it can no longer resolve the issue.</span></p>
 </div>
 <div style="border:1px solid var(--hl);border-radius:2px;background:#0C0E11;padding:10px;margin-top:7px">
-<div id="scenario-drop" style="position:relative;aspect-ratio:16 / 9;border:1px dashed #2A3037;border-radius:1px;overflow:hidden;background:repeating-linear-gradient(45deg,#0A0C0F 0 6px,#0D1014 6px 12px);cursor:pointer">
-<video id="scenario-video" muted loop playsinline preload="none" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0A0C0F"></video>
-<div id="scenario-empty" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;pointer-events:none">
-<span style="font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fnt)">R-142 obstruction — zone clip</span>
-<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#5C636A">drop a video or image here, or click to browse</span>
-</div>
-<input id="scenario-file" type="file" accept="video/*,image/*" style="display:none">
-</div>
+<video src="/public/videos/orbit/autonomy-incident-flow.mp4" autoplay muted loop playsinline aria-label="R-142 obstruction incident — autonomous recovery and escalation flow" style="display:block;width:100%;height:auto;border:1px solid #22262B;border-radius:1px;background:#0A0C0F"></video>
 </div>
 </div>
 
