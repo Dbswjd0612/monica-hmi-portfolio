@@ -1,0 +1,10 @@
+{
+  "name": "monica-hwang-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monica Hwang — UX portfolio. Home, About, and ORBIT case study.",
+  "scripts": {
+    "dev": "npx -y serve .",
+    "start": "npx -y serve ."
+  }
+}

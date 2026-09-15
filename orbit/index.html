@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORBIT — Fleet Supervision &amp; Intervention · Monica Hwang</title>
+<meta name="description" content="ORBIT is an autonomous fleet supervision system that helps operators understand incidents, intervene when needed, and safely return robots to autonomous operation.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/orbit.css">
+<script src="/js/image-slot.js" defer></script>
+<script src="/js/orbit.js" defer></script>
+</head>
+<body>
+<div style="--hl:#2A3037;--mut:#9BA2A8;--fnt:#868E96;--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;--body:Geist,ui-sans-serif,system-ui,sans-serif;min-height:100vh;background:#101215;position:relative;overflow:hidden">
+
+<nav class="pad" style="position:relative;z-index:5;max-width:1180px;margin:0 auto;padding:26px 52px;display:flex;align-items:center;gap:28px;border-bottom:1px solid rgba(42,48,55,.8)">
+<a href="/" style="display:flex;align-items:center;gap:11px"><span style="width:8px;height:8px;background:#F97316"></span><span style="font:500 12px var(--mono);letter-spacing:.2em;text-transform:uppercase">Monica Hwang</span></a>
+<div style="margin-left:auto;display:flex;align-items:center;gap:26px;font:400 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--mut)">
+<a class="nl" href="/" style="color:inherit">← All work</a>
+</div>
+</nav>
+
+<!-- 01 · ORBIT -->
+<section class="pad" data-screen-label="01 Hero" style="position:relative;padding:72px 52px 0;overflow:hidden">
+<div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 65% at 40% 20%,#000,transparent);-webkit-mask-image:radial-gradient(ellipse 90% 65% at 40% 20%,#000,transparent);pointer-events:none"></div>
+<div style="position:relative;max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:20px">
+<div class="rv" style="display:flex;align-items:center;gap:11px;font:500 10.5px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--mut)">
+<span style="color:#9BA2A8">HMI</span><span style="width:4px;height:4px;background:#F97316;flex:none"></span><span>Autonomous systems</span></div>
+<h1 class="rv" style="margin:-8px 0 0;font-size:clamp(46px,6.8vw,88px);font-weight:600;letter-spacing:-.028em;line-height:.96;color:#FFFFFF">ORBIT</h1>
+<p class="rv" style="margin:0;font-size:clamp(20px,2.3vw,29px);font-weight:400;letter-spacing:-.015em;line-height:1.3;color:#C6CBD1;max-width:24ch">Fleet Supervision &amp; Intervention</p>
+<p class="rv" style="font-family:var(--body);margin:2px 0 0;max-width:58ch;font-size:17.5px;line-height:1.72;font-weight:300;color:#9AA1A8;text-wrap:pretty">ORBIT is an autonomous fleet supervision system that helps operators understand incidents, intervene when needed, and safely return robots to autonomous operation.</p>
+<div class="rv meta" style="margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hl);border-top:1px solid var(--hl);border-bottom:1px solid var(--hl)">
+<div style="background:#101215;padding:16px 0;display:flex;flex-direction:column;gap:8px">
+<span style="font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#7B838B">Role</span>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;line-height:1.4;color:#DDE1E5">Product / HMI Designer</span>
+</div>
+<div style="background:#101215;padding:16px 0 16px 20px;display:flex;flex-direction:column;gap:8px">
+<span style="font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#7B838B">Team</span>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;line-height:1.4;color:#DDE1E5">Solo</span>
+</div>
+<div style="background:#101215;padding:16px 0 16px 20px;display:flex;flex-direction:column;gap:8px">
+<span style="font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#7B838B">Timeline</span>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;line-height:1.4;color:#DDE1E5">6 weeks<span style="color:#7B838B"> ·<span class="meta-tl-br"> </span>Jul–Aug 2026</span></span>
+</div>
+<div style="background:#101215;padding:16px 0 16px 20px;display:flex;flex-direction:column;gap:8px">
+<span style="font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#7B838B">Project</span>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;line-height:1.4;color:#DDE1E5">Self-Directed Concept</span>
+</div>
+</div>
+<div class="rv hero-mob-shot" style="display:none;border:1px solid var(--hl);border-radius:2px;background:#0C0E11;padding:11px">
+<div style="aspect-ratio:16 / 9;border:1px solid #22262B;border-radius:1px;overflow:hidden;background:#0A0C0F"><image-slot id="hero-fleet-overview-mobile" placeholder="Fleet Overview — static screen (mobile)"></image-slot></div>
+</div>
+<div class="rv proto-card" style="border:1px solid var(--hl);border-radius:2px;background:#0C0E11;padding:11px;display:flex;flex-direction:column;gap:11px">
+<div style="display:flex;align-items:center;gap:10px;padding:1px 3px">
+<span style="width:6px;height:6px;background:#F97316;animation:ob-pulse 2.4s ease-in-out infinite;flex:none"></span>
+<span style="font:500 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#F97316">Interactive prototype</span>
+<span style="font:400 10.5px var(--mono);letter-spacing:.1em;color:var(--fnt)">Trigger an incident to see how ORBIT responds</span>
+<a id="orbit-proto-full" href="#" target="_blank" rel="noopener" style="margin-left:auto;font:400 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--hl);border-radius:2px;padding:6px 11px">Open full screen ↗</a>
+</div>
+<div class="proto-wrap" style="position:relative;aspect-ratio:16 / 9;border:1px solid #22262B;border-radius:1px;overflow:hidden;background:#0A0C0F">
+<iframe id="orbit-proto" src="" title="ORBIT interactive prototype — Fleet Overview" loading="lazy" allow="fullscreen" style="position:absolute;top:0;left:0;width:1440px;height:810px;border:0;transform-origin:top left;background:#0A0C0F"></iframe>
+<div id="orbit-proto-empty" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;padding:20px;background:repeating-linear-gradient(45deg,#0A0C0F 0 6px,#0D1014 6px 12px)">
+<span style="font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fnt)">Interactive prototype</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#5C636A">Coming online shortly</span>
+</div>
+</div>
+<a class="proto-mob" id="orbit-proto-mob" href="#" target="_blank" rel="noopener" style="display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:34px 20px;border:1px solid #22262B;border-radius:1px;background:repeating-linear-gradient(45deg,#0A0C0F 0 6px,#0D1014 6px 12px)">
+<span style="font:500 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#E8EAEC">Open the interactive prototype ↗</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#7E858C">Best experienced on a larger screen.</span>
+</a>
+</div>
+<span class="rv hero-cap" style="font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fnt)">Fleet Overview — one operator supervising an autonomous fleet. Most of the time, this screen asks for nothing.</span>
+</div>
+</section>
+
+<section class="pad case-body" style="position:relative;max-width:1180px;margin:0 auto;padding:110px 52px 120px;display:flex;flex-direction:column;gap:110px">
+
+<!-- 02 · WHEN AUTONOMY NEEDS HELP -->
+<div data-screen-label="02 When autonomy needs help" style="display:flex;flex-direction:column;gap:38px;margin-bottom:76px">
+<div style="display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--hl);padding-top:20px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;color:#F97316">02</span><h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-.012em">When autonomy needs help</h2></div>
+
+<div class="two-g" style="display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:52px;align-items:start">
+<div class="ch2-txt" style="display:flex;flex-direction:column;gap:26px">
+<h3 class="ch2-head" style="margin:0;font-size:clamp(30px,2.9vw,39px);font-weight:600;letter-spacing:-.024em;line-height:1.22;max-width:20ch;text-wrap:pretty;color:#EEF0F2">Most of the time, the fleet<br>runs on its own.<br><span style="color:#AEB5BC;font-weight:400">The design problem begins when it can't.</span></h3>
+<p style="font-family:var(--body);margin:0;font-size:16.5px;line-height:1.75;font-weight:300;color:#8F969D;max-width:40ch;text-wrap:pretty">I grounded the project in a single failure scenario: <span style="color:#E8EAEC">R-142 encounters an obstruction, attempts to recover autonomously, and asks for human attention only when it can no longer resolve the issue.</span></p>
+</div>
+<div style="border:1px solid var(--hl);border-radius:2px;background:#0C0E11;padding:10px;margin-top:7px">
+<div id="scenario-drop" style="position:relative;aspect-ratio:16 / 9;border:1px dashed #2A3037;border-radius:1px;overflow:hidden;background:repeating-linear-gradient(45deg,#0A0C0F 0 6px,#0D1014 6px 12px);cursor:pointer">
+<video id="scenario-video" muted loop playsinline preload="none" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0A0C0F"></video>
+<div id="scenario-empty" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:20px;pointer-events:none">
+<span style="font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fnt)">R-142 obstruction — zone clip</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#5C636A">drop a video or image here, or click to browse</span>
+</div>
+<input id="scenario-file" type="file" accept="video/*,image/*" style="display:none">
+</div>
+</div>
+</div>
+
+<div class="chain ch2-chain" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 11px;align-items:start;padding:32px 0 0">
+<div style="display:flex;flex-direction:column;gap:15px">
+<div style="height:11px;display:flex;align-items:center"><span style="width:9px;height:9px;background:#868E96;flex:none"></span><span style="flex:1;height:1px;background:var(--hl)"></span></div>
+<span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;line-height:1.6;color:#949CA3;max-width:14ch">Normal operation</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:15px">
+<div style="height:11px;display:flex;align-items:center"><span style="width:9px;height:9px;background:#868E96;flex:none"></span><span style="flex:1;height:1px;background:var(--hl)"></span></div>
+<span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;line-height:1.6;color:#949CA3;max-width:14ch">Obstacle detected</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:15px">
+<div style="height:11px;display:flex;align-items:center"><span style="width:9px;height:9px;background:#868E96;flex:none"></span><span style="flex:1;height:1px;background:linear-gradient(90deg,var(--hl),#F97316)"></span></div>
+<span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;line-height:1.6;color:#949CA3;max-width:14ch">Auto-recovery unsuccessful</span>
+</div>
+<div style="position:relative;display:flex;flex-direction:column;gap:15px">
+<div style="height:11px;display:flex;align-items:center"><span style="width:11px;height:11px;background:#F97316;flex:none;animation:ob-pulse 2.4s ease-in-out infinite"></span></div>
+<span style="position:absolute;top:26px;right:0;width:14ch;text-align:right;font:500 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;line-height:1.6;color:#F97316">Attention required</span>
+</div>
+</div>
+</div>
+
+
+
+<!-- 03 · WHAT I LEARNED → THE REFRAME -->
+<div data-screen-label="03 The reframe" style="display:flex;flex-direction:column;gap:38px">
+<div class="ch3-hdr" style="display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--hl);padding-top:20px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;color:#F97316">03</span><h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-.012em">What I learned</h2><span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt);margin-left:auto">Three findings, one reframe</span></div>
+<p class="fnd-src" style="font-family:var(--body);margin:-14px 0 0;font-size:13.5px;line-height:1.6;font-weight:300;color:#7E858C;max-width:62ch">Synthesized from desk research: human-factors literature on supervisory control and teardowns of five AMR fleet-management tools.</p>
+
+<div class="fnd-list fnd-tri" style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr);column-gap:49px;align-items:stretch;padding-bottom:44px">
+<div class="fnd" style="position:relative">
+<div class="fnd-in" style="display:flex;flex-direction:column;gap:13px">
+<h3 style="margin:0;font-size:21px;font-weight:500;letter-spacing:-.016em;line-height:1.3;color:#E8EAEC">Automation handles<br>the routine.</h3>
+<p style="font-family:var(--body);margin:0;font-size:15px;line-height:1.72;font-weight:300;color:#8F969D;max-width:380px;text-wrap:pretty">Robots attempt recovery before escalating. <span style="color:#C6CBD1">ORBIT stays quiet until human attention is truly needed.</span></p>
+</div>
+</div>
+<div class="fnd-div" style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div class="fnd" style="position:relative">
+<div class="fnd-in" style="display:flex;flex-direction:column;gap:13px">
+<h3 style="margin:0;font-size:21px;font-weight:500;letter-spacing:-.016em;line-height:1.3;color:#E8EAEC">An alert is not<br>understanding.</h3>
+<p style="font-family:var(--body);margin:0;font-size:15px;line-height:1.72;font-weight:300;color:#8F969D;max-width:380px;text-wrap:pretty">Operators need context, not a red dot: <span style="color:#C6CBD1">what happened, what automation already tried, and what is affected.</span></p>
+</div>
+</div>
+<div class="fnd-div" style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div class="fnd" style="position:relative">
+<div class="fnd-in" style="display:flex;flex-direction:column;gap:13px">
+<h3 class="fnd3-h" style="position:relative;margin:0;font-size:23px;font-weight:600;letter-spacing:-.016em;line-height:1.3;color:#FFFFFF">
+Recovery is a<svg style="position:absolute;left:-26px;top:6px;width:15px;height:15px;overflow:visible" viewBox="0 0 24 24" fill="#F97316" aria-hidden="true"><path d="M12 12 L11.1 5.6 Q12 3.4 12.9 5.6 Z" transform="rotate(0 12 12)"></path><path d="M12 12 L11.1 5.6 Q12 3.4 12.9 5.6 Z" transform="rotate(60 12 12)"></path><path d="M12 12 L11.1 5.6 Q12 3.4 12.9 5.6 Z" transform="rotate(120 12 12)"></path><path d="M12 12 L11.1 5.6 Q12 3.4 12.9 5.6 Z" transform="rotate(180 12 12)"></path><path d="M12 12 L11.1 5.6 Q12 3.4 12.9 5.6 Z" transform="rotate(240 12 12)"></path><path d="M12 12 L11.1 5.6 Q12 3.4 12.9 5.6 Z" transform="rotate(300 12 12)"></path></svg><br>handoff problem.</h3>
+<p style="font-family:var(--body);margin:0;font-size:15px;line-height:1.72;font-weight:300;color:#8F969D;max-width:380px;text-wrap:pretty">Clearing the obstacle doesn't mean autonomy is ready to resume. <span style="color:#E8EAEC">That gap is where trust is won or lost.</span></p>
+</div>
+</div>
+</div>
+
+<div class="refr-blk" style="padding:72px 0;display:flex;flex-direction:column;gap:30px;align-items:flex-start">
+<span style="font:500 10.5px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#F97316">The reframe</span>
+<p class="refr-h" style="margin:0;font-size:clamp(28px,3.6vw,42px);font-weight:600;letter-spacing:-.026em;line-height:1.24;max-width:39ch;text-wrap:pretty">This was never a monitoring problem.<br><span style="color:#AEB5BC;font-weight:400"><span style="white-space:nowrap">It's a handoff problem.<br class="br-m"> Responsibility shifts</span><br class="br-d"><span class="br-m-sp"> </span>from<br class="br-m"> automation to a human, and back.</span></p>
+<span class="refr-cap" style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt)">The handoff has two directions:<br class="br-m"> escalation, then hand-back.</span>
+</div>
+</div>
+
+<!-- 04 · DESIGNING THE HANDOFF -->
+<div data-screen-label="04 Designing the handoff" style="display:flex;flex-direction:column;gap:38px">
+<div class="ch4-hdr" style="display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--hl);padding-top:20px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;color:#F97316">04</span><h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-.012em">Designing the handoff</h2><span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt);margin-left:auto">Before any screens</span></div>
+
+<h3 class="m-flow" style="margin:0;font-size:clamp(25px,2.4vw,32px);font-weight:600;letter-spacing:-.02em;line-height:1.34;color:#EEF0F2">Before designing screens, I defined when<br> automation operates independently,<br> when human judgment is needed, and when<br> responsibility returns to automation.</h3>
+
+<div style="margin-top:6px;display:flex;flex-direction:column;gap:30px">
+<div style="display:flex;align-items:baseline;gap:14px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)">Human × Automation state model</span><span style="flex:1;height:1px;background:var(--hl)"></span><span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt)">Fig. 01</span></div>
+<div class="smod-wrap" style="border:1px solid var(--hl);border-radius:3px;overflow:hidden;background:#121418">
+<svg viewBox="0 0 1200 252" width="100%" style="display:block" font-family="Geist,ui-sans-serif,system-ui,sans-serif">
+<defs>
+<linearGradient id="lg-o" gradientUnits="userSpaceOnUse" x1="233.5" y1="0" x2="368" y2="0"><stop offset="0" stop-color="#2C3137"></stop><stop offset="1" stop-color="#F97316"></stop></linearGradient>
+<linearGradient id="lg-g" gradientUnits="userSpaceOnUse" x1="935" y1="0" x2="1085" y2="0"><stop offset="0" stop-color="#2C3137"></stop><stop offset="1" stop-color="#4E9E6A"></stop></linearGradient>
+<marker id="ar-n" viewBox="0 0 8 8" refX="5.8" refY="4" markerWidth="9" markerHeight="9" orient="auto"><path d="M2 0.8 L6 4 L2 7.2" fill="none" stroke="#2C3137" stroke-width="1.2" stroke-linecap="round"></path></marker>
+</defs>
+<rect x="294" y="0" width="410" height="252" fill="#15181D"></rect>
+<line x1="294" y1="0" x2="294" y2="252" stroke="#242A32" stroke-width="1"></line>
+<line x1="704" y1="0" x2="704" y2="252" stroke="#242A32" stroke-width="1"></line>
+
+<text x="36" y="40" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="1.5" fill="#565D66">01</text>
+<text x="58" y="40" font-family="JetBrains Mono,monospace" font-size="11.5" letter-spacing="2.5" fill="#D8DCE0">AUTOMATION</text>
+<text x="330" y="40" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="1.5" fill="#565D66">02</text>
+<text x="352" y="40" font-family="JetBrains Mono,monospace" font-size="11.5" letter-spacing="2.5" fill="#D8DCE0">HUMAN ATTENTION</text>
+<text x="740" y="40" font-family="JetBrains Mono,monospace" font-size="11" letter-spacing="1.5" fill="#565D66">03</text>
+<text x="762" y="40" font-family="JetBrains Mono,monospace" font-size="11.5" letter-spacing="2.5" fill="#D8DCE0">HAND-BACK</text>
+
+<!-- emphasized transition labels · above the line -->
+<text x="368" y="201" text-anchor="middle" font-size="15" font-weight="500" fill="#F97316">Attention required</text>
+
+<text x="1085" y="201" text-anchor="middle" font-size="15" font-weight="500" fill="#4E9E6A">Autonomy restored</text>
+
+
+<!-- main line · quiet -->
+<line x1="107" y1="168" x2="1085" y2="168" stroke="#232830" stroke-width="1"></line>
+<line x1="233.5" y1="168" x2="368" y2="168" stroke="url(#lg-o)" stroke-width="1"></line>
+<line x1="935" y1="168" x2="1085" y2="168" stroke="url(#lg-g)" stroke-width="1"></line>
+<circle cx="281.4" cy="149.5" r="2.5" fill="#C4553B"></circle>
+<text x="301" y="154" text-anchor="middle" font-size="13" fill="#6B7278">fails</text>
+
+<!-- return paths · secondary, curved, neutral -->
+<path d="M233.5 162 V126 H107 V160" fill="none" stroke="#2C3137" stroke-width="1" marker-end="url(#ar-n)"></path>
+<circle cx="77" cy="107.5" r="2.5" fill="#4E9E6A"></circle>
+<text x="170" y="112" text-anchor="middle" font-size="13" fill="#6B7278">succeeds · returns to normal</text>
+<path d="M785 162 V126 H630 V160" fill="none" stroke="#2C3137" stroke-width="1" marker-end="url(#ar-n)"></path>
+<circle cx="653.8" cy="107.5" r="2.5" fill="#C4553B"></circle>
+<text x="707.5" y="112" text-anchor="middle" font-size="13" fill="#646B73">verification fails</text>
+
+<!-- nodes -->
+<circle cx="107" cy="168" r="4.5" fill="#6E767E"></circle>
+<circle cx="233.5" cy="168" r="4.5" fill="#6E767E"></circle>
+<circle cx="368" cy="168" r="12" fill="rgba(249,115,22,.14)"></circle>
+<circle cx="368" cy="168" r="5" fill="#F97316" style="animation:ob-pulse 2.6s ease-in-out infinite"></circle>
+<circle cx="499" cy="168" r="4.5" fill="#6E767E"></circle>
+<circle cx="630" cy="168" r="4.5" fill="#6E767E"></circle>
+<circle cx="785" cy="168" r="4.5" fill="#6E767E"></circle>
+<circle cx="935" cy="168" r="4.5" fill="#6E767E"></circle>
+<circle cx="1085" cy="168" r="11.5" fill="rgba(78,158,106,.14)"></circle>
+<circle cx="1085" cy="168" r="4.5" fill="#4E9E6A"></circle>
+
+<!-- base state labels · below the line -->
+<text x="107" y="201" text-anchor="middle" font-size="14" fill="#AEB5BC">Normal operation</text>
+<text x="233.5" y="201" text-anchor="middle" font-size="14" fill="#AEB5BC">Auto-recovery</text>
+<text x="499" y="201" text-anchor="middle" font-size="14" fill="#AEB5BC">Incident review</text>
+<text x="630" y="201" text-anchor="middle" font-size="14" fill="#AEB5BC">Human intervention</text>
+<text x="785" y="201" text-anchor="middle" font-size="14" fill="#AEB5BC">Recovery verification</text>
+<text x="935" y="201" text-anchor="middle" font-size="14" fill="#AEB5BC">Confirm &amp; resume</text>
+</svg>
+</div>
+<div class="smod-mob" style="display:none;position:relative;z-index:0;border:1px solid var(--hl);border-radius:3px;background:#121418;padding:18px 18px 20px 36px">
+<span style="position:absolute;z-index:-1;left:47.5px;top:60px;height:411px;width:1px;background:#232830"></span>
+<span style="position:absolute;z-index:-1;left:47.5px;top:134px;height:77px;width:1px;background:linear-gradient(180deg,#2C3137,#F97316)"></span>
+<span style="position:absolute;z-index:-1;left:47.5px;top:434px;height:37px;width:1px;background:linear-gradient(180deg,#2C3137,#4E9E6A)"></span>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:start;height:30px"><span></span><span style="display:flex;align-items:baseline;gap:10px"><span style="font:500 11px var(--mono);letter-spacing:.14em;color:#565D66">01</span><span style="font:500 11px var(--mono);letter-spacing:.22em;color:#D8DCE0">AUTOMATION</span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:24px"><span style="width:9px;height:9px;border-radius:99px;background:#6E767E;margin-left:7.5px"></span><span style="font-family:var(--body);font-size:14px;color:#AEB5BC">Normal operation</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:12px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:24px"><span style="width:9px;height:9px;border-radius:99px;background:#6E767E;margin-left:7.5px"></span><span style="font-family:var(--body);font-size:14px;color:#AEB5BC">Auto-recovery</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:26px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span style="font-family:var(--body);font-size:12px;font-weight:300;color:#6B7278;padding-left:2px"><span style="color:#4A515A">↳</span> succeeds → returns to normal</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:34px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span style="align-self:center;height:1px;background:rgba(42,48,55,.5)"></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:start;height:30px"><span style="width:1px;height:100%;background:linear-gradient(180deg,#2C3137,#F97316);margin-left:11.5px;justify-self:start"></span><span style="display:flex;align-items:baseline;gap:10px"><span style="font:500 11px var(--mono);letter-spacing:.14em;color:#565D66">02</span><span style="font:500 11px var(--mono);letter-spacing:.22em;color:#D8DCE0">HUMAN ATTENTION</span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:26px"><span style="width:20px;height:20px;border-radius:99px;background:rgba(249,115,22,.14);display:flex;align-items:center;justify-content:center;margin-left:2px"><span style="width:9px;height:9px;border-radius:99px;background:#F97316;animation:ob-pulse 2.6s ease-in-out infinite"></span></span><span style="font-family:var(--body);font-size:15px;font-weight:500;color:#F97316">Attention required</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:12px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:24px"><span style="width:9px;height:9px;border-radius:99px;background:#6E767E;margin-left:7.5px"></span><span style="font-family:var(--body);font-size:14px;color:#AEB5BC">Incident review</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:12px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:24px"><span style="width:9px;height:9px;border-radius:99px;background:#6E767E;margin-left:7.5px"></span><span style="font-family:var(--body);font-size:14px;color:#AEB5BC">Human intervention</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:34px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span style="align-self:center;height:1px;background:rgba(42,48,55,.5)"></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:start;height:30px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px;justify-self:start"></span><span style="display:flex;align-items:baseline;gap:10px"><span style="font:500 11px var(--mono);letter-spacing:.14em;color:#565D66">03</span><span style="font:500 11px var(--mono);letter-spacing:.22em;color:#D8DCE0">HAND-BACK</span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:24px"><span style="width:9px;height:9px;border-radius:99px;background:#6E767E;margin-left:7.5px"></span><span style="font-family:var(--body);font-size:14px;color:#AEB5BC">Recovery verification</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:26px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span style="font-family:var(--body);font-size:12px;font-weight:300;color:#6B7278;padding-left:2px"><span style="color:#4A515A">↳</span> verification fails → Human intervention</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:12px"><span style="width:1px;height:100%;background:#232830;margin-left:11.5px"></span><span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:24px"><span style="width:9px;height:9px;border-radius:99px;background:#6E767E;margin-left:7.5px"></span><span style="font-family:var(--body);font-size:14px;color:#AEB5BC">Confirm &amp; resume</span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;height:12px"><span style="width:1px;height:100%;background:linear-gradient(180deg,#2C3137,#4E9E6A);margin-left:11.5px"></span><span></span></div>
+<div style="display:grid;grid-template-columns:24px 1fr;column-gap:14px;align-items:center;height:26px"><span style="width:20px;height:20px;border-radius:99px;background:rgba(78,158,106,.14);display:flex;align-items:center;justify-content:center;margin-left:2px"><span style="width:9px;height:9px;border-radius:99px;background:#4E9E6A"></span></span><span style="font-family:var(--body);font-size:15px;font-weight:500;color:#4E9E6A">Autonomy restored</span></div>
+</div>
+</div>
+
+<div class="stmt" style="padding:89px 0 99px;text-align:center;border-top:1px solid var(--hl);border-bottom:1px solid var(--hl)">
+<p style="margin:0;font-size:clamp(26px,3.4vw,44px);font-weight:600;letter-spacing:-.024em;line-height:1.25;text-wrap:pretty">An issue occurs <span style="color:#F97316">≠</span> human attention required.</p>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:32px;padding-top:28px">
+<h3 style="margin:0;font-size:clamp(23px,2.5vw,31px);font-weight:600;letter-spacing:-.02em;line-height:1.32;max-width:30ch;text-wrap:pretty;color:#EEF0F2">Once human attention is required,<br>the experience follows three steps.</h3>
+<div style="display:flex;align-items:baseline;gap:14px;margin-bottom:-6px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)">Human intervention framework</span><span style="flex:1;height:1px;background:var(--hl)"></span><span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt)">Fig. 02</span></div>
+<div class="ia" style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr);column-gap:49px;align-items:stretch">
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;align-items:baseline;gap:12px;padding-bottom:4px">
+<span style="font:500 11px var(--mono);letter-spacing:.1em;color:#F97316">01</span>
+<span style="font-family:var(--body);font-size:20.5px;font-weight:600;letter-spacing:-.014em;color:#FFFFFF">Understand</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding-left:27px"><div style="display:flex;align-items:baseline;gap:14px">
+<span style="font-family:var(--body);font-size:15.5px;font-weight:300;line-height:1.5;color:#AEB5BC">What happened?</span>
+</div><div style="display:flex;align-items:baseline;gap:14px">
+<span style="font-family:var(--body);font-size:15.5px;font-weight:300;line-height:1.5;color:#AEB5BC">What did the system already do?</span>
+</div><div style="display:flex;align-items:baseline;gap:14px">
+<span style="font-family:var(--body);font-size:15.5px;font-weight:300;line-height:1.5;color:#AEB5BC">What is affected?</span>
+</div></div>
+</div>
+<div class="ia-div" style="width:1px;background:rgba(42,48,55,.55);margin-top:42px;height:112px;align-self:start"></div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;align-items:baseline;gap:12px;padding-bottom:4px">
+<span style="font:500 11px var(--mono);letter-spacing:.1em;color:#F97316">02</span>
+<span style="font-family:var(--body);font-size:20.5px;font-weight:600;letter-spacing:-.014em;color:#FFFFFF">Intervene</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding-left:27px"><div style="display:flex;align-items:baseline;gap:14px">
+<span style="font-family:var(--body);font-size:15.5px;font-weight:300;line-height:1.5;color:#AEB5BC">What can I do?</span>
+</div></div>
+</div>
+<div class="ia-div" style="width:1px;background:rgba(42,48,55,.55);margin-top:42px;height:112px;align-self:start"></div>
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;align-items:baseline;gap:12px;padding-bottom:4px">
+<span style="font:500 11px var(--mono);letter-spacing:.1em;color:#F97316">03</span>
+<span style="font-family:var(--body);font-size:20.5px;font-weight:600;letter-spacing:-.014em;color:#FFFFFF">Verify &amp; hand back</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px;padding-left:27px"><div style="display:flex;align-items:baseline;gap:14px">
+<span style="font-family:var(--body);font-size:15.5px;font-weight:300;line-height:1.5;color:#AEB5BC">Is it ready to resume?</span>
+</div></div>
+</div>
+</div>
+</div>
+
+<div class="bnd" style="display:flex;flex-direction:column;border:1px solid var(--hl);border-radius:3px;background:#121418;padding:36px 32px 36px;margin-top:2px">
+<span style="font:500 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#7E858C;margin-bottom:30px">System boundary</span>
+<div class="bnd-row" style="display:grid;grid-template-columns:auto 64px auto 64px auto;align-items:start;gap:0 36px;justify-content:start">
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px"><span style="font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:-.008em;color:#C6CBD1;white-space:nowrap">Robot / Fleet system</span></div>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.5;color:#8F969D">Provides system state</span>
+</div>
+<span style="display:flex;align-items:center;padding-top:9px"><svg width="100%" height="12" viewBox="0 0 100 12" preserveAspectRatio="none" style="display:block"><line x1="0" y1="6" x2="100" y2="6" stroke="#565D66" stroke-width="1" vector-effect="non-scaling-stroke"></line></svg><svg width="12" height="12" viewBox="0 0 12 12" style="display:block;flex:none;margin-left:-9px"><path d="M3.4 2.2 L8 6 L3.4 9.8" fill="none" stroke="#565D66" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="bnd-orb" style="display:flex;align-items:center;gap:10px"><span style="width:6px;height:6px;border-radius:99px;background:#F97316;flex:none"></span><span style="font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:-.008em;color:#FFFFFF">ORBIT</span></div>
+<span class="bnd-orb-d" style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.5;color:#8F969D;padding-left:16px">Structures system state for human judgment</span>
+</div>
+<span style="display:flex;align-items:center;padding-top:9px"><svg width="100%" height="12" viewBox="0 0 100 12" preserveAspectRatio="none" style="display:block"><line x1="0" y1="6" x2="100" y2="6" stroke="#565D66" stroke-width="1" vector-effect="non-scaling-stroke"></line></svg><svg width="12" height="12" viewBox="0 0 12 12" style="display:block;flex:none;margin-left:-9px"><path d="M3.4 2.2 L8 6 L3.4 9.8" fill="none" stroke="#565D66" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;gap:10px"><span style="font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:-.008em;color:#C6CBD1">Operator</span></div>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.5;color:#8F969D">Decides · intervenes · confirms</span>
+</div>
+</div>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.6;color:#78808A;margin-top:30px">Navigation, path planning, and safety logic remain in the fleet system.</span>
+</div>
+</div>
+
+<!-- 05 · ORBIT IN ACTION -->
+<div data-screen-label="05 ORBIT in action" style="display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--hl);padding-top:20px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;color:#F97316">05</span><h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-.012em">ORBIT in action</h2></div>
+
+<div style="display:flex;flex-direction:column;gap:21px;margin-top:-14px;margin-bottom:26px">
+<p style="font-family:var(--body);margin:0;font-size:16px;line-height:1.75;font-weight:300;color:#8F969D;max-width:56ch;text-wrap:pretty">The R-142 incident from Chapter 02, now shown end to end through the interface.</p>
+<div class="jrail" style="display:flex;flex-wrap:wrap;align-items:center;row-gap:14px">
+<span style="display:flex;align-items:center;gap:9px"><span style="flex:none;width:7px;height:7px;border-radius:99px;background:#7A828A"></span><span style="font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#E8EAEC">Understand</span></span><span style="flex:none;width:26px;height:1px;background:#232830;margin:0 14px"></span><span style="display:flex;align-items:center;gap:9px"><span style="flex:none;width:7px;height:7px;border-radius:99px;background:#4A515A"></span><span style="font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#7A828A">Intervene</span></span><span style="flex:none;width:26px;height:1px;background:#232830;margin:0 14px"></span><span style="display:flex;align-items:center;gap:9px"><span style="flex:none;width:7px;height:7px;border-radius:99px;background:#4A515A"></span><span style="font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#7A828A">Verify</span></span><span style="flex:none;width:26px;height:1px;background:#232830;margin:0 14px"></span><span style="display:flex;align-items:center;gap:9px"><span style="flex:none;width:7px;height:7px;border-radius:99px;background:#4A515A"></span><span style="font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#7A828A">Confirm &amp; resume</span></span><span style="flex:none;width:26px;height:1px;background:#232830;margin:0 14px"></span><span style="display:flex;align-items:center;gap:9px"><span style="flex:none;width:7px;height:7px;border-radius:99px;background:#41855A"></span><span style="font:500 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#41855A">Autonomy restored</span></span>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;margin-bottom:26px">
+<div style="display:flex;align-items:center;gap:14px"><span style="font:500 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#F97316">Understand</span><span style="flex:1;height:1px;background:var(--hl)"></span></div>
+<p style="font-family:var(--body);margin:0;font-size:16px;line-height:1.75;font-weight:300;color:#8F969D;max-width:56ch;text-wrap:pretty">Before deciding what to do, the operator needs to understand the incident first.</p>
+<div class="und-g" style="display:grid;grid-template-columns:60fr 40fr;gap:40px;align-items:center">
+<div style="border:1px solid #262B33;border-radius:2px;overflow:hidden"><img src="/public/images/orbit/understand/orbit-attention-required.png" alt="UNDERSTAND — incident review screen with R-142's obstruction detail and recovery timeline" style="display:block;width:100%;height:auto"></div>
+<div class="und-a" style="display:flex;flex-direction:column;gap:44px">
+<div style="display:flex;flex-direction:column;gap:6px;padding-left:26px;position:relative">
+<span style="position:absolute;left:0;top:2px;font:500 10.5px var(--mono);letter-spacing:.08em;color:#868E96">01</span>
+<span style="font-family:var(--body);font-size:15.5px;font-weight:500;line-height:1.35;color:#E8EAEC">What happened</span>
+<span style="font-family:var(--body);font-size:13.5px;font-weight:300;line-height:1.6;color:#7E858C">Robot, location, failure type</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;padding-left:26px;position:relative">
+<span style="position:absolute;left:0;top:2px;font:500 10.5px var(--mono);letter-spacing:.08em;color:#868E96">02</span>
+<span style="font-family:var(--body);font-size:15.5px;font-weight:500;line-height:1.35;color:#E8EAEC">What automation tried</span>
+<span style="font-family:var(--body);font-size:13.5px;font-weight:300;line-height:1.6;color:#7E858C">Recovery attempted and its result</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;padding-left:26px;position:relative">
+<span style="position:absolute;left:0;top:2px;font:500 10.5px var(--mono);letter-spacing:.08em;color:#868E96">03</span>
+<span style="font-family:var(--body);font-size:15.5px;font-weight:500;line-height:1.35;color:#E8EAEC">Operational impact</span>
+<span style="font-family:var(--body);font-size:13.5px;font-weight:300;line-height:1.6;color:#7E858C">Affected route and surrounding operations</span>
+</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;align-items:center;gap:14px"><span style="font:500 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#F97316">Intervene</span><span style="flex:1;height:1px;background:var(--hl)"></span></div>
+<p style="font-family:var(--body);margin:0;font-size:16px;line-height:1.75;font-weight:300;color:#8F969D;max-width:56ch;text-wrap:pretty">Intervention is choosing a recovery path, not driving the robot.</p>
+<div class="br-g" style="display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding:6px 0 2px">
+<div style="display:flex;align-items:center;gap:14px">
+<span style="font:500 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#DEE2E6">Operator</span>
+<span style="display:flex;align-items:center;width:40px"><svg width="100%" height="12" viewBox="0 0 100 12" preserveAspectRatio="none" style="display:block"><line x1="0" y1="6" x2="100" y2="6" stroke="#565D66" stroke-width="1" vector-effect="non-scaling-stroke"></line></svg><svg width="12" height="12" viewBox="0 0 12 12" style="display:block;flex:none;margin-left:-9px"><path d="M3.4 2.2 L8 6 L3.4 9.8" fill="none" stroke="#565D66" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<span style="font:500 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#FFFFFF">ORBIT</span>
+</div>
+<svg class="br-fork" width="64" height="155" viewBox="0 0 64 155" fill="none" style="flex:none;align-self:center"><path d="M0 77.5 H28 M28 10 V99 M28 10 H64 M28 99 H64" stroke="#3A414B" stroke-width="1"></path></svg>
+<div style="display:flex;flex-direction:column;gap:24px;flex:1;min-width:260px">
+<div style="display:flex;gap:12px;align-items:baseline">
+<span style="flex:none;width:7px;height:7px;border-radius:99px;background:#7FA6CC;transform:translateY(-1px)"></span>
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-family:var(--body);font-size:16px;font-weight:500;line-height:1.35;color:#E8EAEC">System-supported response</span>
+<span style="font-family:var(--body);font-size:14px;font-weight:300;line-height:1.6;color:#7E858C;max-width:44ch">Recovery is handled through the fleet system.<br class="br-m"> The exact action is implementation-dependent.</span>
+</div>
+</div>
+<div style="display:flex;gap:12px;align-items:baseline">
+<span style="flex:none;width:7px;height:7px;border-radius:99px;background:#F97316;transform:translateY(-1px)"></span>
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font-family:var(--body);font-size:16px;font-weight:500;line-height:1.35;color:#E8EAEC">On-site intervention</span>
+<span style="font-family:var(--body);font-size:14px;font-weight:300;line-height:1.6;color:#7E858C;max-width:44ch">The operator coordinates on-site personnel to change the physical environment.</span>
+</div>
+</div>
+</div>
+</div>
+<div style="padding:66px 0 16px">
+<p style="margin:0;font-size:clamp(27px,3.6vw,46px);font-weight:600;letter-spacing:-.025em;line-height:1.3;color:var(--mut)">But the worker walking<br>toward R-142<br><span style="color:#EEF0F2">isn't looking at this screen.</span></p>
+</div>
+</div>
+
+<div class="stmt" style="padding:89px 0 99px;text-align:center;border-top:1px solid var(--hl);border-bottom:1px solid var(--hl)">
+<p style="margin:0;font-size:clamp(26px,3.4vw,44px);font-weight:600;letter-spacing:-.024em;line-height:1.25;text-wrap:pretty">Physical resolution <span style="color:#F97316">≠</span> system recovery.</p>
+</div>
+
+<p class="m-flow" style="font-family:var(--body);margin:0 0 -14px;font-size:16px;line-height:1.75;font-weight:300;color:#8F969D;max-width:64ch">Removing the obstacle doesn't mean the robot is ready to move.<br> Before it resumes, the system checks that it's ready while the<br> robot signals its status to nearby workers.</p>
+<div style="display:flex;flex-direction:column;gap:26px;margin-bottom:26px">
+<div style="display:flex;align-items:center;gap:14px"><span style="font:500 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#F97316">Verify</span><span style="flex:1;height:1px;background:var(--hl)"></span></div>
+<div class="vfy" style="display:grid;grid-template-columns:176px minmax(0,1fr) 236px;column-gap:44px;row-gap:0">
+
+<div class="vfy-rail" style="display:flex;flex-direction:column;gap:12px;padding-top:6px">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 12px var(--mono);letter-spacing:.1em;color:#7FA6CC">01</span><span style="width:56px;height:1px;background:#2A3037"></span></div>
+<span style="font:500 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#E8EAEC;line-height:1.7">On-site<br>intervention</span>
+<p style="font-family:var(--body);margin:0;font-size:14px;font-weight:300;line-height:1.65;color:#8F969D;max-width:20ch">A nearby worker removes the obstruction.</p>
+</div>
+<div style="border:1px solid #2A3037;border-radius:8px;background:#111318;padding:14px"><div style="aspect-ratio:640 / 190"><img src="/public/images/orbit/verify/verify-worker-clears.png" alt="Side view of a worker removing the fallen box from R-142's path while the robot stays paused" style="display:block;width:100%;height:100%;object-fit:contain"></div></div>
+<div></div>
+
+<div></div>
+<div class="vfy-conn" style="display:flex;flex-direction:column;align-items:center;height:84px">
+<span style="width:1px;flex:1;background:#2A3037"></span>
+<span style="width:26px;height:26px;border-radius:99px;border:1px solid #3A414B;display:flex;align-items:center;justify-content:center;flex:none"><svg width="11" height="7" viewBox="0 0 11 7" fill="none"><path d="M1.5 1.5 L5.5 5.5 L9.5 1.5" stroke="#7FA6CC" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<span style="width:1px;flex:1;background:#2A3037"></span>
+</div>
+<div></div>
+
+<div class="vfy-rail" style="display:flex;flex-direction:column;gap:12px;padding-top:6px">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 12px var(--mono);letter-spacing:.1em;color:#7FA6CC">02</span><span style="width:56px;height:1px;background:#2A3037"></span></div>
+<span style="font:500 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#E8EAEC;line-height:1.7">System<br>verification</span>
+<p style="font-family:var(--body);margin:0;font-size:14px;font-weight:300;line-height:1.65;color:#8F969D;max-width:20ch">The system re-checks key conditions before the robot can resume.</p>
+<div class="vfy-loop" style="flex:1;position:relative;min-height:36px">
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="position:absolute;left:-1.5px;top:8px;opacity:.55"><path d="M2.2 8.6 L6 4 L9.8 8.6" stroke="#E0873F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="position:absolute;left:4px;top:13px;bottom:-277.5px;border-left:1px solid #E0873F;opacity:.55"></span>
+</div>
+</div>
+<div class="vfy-checkscard" style="border:1px solid #2A3037;border-radius:8px;background:#111318;padding:26px 28px 30px;display:flex;flex-direction:column;gap:26px">
+<span style="font:500 11px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#7FA6CC;text-align:center">System checks</span>
+<div class="vfy-checks" style="display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;column-gap:22px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+<div style="width:64px;height:64px;flex:none"><img src="/public/icons/orbit/Orbit_Verify_Icon_01.png" alt="Route clear check icon" style="display:block;width:100%;height:100%;border-radius:50%;object-fit:cover"></div>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;color:#E8EAEC">Route clear</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.55;color:#8F969D;max-width:18ch;margin-top:-6px">Is the path ahead clear?</span>
+</div>
+<div style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+<div style="width:64px;height:64px;flex:none"><img src="/public/icons/orbit/Orbit_Verify_Icon_02.png" alt="Position verified check icon" style="display:block;width:100%;height:100%;border-radius:50%;object-fit:cover"></div>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;color:#E8EAEC">Position verified</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.55;color:#8F969D;max-width:18ch;margin-top:-6px">Does the robot know its position?</span>
+</div>
+<div style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+<div style="width:64px;height:64px;flex:none"><img src="/public/icons/orbit/Orbit_Verify_Icon_03.png" alt="Obstruction clear check icon" style="display:block;width:100%;height:100%;border-radius:50%;object-fit:cover"></div>
+<span style="font-family:var(--body);font-size:15px;font-weight:400;color:#E8EAEC">Obstruction clear</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.55;color:#8F969D;max-width:18ch;margin-top:-6px">Is the obstruction fully removed?</span>
+</div>
+</div>
+</div>
+<div class="vfy-floor" style="grid-row:span 2;position:relative;display:flex;flex-direction:column;gap:13px;padding-top:32px">
+<span class="vfy-floor-conn" style="position:absolute;left:-44px;top:38px;width:38px;border-top:1px dashed #3A414B"></span>
+<span style="font:500 11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#7FA6CC">On the floor</span>
+<p style="font-family:var(--body);margin:0;font-size:13.5px;font-weight:300;line-height:1.65;color:#8F969D">While verification is in progress, the robot signals its status to nearby workers.</p>
+<div class="vfy-floor-img" style="aspect-ratio:2350 / 2110;width:100%;margin-top:-57px"><img src="/public/images/orbit/verify/verify-on-the-floor-signal.png" alt="R-142 paused with its status signal raised while a worker approaches" style="display:block;width:100%;height:100%;object-fit:contain"></div>
+<div style="display:flex;flex-direction:column;gap:3px;text-align:center;align-self:center;margin-top:2px">
+<span style="font-family:var(--body);font-size:14.5px;font-weight:400;color:#C6CBD1;line-height:1.4">Preparing to resume</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#8F969D;line-height:1.5">Not moving yet.</span>
+</div>
+</div>
+
+<div></div>
+<div class="vfy-dec" style="position:relative;height:344px">
+<span class="vfy-loop" style="position:absolute;left:-216px;top:277.5px;width:calc(20% + 216px);border-top:1px solid #E0873F;opacity:.55"></span>
+<span style="position:absolute;left:50%;top:0;height:46px;border-left:1px solid #2A3037"></span>
+<span style="position:absolute;left:50%;top:60px;width:74px;height:74px;margin-left:-37px;transform:rotate(45deg);border:1px solid #AEB5BC;background:#101215"></span>
+<div style="position:absolute;left:50%;top:74px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;font:500 9.5px var(--mono);letter-spacing:.14em;color:#E8EAEC"><span>READY</span><span>FOR</span><span>HAND-BACK?</span></div>
+<span style="position:absolute;right:calc(50% + 52px);left:20%;top:97px;border-top:1px solid #E0873F;opacity:.65"></span>
+<span style="position:absolute;left:calc(50% + 52px);right:20%;top:97px;border-top:1px solid #4E9E6A;opacity:.65"></span>
+<span style="position:absolute;left:calc(35% - 40px);top:83px;width:28px;height:28px;border-radius:99px;border:1px solid #E0873F;background:#101215;display:flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1.5 1.5 L9.5 9.5 M9.5 1.5 L1.5 9.5" stroke="#E0873F" stroke-width="1.3" stroke-linecap="round"></path></svg></span>
+<span style="position:absolute;right:calc(35% - 40px);top:83px;width:28px;height:28px;border-radius:99px;border:1px solid #4E9E6A;background:#101215;display:flex;align-items:center;justify-content:center"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1.5 5.2 L4.6 8.3 L10.5 1.7" stroke="#4E9E6A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+<span style="position:absolute;left:calc(35% - 26px);top:119px;transform:translateX(-50%);font:500 10.5px var(--mono);letter-spacing:.22em;color:#E0873F">NO</span>
+<span style="position:absolute;right:calc(35% - 26px);top:119px;transform:translateX(50%);font:500 10.5px var(--mono);letter-spacing:.22em;color:#4E9E6A">YES</span>
+<span class="vfy-no-v" style="position:absolute;left:20%;top:97px;bottom:66px;border-left:1px solid #E0873F;opacity:.65"></span>
+<span class="vfy-ret" style="display:none;position:absolute;left:20%;top:10px;height:144px;border-left:1px solid #E0873F;opacity:.65"></span>
+<svg class="vfy-ret" width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none;position:absolute;left:calc(20% - 6px);top:3px"><path d="M2.2 8.6 L6 4 L9.8 8.6" stroke="#E0873F" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.9"></path></svg>
+<span style="position:absolute;right:20%;top:97px;bottom:3px;border-left:1px solid #4E9E6A;opacity:.65"></span>
+<div style="position:absolute;left:20%;top:154px;transform:translateX(-50%);width:min(232px,38%);border:1px solid #E0873F;border-radius:8px;background:#171310;padding:15px 16px;display:flex;flex-direction:column;gap:2px;text-align:center;box-sizing:border-box">
+<span style="font-family:var(--body);font-size:14px;font-weight:500;color:#E0873F;line-height:1.4">Return to intervention</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#8F969D;line-height:1.5">The issue isn't fully resolved.</span>
+</div>
+<div style="position:absolute;right:20%;top:154px;transform:translateX(50%);width:min(232px,38%);border:1px solid #4E9E6A;border-radius:8px;background:#111611;padding:15px 16px;display:flex;flex-direction:column;gap:2px;text-align:center;box-sizing:border-box">
+<span style="font-family:var(--body);font-size:14px;font-weight:500;color:#4E9E6A;line-height:1.4">Await operator confirmation</span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;color:#8F969D;line-height:1.5">All system conditions are met.</span>
+</div>
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="position:absolute;right:calc(20% - 5.5px);bottom:-1px"><path d="M2.2 3.4 L6 8 L9.8 3.4" stroke="#4E9E6A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.9"></path></svg>
+</div>
+
+<div class="vfy-rail" style="display:flex;flex-direction:column;gap:12px;padding-top:6px">
+<div style="display:flex;align-items:center;gap:12px"><span style="font:500 12px var(--mono);letter-spacing:.1em;color:#7FA6CC">03</span><span style="width:56px;height:1px;background:#2A3037"></span></div>
+<span style="font:500 11px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#E8EAEC;line-height:1.7">Confirm &amp;<br>resume</span>
+<p style="font-family:var(--body);margin:0;font-size:14px;font-weight:300;line-height:1.65;color:#8F969D;max-width:20ch">The operator explicitly confirms when responsibility can return to automation.</p>
+</div>
+<div class="cfr" style="grid-column:2 / -1;border:1px solid #2A3037;border-radius:8px;background:#111318;padding:22px;display:flex;align-items:center;gap:0">
+<div class="cfr-img" style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0"><div style="aspect-ratio:616 / 553"><img src="/public/images/orbit/confirm/confirm-ready-paused.png" alt="R-142 paused under a blue standby signal — ready and awaiting the operator's confirmation" style="display:block;width:100%;height:100%;object-fit:contain"></div><div style="display:flex;flex-direction:column;gap:3px;text-align:center"><span style="font:500 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#7FA6CC">Ready · Paused</span><span style="font-family:var(--body);font-size:12.5px;font-weight:300;color:#8F969D">Awaiting operator</span></div></div>
+<div class="cfr-conn" style="flex:none;width:96px;display:flex;align-items:center;gap:0"><svg width="96" height="10" viewBox="0 0 96 10" fill="none" style="flex:none;opacity:.75"><line x1="0" y1="5" x2="87" y2="5" stroke="#7FA6CC" stroke-width="1" stroke-dasharray="4 7"></line><circle cx="91" cy="5" r="4" stroke="#7FA6CC" stroke-width="1" fill="none"></circle></svg></div>
+<div class="cfr-dlg" style="flex:none;width:max-content;max-width:320px;border:1px solid #2A3037;border-radius:8px;background:#171B21;padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+<span style="font-family:var(--body);font-size:14px;font-weight:300;line-height:1.6;color:#C6CBD1">R-142 is ready to resume.<br>Return responsibility to autonomy?</span>
+<div style="display:flex;gap:10px">
+<span style="font-family:var(--body);font-size:12.5px;font-weight:400;color:#AEB5BC;border:1px solid #3A414B;border-radius:6px;padding:8px 14px">Cancel</span>
+<span style="font-family:var(--body);font-size:12.5px;font-weight:500;color:#101215;background:#E8EAEC;border-radius:6px;padding:8px 14px">Confirm &amp; Resume</span>
+</div>
+</div>
+<div class="cfr-conn" style="flex:none;width:116px;display:flex;align-items:center"><span style="flex:1;border-top:1px solid #4E9E6A;opacity:.75"></span><span style="width:28px;height:28px;border-radius:99px;border:1px solid #4E9E6A;background:#101215;display:flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1.5 5.2 L4.6 8.3 L10.5 1.7" stroke="#4E9E6A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span style="flex:1;border-top:1px solid #4E9E6A;opacity:.75"></span></div>
+<div class="cfr-img" style="flex:1;display:flex;flex-direction:column;gap:10px;min-width:0"><div style="aspect-ratio:616 / 553"><img src="/public/images/orbit/confirm/confirm-autonomy-restored.png" alt="R-142 under a green all-clear signal — autonomy restored" style="display:block;width:100%;height:100%;object-fit:contain"></div><div style="display:flex;flex-direction:column;gap:3px;text-align:center"><span style="font:500 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#4E9E6A">Autonomy restored</span><span style="font-family:var(--body);font-size:12.5px;font-weight:300;color:#8F969D">R-142 resumes its route</span></div></div>
+</div>
+
+</div>
+
+<div style="display:flex;flex-direction:column;gap:22px;padding-top:70px">
+<div class="hmi-hdr" style="display:flex;align-items:baseline;gap:14px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)">The robot speaks a smaller language</span><span style="flex:1;height:1px;background:var(--hl)"></span><span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt)">Physical HMI</span></div>
+<p style="font-family:var(--body);margin:0;font-size:16px;line-height:1.75;font-weight:300;color:#8F969D;max-width:58ch;text-wrap:pretty" class="m-flow">Operators need detail to decide. Workers on the floor need enough to act.<br> Four physical signals answer the two questions that matter there: <span style="color:#E8EAEC">does this robot need human assistance, and might it move?</span></p>
+<div class="phys" style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr);column-gap:28px;padding:14px 0 8px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:10px 6px 4px">
+<div style="width:100%;aspect-ratio:558 / 337;margin-bottom:6px"><img src="/public/images/orbit/physical-hmi/phys-state-01.png" alt="Robot state 01 — steady green light band: autonomous operation" style="display:block;width:100%;height:100%;object-fit:contain"></div>
+<span style="display:flex;align-items:center;gap:9px"><span style="width:8px;height:8px;border-radius:99px;background:#4E9E6A;flex:none"></span><span style="font-family:var(--body);font-size:15px;font-weight:500;line-height:1.4;color:#E8EAEC">Autonomous operation</span></span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.6;color:#7E858C;max-width:34ch">Operating normally.<br>May keep moving.</span>
+<span style="width:100%;border-top:1px solid rgba(42,48,55,.55);margin-top:10px"></span>
+</div>
+<div class="ia-div" style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:10px 6px 4px">
+<div style="width:100%;aspect-ratio:558 / 337;margin-bottom:6px;position:relative"><img src="/public/images/orbit/physical-hmi/phys-state-02.png" alt="Robot state 02 — pulsing blue light band: autonomous recovery" style="display:block;width:100%;height:100%;object-fit:contain"><span data-glow-phys-02-recovery style="position:absolute;left:9%;right:11%;top:39%;height:7%;border-radius:99px;background:#7FA6CC;filter:blur(5px);mix-blend-mode:screen;opacity:.3;animation:phys-pulse-slow 3.4s ease-in-out infinite;pointer-events:none"></span></div>
+<span style="display:flex;align-items:center;gap:9px"><span style="width:8px;height:8px;border-radius:99px;background:#7FA6CC;flex:none"></span><span style="font-family:var(--body);font-size:15px;font-weight:500;line-height:1.4;color:#E8EAEC">Autonomous recovery</span></span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.6;color:#7E858C;max-width:34ch">Recovering autonomously.<br>No human assistance needed.</span>
+<span style="width:100%;border-top:1px solid rgba(42,48,55,.55);margin-top:10px"></span>
+</div>
+<div class="ia-div" style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:10px 6px 4px">
+<div style="width:100%;aspect-ratio:558 / 337;margin-bottom:6px"><img src="/public/images/orbit/physical-hmi/phys-state-03.png" alt="Robot state 03 — orange light band: human assistance required" style="display:block;width:100%;height:100%;object-fit:contain"></div>
+<span style="display:flex;align-items:center;gap:9px"><span style="width:8px;height:8px;border-radius:99px;background:#F97316;flex:none"></span><span style="font-family:var(--body);font-size:15px;font-weight:500;line-height:1.4;color:#E8EAEC">Human assistance required</span></span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.6;color:#7E858C;max-width:34ch">On-site action needed.<br>Do not assume it will resume.</span>
+<span style="width:100%;border-top:1px solid rgba(42,48,55,.55);margin-top:10px"></span>
+</div>
+<div class="ia-div" style="width:1px;background:rgba(42,48,55,.55)"></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:10px 6px 4px">
+<div style="width:100%;aspect-ratio:558 / 337;margin-bottom:6px;position:relative"><img src="/public/images/orbit/physical-hmi/phys-state-04.png" alt="Robot state 04 — segmented blue light band: preparing to resume" style="display:block;width:100%;height:100%;object-fit:contain"><span data-glow-phys-04-preparing style="position:absolute;left:9%;right:11%;top:39.5%;height:7%;border-radius:99px;background:repeating-linear-gradient(90deg,#7FA6CC 0 12px,rgba(127,166,204,.12) 12px 18.8px);filter:blur(2.5px);mix-blend-mode:screen;opacity:.3;animation:phys-pulse-fast 1.2s ease-in-out infinite;pointer-events:none"></span></div>
+<span style="display:flex;align-items:center;gap:9px"><span style="width:8px;height:8px;border-radius:99px;border:1.5px solid #7FA6CC;box-sizing:border-box;flex:none"></span><span style="font-family:var(--body);font-size:15px;font-weight:500;line-height:1.4;color:#E8EAEC">Preparing to resume</span></span>
+<span style="font-family:var(--body);font-size:13px;font-weight:300;line-height:1.6;color:#7E858C;max-width:34ch">Verification in progress.<br>Stand clear; movement may resume.</span>
+<span style="width:100%;border-top:1px solid rgba(42,48,55,.55);margin-top:10px"></span>
+</div>
+</div>
+<span style="font:400 10px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7E858C;line-height:1.6">State differentiation only · Final light and sound patterns require safety validation.</span>
+</div>
+</div>
+
+<!-- 06 · VALIDATION & REFLECTION -->
+<div data-screen-label="06 Validation" style="display:flex;flex-direction:column;gap:38px">
+<div class="ch4-hdr" style="display:flex;align-items:baseline;gap:16px;border-top:1px solid var(--hl);padding-top:20px"><span style="font:500 10.5px var(--mono);letter-spacing:.2em;color:#F97316">06</span><h2 style="margin:0;font-size:20px;font-weight:500;letter-spacing:-.012em">Validation &amp; reflection</h2><span style="font:400 10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fnt);margin-left:auto">What holds, what's untested</span></div>
+
+<h3 style="margin:0;font-size:clamp(30px,2.9vw,39px);font-weight:600;letter-spacing:-.024em;line-height:1.22;max-width:26ch;text-wrap:pretty;color:#EEF0F2">A system can be coherent on paper and still fail if operators can't understand it. So the validation plan targets the assumptions, not the pixels.</h3>
+
+<div class="hyp-tri" style="display:grid;grid-template-columns:repeat(3,1fr);margin-top:6px">
+<div class="hyp-b" style="display:flex;flex-direction:column;gap:20px;padding:6px 40px 6px 0">
+<span style="font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;line-height:1.6"><span style="color:#F97316">H1</span><span style="color:#8F969D"> · Structured explanation</span></span>
+<p style="font-family:var(--body);margin:0;font-size:19px;line-height:1.55;font-weight:400;color:#C6CBD1;text-wrap:pretty">Can operators understand the incident faster than with status alone?</p>
+<span style="margin-top:auto;padding-top:22px"><span style="display:inline-block;font:400 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7E858C;border:1px solid rgba(42,48,55,.9);border-radius:3px;padding:6px 10px;line-height:1.6">Measure → time to understanding · explanation accuracy</span></span>
+</div>
+<div class="hyp-b" style="display:flex;flex-direction:column;gap:20px;padding:6px 40px;border-left:1px solid rgba(42,48,55,.55)">
+<span style="font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;line-height:1.6"><span style="color:#F97316">H2</span><span style="color:#8F969D"> · Automation transparency</span></span>
+<p style="font-family:var(--body);margin:0;font-size:19px;line-height:1.55;font-weight:400;color:#C6CBD1;text-wrap:pretty">Does showing recovery behavior help operators know when to intervene?</p>
+<span style="margin-top:auto;padding-top:22px"><span style="display:inline-block;font:400 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7E858C;border:1px solid rgba(42,48,55,.9);border-radius:3px;padding:6px 10px;line-height:1.6">Measure → unnecessary interventions</span></span>
+</div>
+<div class="hyp-b" style="display:flex;flex-direction:column;gap:20px;padding:6px 0 6px 40px;border-left:1px solid rgba(42,48,55,.55)">
+<span style="font:500 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;line-height:1.6"><span style="color:#F97316">H3</span><span style="color:#8F969D"> · Explicit recovery</span></span>
+<p style="font-family:var(--body);margin:0;font-size:19px;line-height:1.55;font-weight:400;color:#C6CBD1;text-wrap:pretty">Does verification prevent premature hand-back?</p>
+<span style="margin-top:auto;padding-top:22px"><span style="display:inline-block;font:400 10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7E858C;border:1px solid rgba(42,48,55,.9);border-radius:3px;padding:6px 10px;line-height:1.6">Measure → premature resume attempts</span></span>
+</div>
+</div>
+
+<div class="two-g" style="display:grid;grid-template-columns:.72fr 1fr;gap:96px;align-items:start;margin-top:34px;border-top:1px solid var(--hl);padding-top:46px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<span style="font:500 10px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#6E7681">Honest limits</span>
+<p style="font-family:var(--body);margin:0;font-size:14px;line-height:1.85;font-weight:300;color:#8F969D;max-width:44ch;text-wrap:pretty">ORBIT is a conceptual system based on publicly available AMR workflows, without access to a production fleet or professional operators. Vendor-specific behavior remains implementation-dependent rather than assumed.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<span style="font:500 10.5px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:#E8EAEC">What I'd do next</span>
+<div style="display:flex;flex-direction:column;gap:18px;margin-top:4px">
+<div style="display:flex;gap:20px;align-items:baseline"><span style="font:500 11px var(--mono);letter-spacing:.14em;color:#F97316;flex:none">01</span><span style="font-family:var(--body);font-size:18px;font-weight:400;line-height:1.55;color:#C6CBD1">Test the three hypotheses through operator scenarios</span></div>
+<div style="display:flex;gap:20px;align-items:baseline"><span style="font:500 11px var(--mono);letter-spacing:.14em;color:#F97316;flex:none">02</span><span style="font-family:var(--body);font-size:18px;font-weight:400;line-height:1.55;color:#C6CBD1">Validate physical signals against applicable robotics safety standards</span></div>
+<div style="display:flex;gap:20px;align-items:baseline"><span style="font:500 11px var(--mono);letter-spacing:.14em;color:#F97316;flex:none">03</span><span style="font-family:var(--body);font-size:18px;font-weight:400;line-height:1.55;color:#C6CBD1">Extend the model to simultaneous incidents</span></div>
+</div>
+</div>
+</div>
+
+<div class="close-blk" style="margin-top:120px;border-top:1px solid var(--hl);padding-top:56px;padding-bottom:36px">
+<span style="font:500 10px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#565D66;display:block;margin-bottom:26px">Closing note</span>
+<p style="margin:0;font-size:clamp(30px,4vw,52px);font-weight:400;letter-spacing:-.03em;line-height:1.24;max-width:21ch;color:var(--mut);text-wrap:pretty">The challenge wasn't deciding what the operator should control. It was deciding <span style="color:#EEF0F2">when human judgment is needed — and how responsibility safely returns to autonomy.</span></p>
+</div>
+</div>
+
+</section>
+
+<section id="contact" class="pad" style="position:relative;padding:0 52px 110px">
+<div class="rv" style="position:relative;max-width:1180px;margin:0 auto;border-top:1px solid var(--hl);padding-top:52px;display:flex;flex-wrap:wrap;gap:28px;align-items:baseline">
+<h2 style="margin:0;font-size:clamp(26px,3vw,36px);font-weight:600;letter-spacing:-.025em;line-height:1.1;max-width:16ch">More work</h2>
+<a class="nl" href="/#work" style="margin-left:auto;font:400 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)">All case studies →</a>
+</div>
+<div style="position:relative;max-width:1180px;margin:80px auto 0;padding-top:22px;border-top:1px solid rgba(42,48,55,.8);display:flex;flex-wrap:wrap;gap:18px;align-items:center;font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--fnt)">
+<span>© 2026 Monica Hwang</span><a href="mailto:monica1837@gmail.com" style="color:var(--mut)">Email</a><a id="footer-linkedin" href="https://www.linkedin.com/in/monica-hwang-679966195/" target="_blank" rel="noopener" style="color:var(--mut)">LinkedIn</a><span style="margin-left:auto">Designed &amp; built by Monica Hwang</span>
+</div>
+</section>
+
+</div>
+</body>
+</html>
