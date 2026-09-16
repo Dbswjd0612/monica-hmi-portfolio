@@ -25,3 +25,21 @@ input[type=range]{accent-color:var(--accent)}
 @media (max-width:719px){.sg-sys-conn{display:none!important}}
 @media (max-width:740px){.sg-build{grid-template-columns:repeat(2,1fr)!important}}
 @media (max-width:560px){.sg-flow{flex-direction:column;gap:12px}.sg-flow-conn{display:none}}
+
+/* hero meta: even vertical dividers between cells */
+.sg-meta{grid-template-columns:repeat(4,1fr)}
+.sg-meta>div{border-left:1px solid #e3e1d8;padding-left:24px}
+.sg-meta>div:first-child{border-left:0;padding-left:0}
+@media (max-width:880px){
+.sg-meta{grid-template-columns:repeat(2,1fr)}
+.sg-meta>div:nth-child(odd){border-left:0;padding-left:0}
+.sg-meta>div:nth-child(even){border-left:1px solid #e3e1d8;padding-left:24px}
+}
+@media (max-width:480px){
+.sg-meta{grid-template-columns:1fr}
+.sg-meta>div{border-left:0!important;padding-left:0!important}
+}
+
+/* 2.1 hardware: open spec-sheet grid */
+.sg-hw{grid-template-columns:repeat(2,1fr)}
+@media (max-width:740px){.sg-hw{grid-template-columns:1fr}}
