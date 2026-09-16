@@ -107,11 +107,10 @@
       <span style="background:#fff;border:1px solid #e3e1d8;border-radius:99px;padding:6px 14px">HARD-CODED FIRMWARE</span><span style="color:var(--accent)">→</span><span style="background:#fff;border:1px solid #e3e1d8;border-radius:99px;padding:6px 14px">CLOUD VARIABLES</span><span style="color:var(--accent)">→</span><span style="background:#fff;border:1px solid var(--accent);border-radius:99px;padding:6px 14px;color:var(--accent)">LIVE TUNING</span>
     </div>
     <p style="max-width:640px;margin:20px 0 0;font-size:15px;color:#3a3f3a;text-wrap:pretty">Thresholds and lighting values initially lived in the firmware, so adjustments required <span style="white-space:nowrap">re-flashing</span> the board. Moving lighting controls to Arduino IoT Cloud enabled live adjustment of color, hue, and saturation through the dashboard while sensor values could be monitored remotely. Tuning went from a compile cycle to a slider.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px;margin-top:24px">
-      <img src="/public/images/smart-garden/dash-main.png" alt="Arduino IoT Cloud main dashboard with color and value controls" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border:1px solid #e3e1d8;border-radius:4px">
-      <img src="/public/images/smart-garden/dash-devices.png" alt="Device registration in Arduino IoT Cloud" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border:1px solid #e3e1d8;border-radius:4px">
+    <div class="sg-dash" style="display:grid;gap:12px;margin-top:24px">
+      <div style="display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-width:0"><img src="/public/images/smart-garden/smart-garden-iot-dashboard.jpg" alt="Arduino IoT Cloud main dashboard with color and value controls" style="display:block;width:100%;height:auto;border:1px solid #e3e1d8;border-radius:4px"><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#62675f">Arduino IoT Cloud — main dashboard and device registration.</div></div>
+      <img src="/public/images/smart-garden/smart-garden-iot-device-info.jpg" alt="Device registration in Arduino IoT Cloud" style="display:block;width:100%;height:auto;border:1px solid #e3e1d8;border-radius:4px">
     </div>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#62675f;margin-top:10px">Arduino IoT Cloud — main dashboard and device registration.</div>
   </section>
 
   <section data-screen-label="03 Final design" style="max-width:1040px;margin:96px auto 0;padding:0 24px">
@@ -143,7 +142,7 @@
 
   <section data-screen-label="04 Learnings" style="max-width:1040px;margin:96px auto 0;padding:0 24px">
     <div style="display:flex;align-items:baseline;gap:16px;border-top:1px solid #e3e1d8;padding-top:20px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent)">04</span><h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,4vw,36px);letter-spacing:-0.01em;margin:0">Learnings</h2></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px;margin-top:28px;padding-top:24px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px;margin-top:28px">
       <div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">4.1</span><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17.5px;margin:8px 0 6px">Ambient feedback reduces screen dependency</h3><p style="margin:0;font-size:14px;line-height:1.55;color:#3a3f3a">Encoding plant state directly into the object made the system understandable without requiring a separate screen check. The planter itself became part of the interface.</p></div>
       <div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">4.2</span><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17.5px;margin:8px 0 6px">Live variables change how you design</h3><p style="margin:0;font-size:14px;line-height:1.55;color:#3a3f3a">Once thresholds and colors became cloud variables, tuning became a design activity instead of a firmware chore.</p></div>
       <div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">4.3</span><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17.5px;margin:8px 0 6px">Fabrication is interface work</h3><p style="margin:0;font-size:14px;line-height:1.55;color:#3a3f3a">The milled LED channel and the acrylic soil window aren't cosmetic — they are what make the feedback legible.</p></div>

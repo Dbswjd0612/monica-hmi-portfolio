@@ -22,7 +22,7 @@ input[type=range]{accent-color:var(--accent)}
 .sg-flow-stage{flex:1 1 0;min-width:0}
 .sg-flow-conn{flex:0 1 120px;min-width:28px;display:flex;align-items:center;margin-top:5px}
 @media (max-width:900px){.sg-behavior-top{grid-template-columns:1fr;gap:22px}.sg-behavior-top>div:nth-child(2){margin-top:0}}
-@media (max-width:719px){.sg-sys-conn{display:none!important}}
+@media (max-width:839px){.sg-sys-conn{display:none!important}}
 @media (max-width:740px){.sg-build{grid-template-columns:repeat(2,1fr)!important}}
 @media (max-width:560px){.sg-flow{flex-direction:column;gap:12px}.sg-flow-conn{display:none}}
 
@@ -43,3 +43,7 @@ input[type=range]{accent-color:var(--accent)}
 /* 2.1 hardware: open spec-sheet grid */
 .sg-hw{grid-template-columns:repeat(2,1fr)}
 @media (max-width:740px){.sg-hw{grid-template-columns:1fr}}
+
+/* 2.3 dashboard pair: column ratio tuned so right image bottom = caption baseline */
+.sg-dash{grid-template-columns:481fr 487fr}
+@media (max-width:663px){.sg-dash{grid-template-columns:1fr}}
