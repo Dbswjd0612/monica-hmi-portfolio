@@ -1,0 +1,27 @@
+/* Smart Garden — page styles (helmet CSS from the approved handoff, verbatim,
+   plus the production navbar/footer adapted to this page's light palette) */
+body{margin:0;background:#faf9f6;color:#191c19;--accent:#3e7b49;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:underline;text-decoration-color:rgba(62,123,73,.35);text-underline-offset:3px}
+a:hover{color:#191c19}
+::selection{background:rgba(62,123,73,.18)}
+input[type=range]{accent-color:var(--accent)}
+
+/* production navbar/footer on the light canvas */
+.sg-nav a,.sg-footer a{text-decoration:none}
+.sg-nav a:hover,.sg-footer a:hover{color:var(--accent)}
+.nl{position:relative}
+.nl::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.nl:hover::after{transform:scaleX(1)}
+@media (max-width:900px){.pad{padding-left:24px!important;padding-right:24px!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* 03 — behavior rows: text column | larger evidence column */
+.sg-behavior-top{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:32px;align-items:start}
+.sg-behavior-top>div:nth-child(2){margin-top:31px}
+.sg-flow{margin-top:28px;border-top:1px solid #e3e1d8;padding-top:16px;display:flex;align-items:flex-start;gap:14px}
+.sg-flow-stage{flex:1 1 0;min-width:0}
+.sg-flow-conn{flex:0 1 120px;min-width:28px;display:flex;align-items:center;margin-top:5px}
+@media (max-width:900px){.sg-behavior-top{grid-template-columns:1fr;gap:22px}.sg-behavior-top>div:nth-child(2){margin-top:0}}
+@media (max-width:719px){.sg-sys-conn{display:none!important}}
+@media (max-width:740px){.sg-build{grid-template-columns:repeat(2,1fr)!important}}
+@media (max-width:560px){.sg-flow{flex-direction:column;gap:12px}.sg-flow-conn{display:none}}

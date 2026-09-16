@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Garden · Monica Hwang</title>
+<link rel="icon" type="image/png" href="/public/images/favicon.png">
+<meta name="description" content="Smart Garden — a connected planter that makes plant care visible. Physical computing / IoT case study by Monica Hwang.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/smart-garden.css">
+<script src="/js/smart-garden.js" defer></script>
+</head>
+<body>
+<div style="--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;font-family:'IBM Plex Sans',sans-serif;font-size:16.5px;line-height:1.65;overflow-x:clip">
+
+<nav class="pad sg-nav" style="position:relative;z-index:5;max-width:1180px;margin:0 auto;padding:26px 52px;display:flex;align-items:center;gap:28px;border-bottom:1px solid #e3e1d8">
+<a href="/" style="display:flex;align-items:center;gap:9px;color:#191c19"><img src="/public/images/home/monica-hwang-logo-2.png" alt="Monica Hwang logo" style="width:30px;height:30px;display:block;filter:invert(1)"><span style="font:500 10.8px 'IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase">Monica Hwang</span></a>
+<div style="margin-left:auto;display:flex;align-items:center;gap:26px;font:400 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#62675f">
+<a class="nl" href="/#work" style="color:#191c19">Projects</a>
+<a class="nl" href="#" style="color:inherit">Resume</a>
+<a class="nl" href="/about" style="color:inherit">About</a>
+</div>
+</nav>
+
+<section data-screen-label="Hero" style="max-width:1040px;margin:0 auto;padding:64px 24px 0">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;color:var(--accent)">PHYSICAL COMPUTING / IOT</div>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(46px,7vw,78px);line-height:1.02;letter-spacing:-0.02em;margin:14px 0 22px">Smart Garden</h1>
+    <p style="max-width:620px;margin:0;font-size:19px;line-height:1.6;color:#3a3f3a;text-wrap:pretty">A connected planter that makes plant care visible. An ESP32 senses soil moisture and human presence, translating them into ambient light across the frame and soil bed, with live control through a cloud dashboard.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:24px;border-top:1px solid #e3e1d8;margin-top:36px;padding-top:20px">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f">ROLE</div><div style="font-size:14px;margin-top:6px">Concept, enclosure fabrication, firmware, dashboard</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f">STACK</div><div style="font-size:14px;margin-top:6px">Arduino IoT Cloud · C++ · ESP32 (M5Stack Core Ink)</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f">HARDWARE</div><div style="font-size:14px;margin-top:6px">PIR motion · EARTH soil moisture · digital RGB LED strip</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f">YEAR</div><div style="font-size:14px;margin-top:6px">2022 · Academic project</div></div>
+    </div>
+    <figure style="margin:40px 0 0">
+      <img src="/public/images/smart-garden/hero.png" alt="The Smart Garden planter: wooden frame with LED strip, succulents, and lit soil bed" style="display:block;width:100%;max-height:620px;object-fit:cover;object-position:center 40%;border-radius:4px;border:1px solid #e3e1d8">
+      <figcaption style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#62675f;margin-top:10px">The build — MDF frame, acrylic soil window, LED strip seated in the top rail, PIR sensor at the base.</figcaption>
+    </figure>
+  </section>
+
+  <section data-screen-label="01 Problem" style="max-width:1040px;margin:96px auto 0;padding:0 24px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent)">01</span><h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,4vw,36px);letter-spacing:-0.01em;margin:0">Problem</h2></div>
+    <p style="max-width:640px;margin:22px 0 0;text-wrap:pretty">Soil moisture is difficult to judge at a glance. Digital sensors can expose that information, but numerical readings still require someone to actively check a screen.</p>
+    <div style="margin:48px 0 0">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--accent)">DESIGN INTENTION</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(32px,4.6vw,48px);line-height:1.12;letter-spacing:-0.015em;margin-top:12px;max-width:none">Make the planter itself the interface.</div>
+      <p style="max-width:640px;margin:14px 0 0;font-size:15.5px;color:#3a3f3a;text-wrap:pretty">Plant state should be readable at a glance through ambient physical feedback, without requiring a separate screen check. The lighting activates when someone approaches, making the system responsive to both the plant and the person.</p>
+    </div>
+    <div style="background:#fff;border:1px solid #e3e1d8;border-radius:8px;margin-top:44px;padding:24px 26px">
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em"><span style="color:var(--accent)">SYSTEM OVERVIEW</span><span style="color:#62675f">SENSE → PROCESS → RESPOND</span></div>
+      <div style="display:flex;align-items:stretch;gap:18px;flex-wrap:wrap;margin-top:20px">
+        <div style="flex:1 1 200px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.12em;border-bottom:1px solid #e3e1d8;padding-bottom:8px">SENSE</div>
+          <div style="display:grid;gap:9px;margin-top:12px;font-size:14px">
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent);flex:none;display:inline-block"></span>Human presence (PIR)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent);flex:none;display:inline-block"></span>Soil moisture (EARTH probe)</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent);flex:none;display:inline-block"></span>Dashboard input</div>
+          </div>
+        </div>
+        <div class="sg-sys-conn" style="align-self:center;flex:0 1 44px;min-width:28px;display:flex;align-items:center"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div>
+        <div style="flex:1 1 200px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.12em;border-bottom:1px solid #e3e1d8;padding-bottom:8px">PROCESS</div>
+          <div style="display:grid;gap:9px;margin-top:12px;font-size:14px">
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:#191c19;flex:none;display:inline-block"></span>M5Stack ESP32 Core Ink</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:#191c19;flex:none;display:inline-block"></span>C++ firmware</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:#191c19;flex:none;display:inline-block"></span>Arduino IoT Cloud</div>
+          </div>
+        </div>
+        <div class="sg-sys-conn" style="align-self:center;flex:0 1 44px;min-width:28px;display:flex;align-items:center"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div>
+        <div style="flex:1 1 200px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;letter-spacing:0.12em;border-bottom:1px solid #e3e1d8;padding-bottom:8px">RESPOND</div>
+          <div style="display:grid;gap:9px;margin-top:12px;font-size:14px">
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;display:inline-block"></span>Presence-aware frame lighting</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;display:inline-block"></span>Moisture-state LEDs</div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;display:inline-block"></span>Live dashboard monitoring</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="02 Process" style="max-width:1040px;margin:96px auto 0;padding:0 24px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent)">02</span><h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,4vw,36px);letter-spacing:-0.01em;margin:0">Process &amp; iterations</h2></div>
+    <p style="max-width:640px;margin:22px 0 0;color:#3a3f3a">Built end-to-end over one term: component selection, enclosure fabrication, firmware, and the control dashboard.</p>
+
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;margin:48px 0 0"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);margin-right:10px">2.1</span>Hardware</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px;margin-top:20px">
+      <div style="background:#fff;border:1px solid #e3e1d8;border-radius:6px;padding:16px 18px;display:flex;align-items:center;gap:18px"><img src="/public/images/smart-garden/hw-m5.png" alt="M5Stack ESP32 Core Ink" style="width:110px;height:96px;object-fit:contain;flex:none"><div style="min-width:0"><div style="font-size:15px;font-weight:600">M5Stack Core Ink</div><div style="font-size:13px;color:#62675f;margin-top:4px">ESP32-based main controller connecting sensor inputs, cloud variables, and lighting outputs.</div></div></div>
+      <div style="background:#fff;border:1px solid #e3e1d8;border-radius:6px;padding:16px 18px;display:flex;align-items:center;gap:18px"><img src="/public/images/smart-garden/hw-earth.png" alt="EARTH soil moisture sensor" style="width:110px;height:96px;object-fit:contain;flex:none"><div style="min-width:0"><div style="font-size:15px;font-weight:600">EARTH moisture sensor</div><div style="font-size:13px;color:#62675f;margin-top:4px">Measures moisture in the soil bed and provides the primary environmental input for moisture-state feedback.</div></div></div>
+      <div style="background:#fff;border:1px solid #e3e1d8;border-radius:6px;padding:16px 18px;display:flex;align-items:center;gap:18px"><img src="/public/images/smart-garden/hw-pir.png" alt="PIR motion sensor board" style="width:110px;height:96px;object-fit:contain;flex:none"><div style="min-width:0"><div style="font-size:15px;font-weight:600">PIR motion sensor</div><div style="font-size:13px;color:#62675f;margin-top:4px">Detects movement near the planter and triggers presence-aware frame lighting.</div></div></div>
+      <div style="background:#fff;border:1px solid #e3e1d8;border-radius:6px;padding:16px 18px;display:flex;align-items:center;gap:18px"><img src="/public/images/smart-garden/hw-led.png" alt="Digital RGB LED strip" style="width:110px;height:96px;object-fit:contain;flex:none"><div style="min-width:0"><div style="font-size:15px;font-weight:600">Digital RGB LED strip</div><div style="font-size:13px;color:#62675f;margin-top:4px">Provides programmable visual feedback through the frame and soil-line lighting.</div></div></div>
+    </div>
+
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;margin:56px 0 0"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);margin-right:10px">2.2</span>Physical fabrication</h3>
+    <div class="sg-build" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f;margin-bottom:8px">01</div><img src="/public/images/smart-garden/build-1.png" alt="Bare MDF frame parts on the workbench" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f;margin-bottom:8px">02</div><img src="/public/images/smart-garden/build-2.png" alt="First lighting test with the strip in the frame" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f;margin-bottom:8px">03</div><img src="/public/images/smart-garden/build-3.png" alt="Planted prototype with cyan frame light" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#62675f;margin-bottom:8px">04</div><img src="/public/images/smart-garden/build-4.png" alt="Final build with green frame light and lit soil" style="width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div>
+    </div>
+    <p style="max-width:720px;margin:18px 0 0;font-size:14.5px;color:#3a3f3a">The frame was fabricated from MDF using a laser cutter and band saw, with a milled channel in the top rail to integrate the LED strip. An acrylic front exposes the soil bed, allowing the embedded lighting feedback to remain visible.</p>
+
+    <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;margin:56px 0 0"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);margin-right:10px">2.3</span>From hard-coded behavior to live control</h3>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.06em">
+      <span style="background:#fff;border:1px solid #e3e1d8;border-radius:99px;padding:6px 14px">HARD-CODED FIRMWARE</span><span style="color:var(--accent)">→</span><span style="background:#fff;border:1px solid #e3e1d8;border-radius:99px;padding:6px 14px">CLOUD VARIABLES</span><span style="color:var(--accent)">→</span><span style="background:#fff;border:1px solid var(--accent);border-radius:99px;padding:6px 14px;color:var(--accent)">LIVE TUNING</span>
+    </div>
+    <p style="max-width:640px;margin:20px 0 0;font-size:15px;color:#3a3f3a;text-wrap:pretty">Thresholds and lighting values initially lived in the firmware, so adjustments required <span style="white-space:nowrap">re-flashing</span> the board. Moving lighting controls to Arduino IoT Cloud enabled live adjustment of color, hue, and saturation through the dashboard while sensor values could be monitored remotely. Tuning went from a compile cycle to a slider.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px;margin-top:24px">
+      <img src="/public/images/smart-garden/dash-main.png" alt="Arduino IoT Cloud main dashboard with color and value controls" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border:1px solid #e3e1d8;border-radius:4px">
+      <img src="/public/images/smart-garden/dash-devices.png" alt="Device registration in Arduino IoT Cloud" style="width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;border:1px solid #e3e1d8;border-radius:4px">
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#62675f;margin-top:10px">Arduino IoT Cloud — main dashboard and device registration.</div>
+  </section>
+
+  <section data-screen-label="03 Final design" style="max-width:1040px;margin:96px auto 0;padding:0 24px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent)">03</span><h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,4vw,36px);letter-spacing:-0.01em;margin:0">Final design — three behaviors</h2></div>
+
+    <div class="sg-behavior" style="margin-top:40px;border-top:1px solid #e3e1d8;padding-top:36px"><div class="sg-behavior-top"><div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">3.1</div><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;margin:8px 0 12px">Presence lighting</h3><p style="margin:0;font-size:15.5px;color:#3a3f3a;text-wrap:pretty">When someone approaches the planter, the PIR sensor detects movement and activates the frame lighting. This allows the physical interface to respond to a person’s presence rather than remaining continuously active.</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><img src="/public/images/smart-garden/motion-a.png" alt="Hand near the planter, lights off" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"><img src="/public/images/smart-garden/motion-b.png" alt="Hand near the planter, frame lit" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div></div><div class="sg-flow"><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent);flex:none;display:inline-block"></span>INPUT</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Person approaches</div></div><div class="sg-flow-conn"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;background:#191c19;flex:none;display:inline-block"></span>SYSTEM</div><div style="font-size:13px;margin-top:6px;line-height:1.45">PIR detects presence</div></div><div class="sg-flow-conn"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;display:inline-block"></span>FEEDBACK</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Frame lighting responds</div></div></div></div>
+
+    <div class="sg-behavior" style="margin-top:44px;border-top:1px solid #e3e1d8;padding-top:36px"><div class="sg-behavior-top"><div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">3.2</div><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;margin:8px 0 12px">Custom lighting</h3><p style="margin:0;font-size:15.5px;color:#3a3f3a;text-wrap:pretty">Lighting controls are connected to cloud variables through Arduino IoT Cloud. Adjusting them on the dashboard updates the physical frame lighting in real time, allowing color and lighting states to be tuned without modifying the firmware.</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><img src="/public/images/smart-garden/light-a.png" alt="Frame lit magenta" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"><img src="/public/images/smart-garden/light-b.png" alt="Frame lit green" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div></div><div class="sg-flow"><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent);flex:none;display:inline-block"></span>INPUT</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Dashboard control</div></div><div class="sg-flow-conn"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;background:#191c19;flex:none;display:inline-block"></span>SYSTEM</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Cloud variable syncs</div></div><div class="sg-flow-conn"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;display:inline-block"></span>FEEDBACK</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Physical lighting changes</div></div></div></div>
+
+    <div class="sg-behavior" style="margin-top:44px;border-top:1px solid #e3e1d8;padding-top:36px"><div class="sg-behavior-top"><div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">3.3</div><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:23px;margin:8px 0 12px">Moisture feedback</h3><p style="margin:0;font-size:15.5px;color:#3a3f3a;text-wrap:pretty">LEDs at the soil line translate the moisture reading into a simple physical state: red for dry and blue for sufficient moisture. The exact sensor value remains available on the dashboard, while the ambient lighting makes the overall state visible at a glance.</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><img src="/public/images/smart-garden/moist-a.png" alt="Blue soil LEDs indicating sufficient moisture" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"><img src="/public/images/smart-garden/moist-b.png" alt="Red soil LEDs indicating dry soil" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:3px;border:1px solid #e3e1d8"></div></div><div class="sg-flow"><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;border:1.5px solid var(--accent);flex:none;display:inline-block"></span>INPUT</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Soil moisture reading</div></div><div class="sg-flow-conn"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;background:#191c19;flex:none;display:inline-block"></span>SYSTEM</div><div style="font-size:13px;margin-top:6px;line-height:1.45">ESP32 evaluates state</div></div><div class="sg-flow-conn"><span style="flex:1;height:1px;background:var(--accent)"></span><span style="width:5px;height:5px;border-top:1px solid var(--accent);border-right:1px solid var(--accent);transform:rotate(45deg);flex:none;margin-left:-5px"></span></div><div class="sg-flow-stage"><div style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#62675f"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;display:inline-block"></span>FEEDBACK</div><div style="font-size:13px;margin-top:6px;line-height:1.45">Soil LEDs show condition</div></div></div></div>
+
+    <div style="background:#fff;border:1px solid #e3e1d8;border-radius:8px;padding:26px 28px;margin-top:28px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;color:var(--accent)">LIVE DEMO</div>
+      <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:21px;margin:10px 0 6px">Try the feedback logic</h3>
+      <p style="margin:0;font-size:14.5px;color:#3a3f3a">Drag the moisture level to see how the system translates sensor data into ambient feedback.</p>
+      <div style="display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:18px">
+        <div style="display:flex;gap:12px;align-items:center">
+          <span data-sg-led style="width:14px;height:14px;border-radius:50%;background:#2f6ccc;box-shadow:0 0 14px 2px rgba(47,108,204,.5);transition:background .3s,box-shadow .3s"></span>
+          <span data-sg-led style="width:14px;height:14px;border-radius:50%;background:#2f6ccc;box-shadow:0 0 14px 2px rgba(47,108,204,.5);transition:background .3s,box-shadow .3s"></span>
+          <span data-sg-led style="width:14px;height:14px;border-radius:50%;background:#2f6ccc;box-shadow:0 0 14px 2px rgba(47,108,204,.5);transition:background .3s,box-shadow .3s"></span>
+          <span data-sg-led style="width:14px;height:14px;border-radius:50%;background:#2f6ccc;box-shadow:0 0 14px 2px rgba(47,108,204,.5);transition:background .3s,box-shadow .3s"></span>
+        </div>
+        <input type="range" id="sg-moisture" min="0" max="100" value="62" aria-label="Simulated soil moisture" style="flex:1 1 200px;min-width:180px;max-width:400px">
+        <div id="sg-readout" style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#3a3f3a">MOISTURE 62 · SOIL OK — LED BLUE</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#62675f;margin-top:14px">This simulation mirrors the prototype’s firmware logic: readings below 40 trigger the dry state and red LED feedback.</div>
+    </div>
+  </section>
+
+  <section data-screen-label="04 Learnings" style="max-width:1040px;margin:96px auto 0;padding:0 24px">
+    <div style="display:flex;align-items:baseline;gap:16px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent)">04</span><h2 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:clamp(28px,4vw,36px);letter-spacing:-0.01em;margin:0">Learnings</h2></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:28px;border-top:1px solid #e3e1d8;margin-top:28px;padding-top:24px">
+      <div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">4.1</span><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17.5px;margin:8px 0 6px">Ambient feedback reduces screen dependency</h3><p style="margin:0;font-size:14px;line-height:1.55;color:#3a3f3a">Encoding plant state directly into the object made the system understandable without requiring a separate screen check. The planter itself became part of the interface.</p></div>
+      <div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">4.2</span><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17.5px;margin:8px 0 6px">Live variables change how you design</h3><p style="margin:0;font-size:14px;line-height:1.55;color:#3a3f3a">Once thresholds and colors became cloud variables, tuning became a design activity instead of a firmware chore.</p></div>
+      <div><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent)">4.3</span><h3 style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17.5px;margin:8px 0 6px">Fabrication is interface work</h3><p style="margin:0;font-size:14px;line-height:1.55;color:#3a3f3a">The milled LED channel and the acrylic soil window aren't cosmetic — they are what make the feedback legible.</p></div>
+    </div>
+  </section>
+
+<footer class="pad sg-footer" style="max-width:1180px;margin:96px auto 0;padding:0 52px">
+<div style="display:flex;align-items:center;padding-top:22px;border-top:1px solid #e3e1d8">
+<a class="nl" href="/#work" style="margin-left:auto;font:400 11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#62675f;padding:12px 0 12px 12px;margin-top:-12px;margin-bottom:-12px">All case studies →</a>
+</div>
+<div style="margin:80px 0 0;padding:22px 0 40px;border-top:1px solid #e3e1d8;display:flex;flex-wrap:wrap;gap:18px;align-items:center;font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#62675f">
+<span>© 2026 Monica Hwang</span><a href="mailto:monica1837@gmail.com" style="color:#62675f">Email</a><a href="https://www.linkedin.com/in/monica-hwang-679966195/" target="_blank" rel="noopener" style="color:#62675f">LinkedIn</a><span style="margin-left:auto">Designed &amp; built by Monica Hwang</span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
