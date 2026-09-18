@@ -217,7 +217,27 @@ class Component {
   }
 }
 
-  const init = () => new Component().componentDidMount();
+  // Motion & Interaction reel — plays only near the viewport; placeholder until a src is set.
+  function initMotionReel() {
+    var v = document.getElementById('motion-video');
+    var empty = document.getElementById('motion-empty');
+    if (!v) return;
+    if (!v.getAttribute('src')) return; // keep placeholder
+    if (empty) empty.style.display = 'none';
+    v.style.display = 'block';
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (en.isIntersecting) v.play().catch(function () {});
+          else v.pause();
+        });
+      }, { threshold: 0.15, rootMargin: '200px 0px' }).observe(v);
+    } else {
+      v.play().catch(function () {});
+    }
+  }
+
+  const init = () => { new Component().componentDidMount(); initMotionReel(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

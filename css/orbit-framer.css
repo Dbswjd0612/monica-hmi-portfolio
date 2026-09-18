@@ -1,0 +1,30 @@
+/* orbit-framer only — Framer-portfolio navbar (measured from monicahwangportfolio.com).
+   Loaded AFTER /css/orbit.css on /orbit-framer/ only; /orbit never loads this file. */
+
+/* fixed 60px white bar needs a content offset */
+body{padding-top:60px}
+
+.fm-nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  height:60px;box-sizing:border-box;
+  background:#FFFFFF;
+  box-shadow:0 5px 29px rgba(153,153,211,.2);
+  display:flex;align-items:center;
+  padding:0 40px;
+}
+.fm-nav a{text-decoration:none}
+.fm-logo{display:flex;align-items:center;flex:none}
+.fm-logo img{display:block;width:98px;height:36px;object-fit:contain}
+.fm-links{
+  margin-left:auto;display:flex;align-items:center;gap:40px;
+  font-family:'Graphik Regular','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:17px;font-weight:400;letter-spacing:0;line-height:1;
+}
+/* explicit colors: orbit.css sets a{color:#E8EAEC} and a:hover{color:#F97316} globally */
+.fm-links a{color:rgb(91,90,94);transition:color .2s ease}
+.fm-links a:hover{color:#1d1d1f}
+
+@media (max-width:560px){
+  .fm-nav{padding:0 20px}
+  .fm-links{gap:24px;font-size:16px}
+}
