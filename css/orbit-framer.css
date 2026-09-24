@@ -18,7 +18,8 @@ body{padding-top:var(--fm-nav-h)}
 }
 .fm-nav a{text-decoration:none}
 .fm-logo{display:flex;align-items:center;flex:none}
-.fm-logo img{display:block;width:98px;height:36.4px;object-fit:contain}
+/* object-fit:cover matches Framer's logo box exactly */
+.fm-logo img{display:block;width:98px;height:36.4px;object-fit:cover}
 .fm-links{
   margin-left:auto;display:flex;align-items:center;gap:40px;
   font-family:'Graphik Regular','Helvetica Neue',Helvetica,Arial,sans-serif;
