@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shopcord Phase 3 — Item Update</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     Design tokens — Figma "Item Update" (BiFymM722XZ6i4yG1aCJti)
+     ═══════════════════════════════════════════════════════════ */
+  :root {
+    --bg: #fdfcfa;
+    --card: #ffffff;
+    --border: #f3eee8;          /* base/border — warm */
+    --border-input: #e2e8f0;    /* input border */
+    --fg: #252322;
+    --fg-secondary: #6b6b6b;
+    --fg-muted: #a3a3a3;
+    --muted: #f4f4f4;
+    --primary: #e21d76;
+    --primary-soft: #f7eef2;
+    --primary-ink: #9d4862;
+    --destructive: #ef4444;
+    --destructive-soft: #fff5f5;
+    --success: #4f8f7c;
+    --success-soft: #ebf4f1;
+    --tip-bg: #0f172a;
+    /* Figma 원본(node 7:5048) — Pack Configuration · Pack Breakdown */
+    --pack-fill: rgba(253,242,248,.6);
+    --pack-line: #f3eee8;
+    --radius: 6px;
+    --shadow-xs: 0 1px 2px rgba(0,0,0,.05);
+  }
+  * { box-sizing: border-box; }
+  /* `hidden` must win over any display: rule below */
+  [hidden] { display: none !important; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--bg);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    font-size: 14px; line-height: 20px;
+    color: var(--fg);
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, select, textarea { font-family: inherit; }
+
+  /* ══════════ Page (Items list) ══════════ */
+  .app { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 272px; flex-shrink: 0; padding: 16px;
+    position: sticky; top: 0; height: 100vh;
+  }
+  .sidebar-inner {
+    height: 100%; background: var(--card);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow-xs);
+    display: flex; flex-direction: column;
+  }
+  .logo { display: flex; align-items: center; gap: 11px; padding: 17px 16px; border-bottom: 1px solid var(--border); }
+  .logo-mark { color: var(--primary); display: inline-flex; }
+  .logo-mark svg { width: 18px; height: 18px; }
+  .logo-text { font-size: 18px; font-weight: 600; letter-spacing: -.3px; }
+  .logo-text em { font-style: normal; color: var(--primary); }
+
+  .nav { padding: 8px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .nav-item {
+    display: flex; align-items: center; gap: 8px;
+    height: 32px; padding: 0 8px; border-radius: var(--radius);
+    font-size: 14px; color: var(--fg-secondary); cursor: pointer;
+  }
+  .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .nav-item:hover { background: var(--muted); }
+  .nav-item.is-active { background: var(--primary-soft); color: var(--primary); font-weight: 500; }
+  .nav-sep { height: 1px; background: var(--border); }
+
+  .nav-foot { border-top: 1px solid var(--border); padding: 8px; }
+  .nav-account { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: var(--radius); cursor: pointer; }
+  .nav-account:hover { background: var(--muted); }
+  .nav-avatar {
+    width: 32px; height: 32px; border-radius: var(--radius);
+    background: var(--primary-soft); color: var(--primary);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .nav-avatar svg { width: 16px; height: 16px; }
+  .nav-account-label { flex: 1; font-size: 14px; font-weight: 500; }
+  .nav-account > svg:last-child { width: 16px; height: 16px; color: var(--fg-muted); }
+
+  .main { flex: 1; min-width: 0; padding: 24px 32px 64px; }
+  .page-title { font-size: 30px; line-height: 36px; font-weight: 600; margin: 0 0 4px; }
+  .page-sub { font-size: 14px; color: var(--fg-secondary); margin: 0 0 24px; }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+  .tab {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 32px; padding: 0 14px; border-radius: 9999px;
+    border: 1px solid var(--border); background: var(--card);
+    font-size: 14px; font-weight: 500; color: var(--fg-secondary); cursor: pointer;
+    box-shadow: var(--shadow-xs);
+  }
+  .tab svg { width: 14px; height: 14px; }
+  .tab.is-active { background: var(--fg); border-color: var(--fg); color: #fff; }
+
+  .list-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-xs);
+  }
+  .check { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg-secondary); cursor: pointer; }
+  .check-box { width: 16px; height: 16px; border: 1px solid var(--border-input); border-radius: 4px; background: var(--card); }
+  .list-toolbar { display: flex; align-items: center; gap: 8px; margin: 16px 0 24px; flex-wrap: wrap; }
+  .toolbar-search { position: relative; width: 260px; }
+  .toolbar-search svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--fg-muted); }
+  .toolbar-search input {
+    width: 100%; height: 36px; padding: 0 12px 0 32px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 14px; background: var(--card); color: var(--fg);
+  }
+  .toolbar-search input::placeholder { color: var(--fg-muted); }
+  .toolbar-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 36px; padding: 0 12px; border-radius: var(--radius);
+    border: 1px solid var(--border-input); background: var(--card);
+    font-size: 14px; color: var(--fg-secondary); cursor: pointer;
+  }
+  .toolbar-btn svg { width: 14px; height: 14px; }
+  .toolbar-link {
+    background: none; border: none; color: var(--fg-secondary);
+    font-size: 14px; cursor: pointer; padding: 0 4px;
+  }
+  .toolbar-link:hover { color: var(--primary); }
+
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(192px, 1fr)); gap: 24px; }
+  .item-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--card); }
+  .item-thumb { aspect-ratio: 3/4; background: var(--muted) center/cover no-repeat; position: relative; }
+  .item-badge {
+    position: absolute; left: 8px; bottom: 8px;
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 9999px; background: rgba(255,255,255,.94);
+    font-size: 10px; line-height: 14px; font-weight: 500; color: var(--fg-secondary);
+  }
+  .item-badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--success); }
+  .item-badge.is-inactive::before { background: var(--fg-muted); }
+  .item-body { padding: 12px; }
+  .item-name { font-size: 14px; font-weight: 500; line-height: 20px; }
+  .item-style { font-size: 12px; line-height: 16px; color: var(--fg-secondary); margin-bottom: 8px; }
+  .item-price { font-size: 12px; line-height: 16px; color: var(--fg-secondary); }
+  .item-price b { color: var(--fg); font-weight: 600; }
+  .item-price .sale { color: var(--primary); font-weight: 600; }
+  .item-opts { margin-top: 8px; font-size: 12px; line-height: 16px; color: var(--fg-secondary); }
+  .item-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+  .item-chip {
+    padding: 2px 6px; border-radius: 4px;
+    background: var(--success-soft); color: var(--success);
+    font-size: 10px; line-height: 14px; font-weight: 500;
+  }
+  .item-chip.is-pre { background: var(--primary-soft); color: var(--primary-ink); }
+  .list-foot { margin-top: 24px; font-size: 14px; color: var(--fg-secondary); }
+
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,.30); z-index: 90; }
+  body.drawer-closed .drawer, body.drawer-closed .scrim { display: none; }
+
+  /* ══════════ Drawer ══════════ */
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0;
+    width: 640px; max-width: 100vw; z-index: 100;
+    background: var(--card); display: flex; flex-direction: column;
+    box-shadow: -12px 0 32px rgba(0,0,0,.12);
+  }
+  .drawer-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; flex-shrink: 0;
+    border-bottom: 1px solid var(--border); background: var(--card);
+  }
+  .drawer-close {
+    width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: none; border-radius: var(--radius); color: var(--fg); cursor: pointer;
+  }
+  .drawer-close:hover { background: var(--muted); }
+  .drawer-close svg { width: 14px; height: 14px; }
+  .drawer-title { font-size: 14px; font-weight: 500; flex: 1; }
+  .btn {
+    height: 32px; padding: 0 16px; border-radius: var(--radius);
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    border: 1px solid transparent; box-shadow: var(--shadow-xs);
+  }
+  .btn-secondary { background: var(--card); border-color: var(--border); color: var(--fg); }
+  .btn-secondary:hover { background: var(--muted); }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { filter: brightness(1.07); }
+
+  .drawer.is-wide { width: 1100px; }
+  .drawer-expand {
+    width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+    background: transparent; border: none; border-radius: var(--radius);
+    color: var(--fg-secondary); cursor: pointer;
+  }
+  .drawer-expand:hover { background: var(--muted); color: var(--fg); }
+  .drawer-expand svg { width: 14px; height: 14px; }
+
+  .sell-table-head { display: flex; align-items: center; gap: 10px; margin: 20px 0 10px; }
+  .sell-table-title { font-size: 14px; font-weight: 600; margin: 0; }
+
+  .drawer-body { flex: 1; overflow-y: auto; padding: 16px; }
+  .drawer-body::-webkit-scrollbar { width: 8px; }
+  .drawer-body::-webkit-scrollbar-thumb { background: rgba(0,0,0,.15); border-radius: 4px; }
+
+  .section { padding: 16px 8px 24px; border-bottom: 1px solid var(--border); }
+  .section:last-of-type { border-bottom: none; }
+  .section-head { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+  .section-title { font-size: 16px; line-height: 24px; font-weight: 600; margin: 0; }
+  .section-hint { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fg-muted); }
+  .section-spacer { flex: 1; }
+
+  .info-i { width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--fg-muted); cursor: help; flex-shrink: 0; }
+  .info-i svg { width: 12px; height: 12px; }
+  .vt-col .info-i { width: 12px; height: 12px; margin-left: 3px; vertical-align: -3px; }
+  .vt-col .info-i svg { width: 11px; height: 11px; }
+
+  /* 툴팁 — 1024와 같은 진한 말풍선. 접히는 opt-row 안에서도 잘리지 않게 fixed */
+  .tip {
+    position: fixed; z-index: 300; max-width: 320px;
+    background: var(--tip-bg); color: #fff;
+    font-size: 13px; line-height: 19px; font-weight: 400;
+    padding: 10px 14px; border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.24);
+    opacity: 0; pointer-events: none; transition: opacity .12s;
+  }
+  .tip.is-visible { opacity: 1; }
+  .tip::after { content: ''; position: absolute; top: var(--caret-y, 12px); border: 7px solid transparent; }
+  .tip[data-side="right"]::after { left: -13px; border-right-color: var(--tip-bg); }
+  .tip[data-side="left"]::after  { right: -13px; border-left-color: var(--tip-bg); }
+
+  .field { margin-bottom: 12px; }
+  .field:last-child { margin-bottom: 0; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .field-label {
+    display: flex; align-items: center; gap: 4px;
+    font-size: 12px; line-height: 16px; color: var(--fg-secondary); font-weight: 500; margin-bottom: 8px;
+  }
+  .field-required { color: var(--destructive); }
+  .field-input {
+    width: 100%; height: 36px; padding: 8px 12px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 14px; line-height: 20px; color: var(--fg); background: var(--card);
+  }
+  .field-input:hover { border-color: var(--fg-muted); }
+  .field-input:focus { outline: none; border-color: var(--fg); box-shadow: 0 0 0 3px rgba(0,0,0,.05); }
+  .field-input::placeholder { color: var(--fg-muted); }
+  .field-textarea {
+    width: 100%; max-width: 640px; min-height: 76px; padding: 8px 12px; resize: vertical;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 14px; line-height: 20px; color: var(--fg); background: var(--card);
+  }
+  .field-textarea::placeholder { color: var(--fg-muted); }
+  .field-textarea:focus { outline: none; border-color: var(--fg); box-shadow: 0 0 0 3px rgba(0,0,0,.05); }
+  .money { position: relative; }
+  .money::before { content: '$'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--fg-secondary); font-size: 14px; pointer-events: none; }
+  .money .field-input { padding-left: 26px; }
+
+  .price-hint {
+    margin-top: 10px;
+    font-size: 12px; line-height: 18px; color: var(--fg-secondary);
+  }
+  .price-hint b { color: var(--fg); font-weight: 500; }
+
+
+  /* Activation gate (PLCY 2.1.3) */
+  .status-gate {
+    display: flex; align-items: flex-start; gap: 6px; margin-top: 8px;
+    padding: 8px 10px; border-radius: var(--radius);
+    background: var(--destructive-soft); border: 1px solid rgba(239,68,68,.25);
+    font-size: 12px; line-height: 18px; color: var(--destructive);
+  }
+  .status-gate svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; }
+  .missing-badge {
+    display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 6px;
+    border-radius: 4px; background: var(--destructive-soft); color: var(--destructive);
+    font-size: 10px; font-weight: 600; letter-spacing: .3px;
+  }
+  .search-wrap { position: relative; }
+  .search-wrap .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--fg-muted); }
+  .search-wrap .field-input { padding-left: 32px; }
+
+  /* 내부용 영역 — 공개/비공개 경계를 단어가 아니라 면이 지게 한다 (1024와 동일) */
+  .internal-only {
+    background: var(--muted); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px 16px;
+  }
+  .internal-only .field-input, .internal-only .field-textarea { background: var(--card); }
+  .internal-only .section-head { margin-bottom: 12px; }
+
+  /* Status는 라디오 그룹이라 다음 입력과 기본 간격으로는 붙어 보인다 (1024와 동일) */
+  .status-field { margin-bottom: 22px; }
+
+  .radio-row { display: flex; gap: 16px; }
+  .radio-item { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 14px; }
+  .radio-item input { display: none; }
+  .radio-dot { width: 16px; height: 16px; border: 1px solid var(--border); border-radius: 50%; background: var(--card); position: relative; flex-shrink: 0; }
+  .radio-item input:checked + .radio-dot { border-color: var(--fg); }
+  .radio-item input:checked + .radio-dot::after { content: ''; position: absolute; inset: 3px; background: var(--fg); border-radius: 50%; }
+
+  /* ── Switch (inventory opt-in) ── */
+  .switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+  .switch input { display: none; }
+  .switch-track {
+    width: 34px; height: 20px; border-radius: 9999px;
+    background: #ddd6cf; position: relative; transition: background .16s;
+    flex-shrink: 0;
+  }
+  .switch-track::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px; border-radius: 50%; background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.2); transition: transform .16s;
+  }
+  .switch input:checked + .switch-track { background: var(--primary); }
+  .switch input:checked + .switch-track::after { transform: translateX(14px); }
+  .switch-label { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fg-secondary); }
+  .switch input:checked ~ .switch-label { color: var(--primary); }
+
+  /* ── Images ── */
+  .images-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+  .images-grid {
+    display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px;
+    margin-bottom: 12px; min-height: 96px; max-height: 480px; overflow-y: auto; padding-right: 4px;
+  }
+  .images-grid::-webkit-scrollbar { width: 6px; }
+  .images-grid::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 3px; }
+  .image-tile {
+    aspect-ratio: 2/3; border-radius: 4px; border: 1px solid var(--border-input);
+    background: var(--muted) center/cover no-repeat;
+    position: relative; cursor: grab; transition: border-color .12s, transform .12s, opacity .12s;
+  }
+  .image-tile:active { cursor: grabbing; }
+  .image-tile:hover { border-color: var(--fg); transform: scale(1.04); }
+  .image-tile.is-dragging { opacity: .35; transform: none; }
+  .image-tile.is-drop-before { box-shadow: -3px 0 0 0 var(--primary); }
+  .image-tile.is-drop-after  { box-shadow:  3px 0 0 0 var(--primary); }
+  .image-tile-remove {
+    position: absolute; top: 3px; right: 3px; width: 18px; height: 18px;
+    background: rgba(0,0,0,.72); border: 1.5px solid rgba(255,255,255,.92);
+    border-radius: 50%; color: #fff; cursor: pointer; padding: 0;
+    display: none; align-items: center; justify-content: center; z-index: 2;
+  }
+  .image-tile:hover .image-tile-remove { display: inline-flex; }
+  .image-tile.is-dragging .image-tile-remove { display: none; }
+  .image-tile-remove:hover { background: var(--destructive); }
+  .image-tile-remove svg { width: 7px; height: 7px; pointer-events: none; }
+  .image-hover-preview {
+    position: fixed; width: 150px; height: 200px;
+    background: var(--card); border: 1px solid var(--border-input); border-radius: 8px;
+    padding: 4px; box-shadow: 0 12px 32px rgba(0,0,0,.20);
+    background-size: cover; background-position: center;
+    background-clip: padding-box; background-origin: content-box;
+    pointer-events: none; z-index: 200; opacity: 0; transition: opacity .12s;
+  }
+  .image-hover-preview.is-visible { opacity: 1; }
+  .image-dropzone {
+    border: 1px dashed var(--border-input); border-radius: var(--radius); padding: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 12px; color: var(--fg-secondary); cursor: pointer;
+  }
+  .image-dropzone:hover { border-color: var(--fg-muted); background: var(--muted); }
+  .image-dropzone svg { width: 14px; height: 14px; }
+
+  /* ── Options ── */
+  .opt-list { display: flex; flex-direction: column; gap: 12px; }
+  .opt-row { border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
+  .opt-row-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 12px; background: var(--muted); cursor: pointer;
+    border-bottom: 1px solid var(--border);
+  }
+  .opt-row.is-collapsed .opt-row-head { border-bottom-color: transparent; }
+  .opt-row-head-title {
+    font-size: 11px; line-height: 16px; font-weight: 600; color: var(--fg-secondary);
+    text-transform: uppercase; letter-spacing: .04em;
+  }
+  .opt-row-head-chev { color: var(--fg-secondary); display: inline-flex; }
+  .opt-row-head-chev svg { width: 14px; height: 14px; transition: transform .18s; }
+  .opt-row.is-collapsed .opt-row-head-chev svg { transform: rotate(180deg); }
+  .opt-row-body { padding: 12px; }
+  .opt-row.is-collapsed .opt-row-body, .opt-row.is-collapsed .opt-row-actions { display: none; }
+  .opt-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opt-field-block { display: flex; flex-direction: column; gap: 4px; }
+  .opt-field-label { display: flex; align-items: center; gap: 4px; font-size: 12px; line-height: 16px; color: var(--fg-secondary); font-weight: 500; }
+  .opt-field-hint { font-size: 11px; color: var(--fg-muted); font-weight: 400; }
+  .opt-value-wrap { position: relative; }
+  .opt-input {
+    width: 100%; height: 36px; padding: 8px 32px 8px 12px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 14px; line-height: 20px; color: var(--fg); background: var(--card);
+  }
+  .opt-input:focus { outline: none; border-color: var(--fg); box-shadow: 0 0 0 3px rgba(0,0,0,.05); }
+  .opt-input::placeholder { color: var(--fg-muted); }
+  .opt-name-input { padding-right: 12px; }
+  .opt-enter { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--fg-muted); }
+  .opt-enter svg { width: 14px; height: 14px; }
+  .opt-values { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .opt-value-chip {
+    display: inline-flex; align-items: center; gap: 2px;
+    padding: 2px 4px 2px 8px; background: var(--card);
+    border: 1px solid var(--border); border-radius: 4px;
+    font-size: 12px; line-height: 16px;
+  }
+  .opt-value-remove {
+    width: 16px; height: 16px; background: transparent; border: none; border-radius: 50%;
+    color: var(--fg-muted); cursor: pointer; padding: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .opt-value-remove:hover { background: var(--muted); color: var(--destructive); }
+  .opt-value-remove svg { width: 7px; height: 7px; pointer-events: none; }
+  .opt-row-actions { display: flex; justify-content: flex-end; padding: 0 12px 10px; }
+  .opt-row-delete {
+    width: 28px; height: 28px; background: transparent; border: none; border-radius: var(--radius);
+    color: var(--fg-muted); cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .opt-row-delete:hover { background: var(--muted); color: var(--destructive); }
+  .opt-row-delete svg { width: 14px; height: 14px; }
+
+  /* Quick pick (prefill) */
+  .quick-pick { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--border); }
+  .quick-pick-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; line-height: 16px; color: var(--fg-muted); font-weight: 500; margin-bottom: 8px;
+  }
+  .quick-pick-label-icon { display: inline-flex; color: var(--primary); }
+  .quick-pick-label-icon svg { width: 12px; height: 12px; }
+  .quick-pick-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .quick-chip {
+    display: inline-flex; align-items: center; height: 24px; padding: 0 10px;
+    background: var(--card); border: 1px solid var(--border); border-radius: 9999px;
+    font-size: 12px; font-weight: 500; color: var(--fg-secondary); cursor: pointer;
+  }
+  .quick-chip:hover { background: var(--muted); border-color: var(--fg-muted); color: var(--fg); }
+  .quick-chip.is-active { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+  .sub-picker {
+    margin-top: 8px; padding: 8px 10px; background: var(--primary-soft); border-radius: var(--radius);
+    display: none; align-items: center; flex-wrap: wrap; gap: 6px;
+  }
+  .sub-picker.is-open { display: flex; }
+  .sub-picker-label { font-size: 12px; color: var(--primary-ink); font-weight: 500; margin-right: 2px; }
+  .sub-chip {
+    display: inline-flex; align-items: center; height: 24px; padding: 0 10px;
+    background: var(--card); border: 1px solid rgba(226,29,118,.30); border-radius: 9999px;
+    font-size: 12px; font-weight: 500; color: var(--primary); cursor: pointer;
+  }
+  .sub-chip:hover, .sub-chip.is-applied { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  .add-option-btn {
+    margin-top: 12px; width: 100%; height: 36px;
+    border: 1px dashed var(--border-input); border-radius: var(--radius);
+    background: var(--card); color: var(--fg-secondary);
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .add-option-btn:hover:not([disabled]) { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+  .add-option-btn svg { width: 12px; height: 12px; }
+  .add-option-btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+  /* ── Variant table (prices + inventory) ── */
+  .vt-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .vt-card > #vtBody, .vt-card > .vt-colhead, .vt-card > .vt-fillrow { }
+  .vt-scroll { overflow: auto; max-height: 420px; }
+  .vt-sticky { position: sticky; top: 0; z-index: 3; background: var(--card); }
+  .vt-scroll::-webkit-scrollbar { height: 8px; width: 8px; }
+  .vt-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 4px; }
+  .vt-colhead, .vt-fillrow, .vt-group-head, .vt-row { min-width: max-content; }
+  .vt-toolbar { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
+  .vt-toolbar-label { flex-shrink: 0; font-size: 12px; font-weight: 500; color: var(--fg-secondary); }
+  .vt-select {
+    flex: 1; height: 32px; padding: 0 28px 0 10px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 14px; color: var(--fg);
+    background: var(--card) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23a3a3a3' stroke-width='1.5'><path d='M3 5l4 4 4-4'/></svg>") right 9px center / 13px 13px no-repeat;
+    appearance: none; -webkit-appearance: none;
+  }
+  .vt-colhead {
+    display: flex; align-items: center; gap: 6px;
+    padding: 5px 12px; background: var(--muted); border-top: 1px solid var(--border);
+  }
+  .vt-name { flex: 1 0 auto; min-width: 132px; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fg-secondary); display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .vt-col { width: 78px; flex-shrink: 0; text-align: center; font-size: 10px; line-height: 14px; font-weight: 600; color: var(--fg-muted); letter-spacing: .4px; }
+  .vt-fillrow { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--border); background: #fcfbf9; }
+  .vt-group-head { display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--muted); }
+  .vt-group-name { flex: 1 0 auto; min-width: 132px; font-size: 14px; font-weight: 500; white-space: nowrap; }
+  .vt-rows { display: flex; flex-direction: column; }
+  .vt-row { display: flex; align-items: center; gap: 6px; padding: 5px 12px 5px 28px; }
+  .vt-row + .vt-row { border-top: 1px solid #faf7f3; }
+  .vt-row-label { flex: 1 0 auto; min-width: 132px; font-size: 14px; color: var(--fg); white-space: nowrap; }
+  .vt-cell { width: 78px; flex-shrink: 0; position: relative; }
+  .vt-cell.is-money::before { content: '$'; position: absolute; left: 7px; top: 50%; transform: translateY(-50%); color: var(--fg-muted); font-size: 12px; pointer-events: none; }
+  .vt-input {
+    width: 100%; height: 32px; padding: 0 8px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 13px; color: var(--fg); background: var(--card); text-align: right;
+  }
+  .vt-cell.is-money .vt-input { padding-left: 16px; }
+  .vt-input:focus { outline: none; border-color: var(--fg); }
+  .vt-input::placeholder { color: #cfcfcf; }
+  .vt-input.is-set { background: var(--primary-soft); border-color: rgba(226,29,118,.35); color: var(--primary-ink); font-weight: 600; }
+  .vt-input.is-error { border-color: var(--destructive); background: var(--destructive-soft); color: var(--destructive); }
+  .vt-input.is-missing { border-color: rgba(239,68,68,.45); border-style: dashed; background: #fffafa; }
+  .vt-input.is-missing::placeholder { color: rgba(239,68,68,.55); }
+  .vt-col em { font-style: normal; color: var(--destructive); }
+  .vt-col-unit { width: 76px; }
+  /* 수량은 한두 자리라 가격 칸과 같은 폭일 이유가 없다 */
+  .vt-col-qty, .vt-cell-qty { width: 60px; }
+  .vt-cell-unit {
+    width: 76px; flex-shrink: 0; text-align: center;
+    font-size: 12px; color: var(--fg-muted); white-space: nowrap;
+  }
+  .drawer.is-wide .vt-col-unit, .drawer.is-wide .vt-cell-unit { width: 100px; }
+  .vt-col-ship { width: 220px; text-align: left; }
+  .vt-cell-ship { width: 220px; flex-shrink: 0; display: flex; justify-content: flex-start; }
+  .drawer.is-wide .vt-col { width: 110px; }
+  .drawer.is-wide .vt-cell { width: 110px; }
+  .drawer.is-wide .vt-col-ship, .drawer.is-wide .vt-cell-ship { width: 240px; }
+  .drawer.is-wide .vt-input { font-size: 13px; height: 30px; }
+  .vt-note { padding: 10px 12px; border-top: 1px solid var(--border); font-size: 12px; line-height: 18px; color: var(--fg-muted); }
+  .vt-error { display: flex; align-items: flex-start; gap: 6px; margin: 10px 12px 0; padding: 8px 10px; border-radius: var(--radius); background: var(--destructive-soft); border: 1px solid rgba(239,68,68,.25); font-size: 12px; line-height: 18px; color: var(--destructive); }
+  .vt-error svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; }
+  .vt-warn {
+    display: flex; align-items: flex-start; gap: 6px; margin: 10px 12px 0;
+    padding: 8px 10px; border-radius: var(--radius);
+    background: #fef6ec; border: 1px solid rgba(180,83,9,.25);
+    font-size: 12px; line-height: 18px; color: #b45309;
+  }
+  .vt-warn svg { width: 13px; height: 13px; flex-shrink: 0; margin-top: 2px; }
+  .vt-cell-spacer { flex-shrink: 0; }
+  /* 기준가는 입력이 아니라 읽는 값 — 입력칸 테두리를 주지 않는다 */
+  .vt-base { text-align: center; font-size: 12px; line-height: 32px; color: var(--fg-muted); white-space: nowrap; }
+  /* Apply-to-all base value: wrap inside the 78px pack-price column instead of running over the unit price (two 16px lines = same 32px row) */
+  .vt-cell-spacer.vt-base { white-space: normal; line-height: 16px; }
+
+  /* Problems live under the row they belong to, not in a list at the bottom */
+  .vt-inline-warn {
+    display: flex; align-items: center; gap: 8px;
+    min-width: max-content;
+    padding: 7px 12px 8px 28px;
+    background: #fef6ec; border-top: 1px solid rgba(180,83,9,.20);
+    font-size: 12px; line-height: 17px; color: #b45309;
+  }
+  .vt-inline-warn.is-error {
+    background: var(--destructive-soft);
+    border-top-color: rgba(239,68,68,.20); color: var(--destructive);
+  }
+  .vt-inline-warn svg { width: 13px; height: 13px; flex-shrink: 0; }
+  .vt-inline-fix {
+    flex-shrink: 0; height: 24px; padding: 0 10px;
+    border: 1px solid currentColor; border-radius: 4px;
+    background: var(--card); color: inherit;
+    font-size: 11px; font-weight: 600; cursor: pointer;
+  }
+  .vt-inline-fix:hover { background: currentColor; }
+  .vt-inline-fix:hover span { color: #fff; }
+  .vt-input.is-warn { border-color: rgba(180,83,9,.55); background: #fffbf5; }
+  .vt-jump {
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: inherit; font: inherit; font-weight: 600; text-decoration: underline;
+  }
+  .vt-empty { padding: 20px 12px; text-align: center; font-size: 12px; color: var(--fg-muted); }
+  .inv-off {
+    padding: 14px 12px; font-size: 12px; line-height: 18px; color: var(--fg-muted);
+    background: #fcfbf9; border-top: 1px solid var(--border);
+  }
+
+  /* ── Selling Method ── */
+  .selling-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .toggle-pills { display: inline-flex; background: var(--card); padding: 4px; border-radius: var(--radius); gap: 8px; }
+  .toggle-pill {
+    height: 36px; padding: 0 10px; background: transparent; border: none; border-radius: var(--radius);
+    font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fg-secondary); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .toggle-pill.is-active {
+    background: var(--fg); color: #fff; font-weight: 600;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  }
+  .toggle-pill[disabled] { opacity: .4; cursor: not-allowed; }
+  .toggle-pill[disabled]:hover { background: transparent; }
+  .toggle-pill svg { width: 14px; height: 14px; }
+
+  .pack-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .pack-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
+  .pack-row-label { flex-shrink: 0; font-size: 12px; font-weight: 500; color: var(--fg-secondary); }
+  .pack-select {
+    flex: 1; height: 32px; padding: 0 28px 0 10px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 14px; color: var(--fg);
+    background: var(--card) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23a3a3a3' stroke-width='1.5'><path d='M3 5l4 4 4-4'/></svg>") right 9px center / 13px 13px no-repeat;
+    appearance: none; -webkit-appearance: none;
+  }
+  .pack-config { padding: 10px 12px 12px; border-top: 1px solid var(--border); }
+  .pack-config-label { display: block; font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fg-secondary); margin-bottom: 8px; }
+  .pack-config-label span { font-weight: 400; color: var(--fg-muted); }
+  .pack-inputs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pack-slot { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .pack-num {
+    width: 58px; height: 36px; padding: 0 2px; text-align: center;
+    border: 1px solid var(--pack-line); border-radius: var(--radius);
+    font-size: 14px; font-weight: 400; color: var(--fg); background: var(--pack-fill);
+  }
+  .pack-num:focus { outline: none; border-color: var(--primary); }
+  .pack-slot-label { font-size: 11px; line-height: 15px; color: var(--fg-muted); }
+  .pack-breakdown { padding: 0 12px 12px; }
+  .pack-breakdown-box {
+    padding: 12px 16px; background: var(--pack-fill);
+    border: 1px solid var(--pack-line); border-radius: var(--radius);
+  }
+  .pack-breakdown-title { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--fg); }
+  .pack-breakdown-detail { font-size: 14px; line-height: 20px; font-weight: 400; color: var(--fg-muted); }
+
+  .ship-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 12px; border-top: 1px solid var(--border);
+  }
+  .ship-head-label { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; color: var(--fg-secondary); }
+  .ship-rows { display: flex; flex-direction: column; }
+  .ship-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 7px 12px; border-top: 1px solid var(--border);
+  }
+  .ship-row-label { font-size: 14px; }
+  .stock-field { display: inline-flex; align-items: center; gap: 6px; }
+  .stock-select {
+    height: 32px; width: 92px; flex-shrink: 0; padding: 0 26px 0 10px;
+    border: 1px solid var(--border-input); border-radius: var(--radius);
+    font-size: 12px; color: var(--fg);
+    background: var(--card) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='%236b6b6b' stroke-width='1.5'><path d='M2 4l3 3 3-3'/></svg>") right 8px center / 10px 10px no-repeat;
+    appearance: none; -webkit-appearance: none;
+  }
+  .stock-date { width: 118px; height: 32px; padding: 0 8px; border: 1px solid var(--border-input); border-radius: var(--radius); font-size: 12px; color: var(--fg); background: var(--card); }
+  .pack-view { display: none; }
+  .pack-view.is-active { display: block; }
+  .open-group-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 12px; background: var(--muted); border-top: 1px solid var(--border); }
+  .open-group-value { font-size: 14px; font-weight: 500; }
+  .open-child { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 12px 6px 32px; border-top: 1px solid #faf7f3; }
+  .open-child-label { font-size: 14px; color: var(--fg-secondary); }
+
+  /* ── Linesheets ── */
+  .ls-label { font-size: 12px; line-height: 16px; font-weight: 500; color: var(--fg-secondary); margin: 0 0 8px; }
+  .ls-box { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; background: var(--card); }
+  .ls-row { display: flex; align-items: center; gap: 14px; padding: 7px 0; }
+  .ls-thumb {
+    width: 90px; height: 60px; border-radius: 6px; flex-shrink: 0;
+    background: var(--card) center/cover no-repeat; border: 1px solid var(--border-input);
+  }
+  .ls-thumb.is-empty {
+    border-style: dashed;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9c3bb' stroke-width='1.6' stroke-linecap='round'><rect x='3' y='4' width='18' height='16' rx='2'/><path d='M4 20L20 4'/></svg>");
+    background-size: 22px; background-repeat: no-repeat; background-position: center;
+  }
+  .ls-name { flex: 1; min-width: 0; font-size: 14px; }
+  .ls-status {
+    flex-shrink: 0; padding: 3px 9px; border-radius: 999px;
+    font-size: 10px; line-height: 14px; font-weight: 600; letter-spacing: .4px;
+    /* ACTIVE / INACTIVE 폭을 같게 */
+    display: inline-flex; align-items: center; justify-content: center; min-width: 72px; text-align: center;
+  }
+  .ls-status.is-active { background: var(--success-soft); color: var(--success); }
+  .ls-status.is-inactive { background: var(--primary-soft); color: var(--primary-ink); }
+  .ls-ext { width: 24px; height: 24px; background: none; border: none; border-radius: 4px; color: var(--fg-muted); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+  .ls-ext:hover { background: var(--muted); color: var(--fg); }
+  .ls-ext svg { width: 12px; height: 12px; }
+
+  /* ── Design note ── */
+</style>
+</head>
+<body>
+
+<!-- ══════════ Items list ══════════ -->
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+      <div class="logo">
+        <span class="logo-mark"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 12c3-6 9-9 16-9-2 5-7 8-12 8l-1 5H2z"/></svg></span>
+        <span class="logo-text">shop<em>c</em>ord</span>
+      </div>
+      <nav class="nav">
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Dashboard</div>
+        <div class="nav-item is-active"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1.6l5.5 3v6.8L8 14.4l-5.5-3V4.6z"/><path d="M2.5 4.6L8 7.6l5.5-3"/><path d="M8 7.6v6.8"/></svg>Item</div>
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2.5" width="12" height="11" rx="1.5"/><path d="M6 2.5v11"/></svg>Linesheet</div>
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 3h2l1.6 7.5h6.6L14 5H5"/><circle cx="6.5" cy="13" r="1"/><circle cx="11.5" cy="13" r="1"/></svg>Orders</div>
+        <div class="nav-sep"></div>
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="5.5" r="2.5"/><path d="M1.8 13.5c0-2.3 1.9-3.8 4.2-3.8s4.2 1.5 4.2 3.8"/><path d="M11 4.2a2.4 2.4 0 0 1 0 4.6"/><path d="M12.4 13.5c0-1.5-.5-2.6-1.4-3.3"/></svg>Customers</div>
+        <div class="nav-sep"></div>
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 2.5h10v8H6l-3 2.5z"/></svg>SMS Campaigns</div>
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 3.5h11v7h-6l-3 2.5v-2.5h-2z"/></svg>SMS Chat</div>
+        <div class="nav-sep"></div>
+        <div class="nav-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1.5" y="3.5" width="13" height="9" rx="1.5"/><path d="M1.5 6.5h13"/></svg>Payments</div>
+      </nav>
+      <div class="nav-foot">
+        <div class="nav-account">
+          <span class="nav-avatar"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="2.6"/><path d="M3 13.5c0-2.4 2.2-3.8 5-3.8s5 1.4 5 3.8"/></svg></span>
+          <span class="nav-account-label">My Account</span>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3.5l4.5 4.5L6 12.5"/></svg>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <h1 class="page-title">Items</h1>
+    <p class="page-sub">Manage your items for linesheets</p>
+
+    <div class="tabs">
+      <button class="tab is-active" type="button"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7.5l3 3 5-6"/></svg>All</button>
+      <button class="tab" type="button"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5"/></svg>Active</button>
+      <button class="tab" type="button"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5"/></svg>Inactive</button>
+    </div>
+
+    <div class="list-card">
+      <label class="check"><span class="check-box"></span>Select all</label>
+      <div class="list-toolbar">
+        <div class="toolbar-search">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L13 13"/></svg>
+          <input placeholder="Search by name, tag, style#...">
+        </div>
+        <button class="toolbar-btn" type="button">$ Price range <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5l4 4 4-4"/></svg></button>
+        <button class="toolbar-btn" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>Date range <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5l4 4 4-4"/></svg></button>
+        <button class="toolbar-btn" type="button"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 3v10M4 13l-2-2M12 13V3M12 3l2 2"/></svg>Sort <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5l4 4 4-4"/></svg></button>
+        <button class="toolbar-link" type="button">Clear All</button>
+      </div>
+
+      <div class="items-grid">
+        <div class="item-card">
+          <div class="item-thumb" style="background-image:url('/public/images/shopcord/optimized/Shopcord_item_image_01.webp')"><span class="item-badge">ACTIVE</span></div>
+          <div class="item-body">
+            <div class="item-name">Satin Button-Up Shirt</div>
+            <div class="item-style">BL0004-C L.OLIVE</div>
+            <div class="item-price">Wholesale <b>$25.00</b></div>
+            <div class="item-opts">Color · 4 values</div>
+            <div class="item-chips"><span class="item-chip">IN STOCK</span></div>
+          </div>
+        </div>
+        <div class="item-card">
+          <div class="item-thumb" style="background-image:url('/public/images/shopcord/optimized/Shopcord_item_image_07.webp')"><span class="item-badge">ACTIVE</span></div>
+          <div class="item-body">
+            <div class="item-name">Black Leather Bomber Jacket</div>
+            <div class="item-style">&nbsp;</div>
+            <div class="item-price">Wholesale <b>$79.90</b></div>
+            <div class="item-price">Sale <span class="sale">$39.95</span></div>
+            <div class="item-opts">Color · 1 value<br>Size · 5 values</div>
+            <div class="item-chips"><span class="item-chip">IN STOCK</span></div>
+          </div>
+        </div>
+        <div class="item-card">
+          <div class="item-thumb" style="background-image:url('/public/images/shopcord/optimized/Shopcord_item_image_05.webp')"><span class="item-badge">ACTIVE</span></div>
+          <div class="item-body">
+            <div class="item-name">Rope Belt Barrel Jeans</div>
+            <div class="item-style">3253/300/420</div>
+            <div class="item-price">Wholesale <b>$19.90</b></div>
+            <div class="item-opts">Color · 4 values<br>Size · 3 values</div>
+            <div class="item-chips"><span class="item-chip">IN STOCK</span></div>
+          </div>
+        </div>
+        <div class="item-card">
+          <div class="item-thumb" style="background-image:url('/public/images/shopcord/optimized/Shopcord_item_image_03.webp')"><span class="item-badge">ACTIVE</span></div>
+          <div class="item-body">
+            <div class="item-name">Dark Denim Midi Skirt</div>
+            <div class="item-style">FG-SS25-102</div>
+            <div class="item-price">Wholesale <b id="listWholesale">$21.50</b></div>
+            <div class="item-opts" id="listOptSummary"></div>
+            <div class="item-chips"><span class="item-chip">IN STOCK</span><span class="item-chip is-pre">PRE-ORDER</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="list-foot">Showing <b>1–4</b> of 4</div>
+    </div>
+  </main>
+</div>
+
+<div class="scrim"></div>
+
+<!-- ══════════ Edit Item drawer ══════════ -->
+<div class="drawer" role="dialog" aria-modal="true" aria-label="Edit Item">
+  <div class="drawer-head">
+    <button class="drawer-close" type="button" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg></button>
+    <span class="drawer-title">Edit Item</span>
+    <button class="drawer-expand" type="button" id="drawerExpand" title="Expand" aria-label="Expand drawer">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5H13.5V6.5"/><path d="M6.5 13.5H2.5V9.5"/><path d="M13.5 2.5L9 7"/><path d="M2.5 13.5L7 9"/></svg>
+    </button>
+    <button class="btn btn-secondary" type="button">Cancel</button>
+    <button class="btn btn-primary" type="button">Save</button>
+  </div>
+
+  <div class="drawer-body">
+
+    <!-- Item Info -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Item Info</h2>
+        <span class="info-i" data-tip="This option name will be shown to buyers in the Linesheet Store. Use labels such as Color, Size, or Material."><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 6.5V10"/><circle cx="7" cy="4.2" r=".5" fill="currentColor" stroke="none"/></svg></span>
+      </div>
+      <div class="field status-field">
+        <label class="field-label">Status
+          <span class="missing-badge" id="missingBadge" hidden>MISSING INFO</span>
+        </label>
+        <div class="radio-row">
+          <label class="radio-item"><input type="radio" name="status" id="statusActive" checked><span class="radio-dot"></span><span>Active</span></label>
+          <label class="radio-item"><input type="radio" name="status" id="statusInactive"><span class="radio-dot"></span><span>Inactive</span></label>
+        </div>
+        <div class="status-gate" id="statusGate" hidden></div>
+      </div>
+      <div class="field">
+        <label class="field-label">Item Name</label>
+        <input class="field-input" id="itemName" value="Dark Denim Midi Skirt" placeholder="Enter Item Name (Max. 60 chars.)">
+      </div>
+      <div class="field">
+        <label class="field-label">Style #</label>
+        <input class="field-input" id="itemStyle" value="FG-SS25-102">
+      </div>
+    </section>
+
+    <!-- Prices -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Prices</h2>
+        <span class="section-hint" id="pricesHint">Enter the price for this item</span>
+        <span class="section-spacer"></span>
+      </div>
+
+      <!-- Images -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Images</h2>
+        <span class="section-hint">(Max. 50)</span>
+        <span class="section-spacer"></span>
+      </div>
+      <div class="images-card">
+        <div class="images-grid" id="imagesGrid"></div>
+        <div class="image-dropzone">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9M4 6l4-4 4 4"/><path d="M2 12v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-1"/></svg>
+          Click or Drop
+        </div>
+      </div>
+      <div class="section-hint" style="margin-top:8px">Drag to reorder · hover to preview · ✕ to remove</div>
+    </section>
+
+    <!-- Options (Max. 3) -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Options</h2>
+        <span class="section-hint">(Max. 3)</span>
+        <span class="section-spacer"></span>
+      </div>
+      <div class="opt-list" id="optsList"></div>
+      <button class="add-option-btn" type="button" id="addOptionBtn">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M7 2.5v9M2.5 7h9"/></svg>
+        <span id="addOptionLabel">Add Option</span>
+      </button>
+    </section>
+
+    <!-- No options → price lives here (same as today) -->
+      <div class="field-row" id="pricesFields">
+        <div>
+          <label class="field-label">Wholesale Price <span class="field-required">*</span></label>
+          <div class="money"><input class="field-input" id="baseWs" value="59.00" placeholder="0.00"></div>
+        </div>
+        <div>
+          <label class="field-label">Sale Price</label>
+          <div class="money"><input class="field-input" id="baseSale" value="51.00" placeholder="0.00"></div>
+        </div>
+        <div>
+          <label class="field-label">MSRP</label>
+          <div class="money"><input class="field-input" id="baseMsrp" value="79.00" placeholder="0.00"></div>
+        </div>
+      </div>
+
+      <p class="price-hint" id="pricesHint2" hidden>
+        This amount covers everything you sell. If a pack or a size needs its own price,
+        set it under <b>Selling Method</b> below — that is where the buyer's actual price comes from.
+      </p>
+    </section>
+
+    <!-- Selling Method — the sellable unit lives here, so price / stock / ship date do too -->
+    <section class="section">
+      <div class="selling-head">
+        <h2 class="section-title">Selling Method</h2>
+        <span class="section-spacer"></span>
+        <div class="toggle-pills" role="tablist" id="sellingToggle">
+          <button class="toggle-pill is-active" type="button" data-view="pre-pack"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8l3 3 6-6"/></svg>Pre Pack</button>
+          <button class="toggle-pill" type="button" data-view="open-pack">Open Pack</button>
+        </div>
+      </div>
+
+      <!-- Pre Pack: how one pack is built -->
+      <div class="pack-view is-active" data-view="pre-pack">
+        <div class="pack-card">
+          <div class="pack-row">
+            <span class="pack-row-label">Pack by</span>
+            <select class="pack-select" id="prePackBy"></select>
+          </div>
+          <div class="pack-config">
+            <label class="pack-config-label">Pack Configuration <span id="prePackChildLabel"></span></label>
+            <div id="prePackInputs"></div>
+          </div>
+          <div class="pack-breakdown">
+            <div class="pack-breakdown-box">
+              <div class="pack-breakdown-title" id="prePackTotal">Pack Breakdown · 0pcs / Pack</div>
+              <div class="pack-breakdown-detail" id="prePackDetail">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open Pack: which axis the buyer sees grouped -->
+      <div class="pack-view" data-view="open-pack">
+        <div class="pack-card">
+          <div class="pack-row">
+            <span class="pack-row-label">Group by</span>
+            <select class="pack-select" id="openGroupBy"></select>
+          </div>
+        </div>
+      </div>
+
+      <!-- One table. Rows = whatever the buyer actually buys. -->
+      <div class="sell-table-head">
+        <h3 class="sell-table-title" id="sellTableTitle">Packs</h3>
+        <span class="section-hint" id="variantCount"></span>
+        <span class="section-spacer"></span>
+        <label class="switch" title="Turn on to count stock for each row">
+          <input type="checkbox" id="invToggle">
+          <span class="switch-track"></span>
+          <span class="switch-label">Track inventory</span>
+        </label>
+      </div>
+
+      <div class="vt-card" id="sellTableCard">
+        <div class="vt-scroll">
+        <div class="vt-sticky">
+        <div class="vt-colhead">
+          <span class="vt-name" id="vtAllLabel">All packs </span>
+          <span class="vt-col vt-col-price" id="vtPriceColLabel">PACK PRICE</span>
+          <span class="vt-col vt-col-unit">UNIT PRICE</span>
+          <span class="vt-col vt-col-qty" hidden>QTY</span>
+          <span class="vt-col vt-col-ship">EST. SHIP DATE<span class="info-i" data-tip="Estimated Date this item will leave your warehouse."><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 6.5V10"/><circle cx="7" cy="4.2" r=".5" fill="currentColor" stroke="none"/></svg></span></span>
+        </div>
+        <div class="vt-fillrow" id="vtFillAll"></div>
+        </div>
+        <div id="vtBody"></div>
+        </div>
+        <div id="vtErrors"></div>
+        <div class="vt-note" id="vtNote"></div>
+      </div>
+    </section>
+
+
+    <!-- Information for Buyer -->
+    <section class="section">
+      <div class="section-head"><h2 class="section-title">Information for Buyer</h2></div>
+      <div class="field">
+        <label class="field-label">Attribute</label>
+        <textarea class="field-textarea" id="infoAttribute" placeholder="e.g. MADE FROM PREMIUM COTTON. 60% COTTON, 40% POLYESTER"></textarea>
+      </div>
+    </section>
+
+    <!-- Information for Vendor -->
+    <section class="section">
+      <div class="internal-only">
+      <div class="section-head"><h2 class="section-title">Information for Vendor</h2></div>
+      <div class="field">
+        <label class="field-label">Internal Tag
+          <span class="info-i" data-tip="Custom labels for filtering and organizing your items"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 6.5V10"/><circle cx="7" cy="4.2" r=".5" fill="currentColor" stroke="none"/></svg></span>
+          <span class="opt-field-hint">(Max. 20 chars per tag, Total 20 tags)</span>
+        </label>
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L13 13"/></svg>
+          <input class="field-input" id="infoTag" placeholder="e.g., FW26, New, Tops, Tee, Unisex, Oversized, Single, Pre-Order, Cotton, Y2K">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label">Internal Note</label>
+        <textarea class="field-textarea" id="infoNote" placeholder="Notes visible only to you and your team..."></textarea>
+      </div>
+      </div>
+    </section>
+
+    <!-- Linesheets -->
+    <section class="section">
+      <p class="ls-label">Linesheets</p>
+      <div class="ls-box">
+      <div class="ls-row">
+        <div class="ls-thumb" style="background-image:url('https://images.unsplash.com/photo-1445205170230-053b83016050?w=100&q=60')"></div>
+        <span class="ls-name">[SODA Fashion] F/W 2026</span>
+        <span class="ls-status is-active">ACTIVE</span>
+        <button class="ls-ext" type="button" aria-label="Open"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6v6"/><path d="M10 2L5 7"/><path d="M8.5 9.5H3V3.5"/></svg></button>
+      </div>
+      <div class="ls-row">
+        <div class="ls-thumb is-empty"></div>
+        <span class="ls-name">2026 F/W NEW ARRIVALS</span>
+        <span class="ls-status is-inactive">INACTIVE</span>
+        <button class="ls-ext" type="button" aria-label="Open"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6v6"/><path d="M10 2L5 7"/><path d="M8.5 9.5H3V3.5"/></svg></button>
+      </div>
+      <div class="ls-row">
+        <div class="ls-thumb is-empty"></div>
+        <span class="ls-name">test2</span>
+        <span class="ls-status is-inactive">INACTIVE</span>
+        <button class="ls-ext" type="button" aria-label="Open"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2h6v6"/><path d="M10 2L5 7"/><path d="M8.5 9.5H3V3.5"/></svg></button>
+      </div>
+      </div>
+    </section>
+
+
+  </div>
+</div>
+
+<div class="image-hover-preview" id="imgPreview"></div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var MAX_OPTIONS = 3;
+  var FIELDS = ['ws', 'sale', 'msrp', 'qty'];
+
+  var PRESETS = {
+    Size: { sub: [
+      { label: 'Letter (XS-XXL)', values: ['XS','S','M','L','XL','XXL'] },
+      { label: 'Numeric (0-16)',  values: ['0','2','4','6','8','10','12','14','16'] },
+      { label: 'Waist (26"-36")', values: ['26','28','30','32','34','36'] }
+    ]},
+    Color: { sub: [
+      { label: 'Neutrals',      values: ['Black','White','Beige','Gray','Cream','Camel'] },
+      { label: 'Basic palette', values: ['Black','White','Red','Blue','Green','Navy','Pink'] },
+      { label: 'Denim washes',  values: ['Indigo','Light wash','Dark wash','Black','White'] }
+    ]},
+    Material: { sub: [
+      { label: 'Metals',  values: ['Gold','Silver','Rose Gold','Sterling Silver','Stainless Steel'] },
+      { label: 'Fabrics', values: ['Cotton','Linen','Silk','Wool','Denim','Polyester'] }
+    ]},
+    Length: { sub: [
+      { label: 'Chain (in)', values: ['14"','16"','18"','20"','24"'] },
+      { label: 'Sleeve',     values: ['Short','3/4','Long'] }
+    ]},
+    Style: { sub: [] }
+  };
+  var PRESET_ORDER = ['Size', 'Color', 'Material', 'Length', 'Style'];
+
+  var IMG = [
+    /* Monica's photo for the item being edited (same file as buyer product FG-SS25-102 and the matching list card) */
+    '/public/images/shopcord/optimized/Shopcord_item_image_03.webp'
+  ];
+
+  /* ── State ── */
+  var state = {
+    options: [
+      { name: 'Color', values: ['Navy','Sage','Terracotta','Sand'], preset: '', sub: -1 },
+      { name: 'Size',  values: ['XS','S','M','L','XL'],            preset: '', sub: -1 }
+    ],
+    cells: {},        // "Burgundy|S" -> {ws,sale,msrp,qty}
+    packQty: {},      // "S|Cotton"  -> qty
+    ship: {},         // scoped key  -> {stock,date}
+    sellingMethod: 'pre-pack',
+    ratioBy: 0, ratioByTouched: false, openGroupBy: 0,
+    inventory: false
+  };
+  var imagesApi = {};   // get/set the image tiles, filled in by the images closure below
+
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function txt(parent, tag, cls, text) {
+    var n = el(tag, cls); n.textContent = text; parent.appendChild(n); return n;
+  }
+  var ICON_X = '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg>';
+  /* ══════════ 툴팁 ══════════ */
+  (function tooltips() {
+    var tip = document.getElementById('tip'), GAP = 10, EDGE = 8;
+    function show(icon) {
+      var text = icon.getAttribute('data-tip'); if (!text) return;
+      tip.textContent = text;
+      tip.style.left = '0px'; tip.style.top = '0px';
+      tip.classList.add('is-visible');
+      var r = icon.getBoundingClientRect(), t = tip.getBoundingClientRect();
+      var side = 'right', left = r.right + GAP;
+      if (left + t.width > window.innerWidth - EDGE) { side = 'left'; left = r.left - GAP - t.width; }
+      var mid = r.top + r.height / 2;
+      var top = Math.min(window.innerHeight - t.height - EDGE, Math.max(EDGE, mid - t.height / 2));
+      tip.dataset.side = side;
+      tip.style.left = Math.max(EDGE, left) + 'px';
+      tip.style.top = top + 'px';
+      tip.style.setProperty('--caret-y', Math.round(mid - top - 7) + 'px');
+    }
+    function hide() { tip.classList.remove('is-visible'); }
+    document.addEventListener('mouseover', function (e) {
+      var icon = e.target.closest ? e.target.closest('.info-i[data-tip]') : null;
+      if (icon) show(icon);
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest && e.target.closest('.info-i[data-tip]')) hide();
+    });
+    document.querySelector('.drawer-body').addEventListener('scroll', hide);
+  })();
+
+  var ICON_INFO = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 6.5V10"/><circle cx="7" cy="4.2" r=".5" fill="currentColor" stroke="none"/></svg>';
+
+  function liveOptions() {
+    return state.options
+      .map(function (o, i) { return { name: (o.name || '').trim(), values: o.values.slice(), idx: i }; })
+      .filter(function (o) { return o.name && o.values.length; });
+  }
+  function axisLabel(o) { return 'Option ' + (o.idx + 1) + '. ' + o.name; }
+  function combos(axes) {
+    if (!axes.length) return [];
+    return axes.reduce(function (acc, ax) {
+      var out = [];
+      acc.forEach(function (row) { ax.values.forEach(function (v) { out.push(row.concat([v])); }); });
+      return out;
+    }, [[]]);
+  }
+  var join = function (a) { return a.join('|'); };
+
+  /* ══════════ Images ══════════ */
+  (function images() {
+    var grid = $('imagesGrid');
+    var preview = $('imgPreview');
+    var dragged = null;
+
+    IMG.forEach(function (src) { grid.appendChild(makeTile(src)); });
+
+    function makeTile(src) {
+      var t = el('div', 'image-tile');
+      t.style.backgroundImage = 'url(' + src + ')';
+      t.dataset.src = src;
+      t.draggable = true;
+      var rm = el('button', 'image-tile-remove', ICON_X);
+      rm.type = 'button'; rm.setAttribute('aria-label', 'Remove image');
+      rm.addEventListener('click', function (e) {
+        e.stopPropagation();
+        t.remove(); hidePreview();
+      });
+      t.appendChild(rm);
+      return t;
+    }
+    function hidePreview() { preview.classList.remove('is-visible'); }
+
+    grid.addEventListener('mouseover', function (e) {
+      var t = e.target.closest('.image-tile');
+      if (!t || dragged) return;
+      var r = t.getBoundingClientRect();
+      var drawerLeft = document.querySelector('.drawer').getBoundingClientRect().left;
+      preview.style.backgroundImage = 'url(' + t.dataset.src + ')';
+      preview.style.left = Math.max(8, drawerLeft - 158) + 'px';
+      preview.style.top = Math.min(window.innerHeight - 210, Math.max(8, r.top - 20)) + 'px';
+      preview.classList.add('is-visible');
+    });
+    grid.addEventListener('mouseleave', hidePreview);
+    grid.addEventListener('scroll', hidePreview);
+    document.querySelector('.drawer-body').addEventListener('scroll', hidePreview);
+
+    grid.addEventListener('dragstart', function (e) {
+      var t = e.target.closest('.image-tile');
+      if (!t) return;
+      dragged = t; hidePreview();
+      t.classList.add('is-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    grid.addEventListener('dragend', function () {
+      if (dragged) dragged.classList.remove('is-dragging');
+      dragged = null; clearMarkers();
+    });
+    function clearMarkers() {
+      grid.querySelectorAll('.image-tile').forEach(function (t) {
+        t.classList.remove('is-drop-before', 'is-drop-after');
+      });
+    }
+    grid.addEventListener('dragover', function (e) {
+      if (!dragged) return;
+      e.preventDefault();
+      var over = e.target.closest('.image-tile');
+      clearMarkers();
+      if (!over || over === dragged) return;
+      var r = over.getBoundingClientRect();
+      over.classList.add(e.clientX < r.left + r.width / 2 ? 'is-drop-before' : 'is-drop-after');
+    });
+    grid.addEventListener('drop', function (e) {
+      if (!dragged) return;
+      e.preventDefault();
+      var over = e.target.closest('.image-tile');
+      if (over && over !== dragged) {
+        var r = over.getBoundingClientRect();
+        if (e.clientX < r.left + r.width / 2) grid.insertBefore(dragged, over);
+        else grid.insertBefore(dragged, over.nextSibling);
+      }
+      clearMarkers();
+    });
+    imagesApi.get = function () { return Array.prototype.map.call(grid.querySelectorAll('.image-tile'), function (t) { return t.dataset.src; }); };
+    imagesApi.set = function (list) { grid.querySelectorAll('.image-tile').forEach(function (t) { t.remove(); }); list.forEach(function (src) { grid.appendChild(makeTile(src)); }); hidePreview(); };
+  })();
+
+  /* ══════════ Options ══════════ */
+  function renderOptions() {
+    var list = $('optsList');
+    list.innerHTML = '';
+
+    state.options.forEach(function (opt, i) {
+      var row = el('div', 'opt-row');
+
+      var head = el('div', 'opt-row-head',
+        '<span class="opt-row-head-title">Option ' + (i + 1) + '</span>' +
+        '<span class="opt-row-head-chev"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l4-4 4 4"/></svg></span>');
+      head.addEventListener('click', function () { row.classList.toggle('is-collapsed'); });
+      row.appendChild(head);
+
+      var body = el('div', 'opt-row-body');
+      var fields = el('div', 'opt-fields',
+        '<div class="opt-field-block">' +
+          '<label class="opt-field-label">Option Name <span class="info-i" data-tip="(Max. 15 chars.) This option name will be shown to buyers in the Linesheet Store. Use labels such as Color, Size, or Material.">' + ICON_INFO + '</span></label>' +
+          '<input type="text" maxlength="15" class="opt-input opt-name-input" placeholder="e.g. Size">' +
+        '</div>' +
+        '<div class="opt-field-block">' +
+          '<label class="opt-field-label">Option Value <span class="info-i" data-tip="(Max. 15 chars.) Enter the selectable values for this option, such as Black, Ivory, S, M, or L.">' + ICON_INFO + '</span><span class="opt-field-hint">(Max. 30)</span></label>' +
+          '<div class="opt-value-wrap">' +
+            '<input type="text" maxlength="15" class="opt-input opt-value-add" placeholder="+ Add Value">' +
+            '<span class="opt-enter"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v3a2 2 0 0 1-2 2H4"/><path d="M6 7L3 9l3 2"/></svg></span>' +
+          '</div>' +
+        '</div>');
+      body.appendChild(fields);
+
+      var nameInput = fields.querySelector('.opt-name-input');
+      nameInput.value = opt.name;
+      nameInput.addEventListener('input', function () { opt.name = nameInput.value; renderDerived(); });
+
+      var chips = el('div', 'opt-values');
+      opt.values.forEach(function (v, vi) {
+        var chip = el('span', 'opt-value-chip',
+          '<span class="opt-value-text"></span><button class="opt-value-remove" type="button" aria-label="Remove value">' + ICON_X + '</button>');
+        chip.querySelector('.opt-value-text').textContent = v;
+        chip.querySelector('.opt-value-remove').addEventListener('click', function () {
+          opt.values.splice(vi, 1); renderOptions(); renderDerived();
+        });
+        chips.appendChild(chip);
+      });
+      body.appendChild(chips);
+
+      var addInput = fields.querySelector('.opt-value-add');
+      addInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && addInput.value.trim()) {
+          e.preventDefault();
+          opt.values.push(addInput.value.trim());
+          renderOptions(); renderDerived();
+          var r = list.querySelectorAll('.opt-row')[i];
+          if (r) r.querySelector('.opt-value-add').focus();
+        } else if (e.key === 'Backspace' && !addInput.value && opt.values.length) {
+          e.preventDefault();
+          opt.values.pop(); renderOptions(); renderDerived();
+        }
+      });
+
+      /* Quick pick */
+      var qp = el('div', 'quick-pick',
+        '<div class="quick-pick-label"><span class="quick-pick-label-icon"><svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.6 3.7L12.5 5 9.7 7.8l.7 4L7 9.8l-3.4 2 .7-4L1.5 5l3.9-.3L7 1z"/></svg></span>Quick pick — click to prefill</div>' +
+        '<div class="quick-pick-row"></div><div class="sub-picker"></div>');
+      var qpRow = qp.querySelector('.quick-pick-row');
+      PRESET_ORDER.forEach(function (name) {
+        var chip = el('button', 'quick-chip' + (opt.preset === name ? ' is-active' : ''));
+        chip.type = 'button'; chip.textContent = name;
+        chip.addEventListener('click', function () { selectPreset(i, name); });
+        qpRow.appendChild(chip);
+      });
+      var sub = qp.querySelector('.sub-picker');
+      var preset = PRESETS[opt.preset];
+      if (preset && preset.sub.length) {
+        sub.classList.add('is-open');
+        txt(sub, 'span', 'sub-picker-label', 'Prefill values:');
+        preset.sub.forEach(function (entry, si) {
+          var c = el('button', 'sub-chip' + (opt.sub === si ? ' is-applied' : ''));
+          c.type = 'button'; c.textContent = entry.label;
+          c.addEventListener('click', function () { applyPreset(i, si); });
+          sub.appendChild(c);
+        });
+      }
+      body.appendChild(qp);
+      row.appendChild(body);
+
+      var actions = el('div', 'opt-row-actions',
+        '<button class="opt-row-delete" type="button" aria-label="Delete option"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10M6 4V2.5h4V4M4.5 4l.5 9h6l.5-9M6.5 7v4M9.5 7v4"/></svg></button>');
+      actions.querySelector('.opt-row-delete').addEventListener('click', function () {
+        state.options.splice(i, 1); renderOptions(); renderDerived();
+      });
+      row.appendChild(actions);
+
+      list.appendChild(row);
+    });
+
+    var full = state.options.length >= MAX_OPTIONS;
+    $('addOptionBtn').disabled = full;
+    $('addOptionLabel').textContent = full ? 'Max. 3 options reached' : 'Add Option';
+  }
+
+  /* Clicking a name chip: fill the name; auto-apply first value set only when
+     it is a NEW preset, so a vendor's own edits survive a re-click. */
+  function selectPreset(optIdx, name) {
+    var opt = state.options[optIdx];
+    var isSame = opt.preset === name;
+    opt.preset = name;
+    opt.name = name;
+    var p = PRESETS[name];
+    if (!isSame) {
+      if (p && p.sub.length) { opt.values = p.sub[0].values.slice(); opt.sub = 0; }
+      else { opt.values = []; opt.sub = -1; }
+    }
+    renderOptions(); renderDerived();
+  }
+  function applyPreset(optIdx, subIdx) {
+    var opt = state.options[optIdx];
+    var p = PRESETS[opt.preset];
+    if (!p || !p.sub[subIdx]) return;
+    opt.values = p.sub[subIdx].values.slice();
+    opt.sub = subIdx;
+    renderOptions(); renderDerived();
+  }
+
+  $('addOptionBtn').addEventListener('click', function () {
+    if (state.options.length >= MAX_OPTIONS) return;
+    state.options.push({ name: '', values: [], preset: '', sub: -1 });
+    renderOptions(); renderDerived();
+  });
+
+  /* ══════════ The sell table ══════════
+     One table whose rows are whatever the buyer actually buys:
+       Pre Pack  -> one row per pack  (each value of the Pack By axis)
+       Open Pack -> one row per variant, grouped by the Group by axis
+     Price, stock and ship date all hang off that row.                        */
+
+  function cell(k) {
+    if (!state.cells[k]) state.cells[k] = { ws: '', sale: '', msrp: '', qty: '' };
+    return state.cells[k];
+  }
+  function hasOptions() { return liveOptions().length > 0; }
+  /* The top Prices fields stay editable at all times. A blank row cell falls
+     back to them; a filled one overrides. */
+  function baseVal(f) {
+    if (f === 'qty') return '';
+    return ({ ws: $('baseWs'), sale: $('baseSale'), msrp: $('baseMsrp') })[f].value.trim();
+  }
+  function isPrePack() { return state.sellingMethod === 'pre-pack'; }
+
+  /* Which axis is mixed inside one box, and which axes make separate boxes. */
+  function ratioAxis() {
+    var axes = liveOptions();
+    if (!axes.length) return null;
+    if (!state.ratioByTouched) state.ratioBy = autoRatioAxis();
+    if (state.ratioBy >= axes.length) state.ratioBy = 0;
+    return axes[state.ratioBy];
+  }
+  function packAxes() {
+    var axes = liveOptions();
+    if (!state.ratioByTouched) state.ratioBy = autoRatioAxis();
+    if (state.ratioBy >= axes.length) state.ratioBy = 0;
+    return axes.filter(function (_, i) { return i !== state.ratioBy; });
+  }
+
+  /* Default guess for the ratio axis. Only a default — the vendor can change it,
+     and unlike Faire we allow any axis (Length, Material, ...), not just Size. */
+  var SIZE_NAME = /^(size|sizes|sizing|sz|사이즈|싸이즈)$/i;
+  var SIZE_VALUE = /^(xxxs|xxs|xs|s|m|l|xl|xxl|xxxl|[2-5]xl)$/i;
+  function sizeScore(axis) {
+    if (SIZE_NAME.test(axis.name.replace(/\s+/g, ''))) return 3;
+    var letters = axis.values.filter(function (v) { return SIZE_VALUE.test(v.trim()); }).length;
+    if (letters >= 2) return 2;
+    var nums = axis.values.filter(function (v) { return /^\d+(\.\d+)?["']?$/.test(v.trim()); }).length;
+    if (nums >= 3 && nums === axis.values.length) return 1;
+    return 0;
+  }
+  function autoRatioAxis() {
+    var axes = liveOptions(), best = 0, bestScore = -1;
+    axes.forEach(function (a, i) {
+      var sc = sizeScore(a);
+      /* tie-break on value count — the ratio axis usually has the most values */
+      if (sc > bestScore || (sc === bestScore && a.values.length > axes[best].values.length)) {
+        bestScore = sc; best = i;
+      }
+    });
+    return best;
+  }
+  function unitWord(plural) {
+    return isPrePack() ? (plural ? 'packs' : 'pack') : (plural ? 'variants' : 'variant');
+  }
+  function activeFields() {
+    /* Price is always editable — leaving a cell blank simply inherits the item
+       price, so an always-on column costs nothing and stays discoverable.
+       Inventory is a MODE (it changes sell-out behaviour), so it stays opt-in. */
+    return state.inventory ? ['ws', 'qty'] : ['ws'];
+  }
+  /* Pieces in one pack — a Pre Pack row is priced as the whole pack. */
+  function packPcs() {
+    var m = /(\d+)pcs/.exec($('prePackTotal').textContent);
+    var n = m ? parseInt(m[1], 10) : 0;
+    return n > 0 ? n : 1;
+  }
+  /* What a blank row inherits: per unit for Open Pack, per pack for Pre Pack. */
+  /* 행이 물려받는 값은 한 곳에서 정한다 — Sale Price가 있으면 그것, 없으면 WS.
+     라벨(`WS` / `Sale Price`)과 placeholder가 같은 출처를 쓰게 하려는 것. */
+  function baseSource() {
+    var sale = parseFloat(baseVal('sale') || '');
+    if (!isNaN(sale)) return { label: 'Sale Price', value: sale };
+    var ws = parseFloat(baseVal('ws') || '');
+    return { label: 'WS', value: isNaN(ws) ? NaN : ws };
+  }
+  function rowBase() {
+    var b = baseSource().value;
+    if (isNaN(b)) return '';
+    return (isPrePack() ? b * packPcs() : b).toFixed(2);
+  }
+  function perUnitText(value) {
+    var v = parseFloat(value || rowBase() || '');
+    if (isNaN(v)) return '';
+    return '$' + (v / packPcs()).toFixed(2);
+  }
+
+  /* 금액은 포커스를 떠날 때 소수점 2자리로 맞춘다 — 18 → 18.00 */
+  function money2(input, after) {
+    input.addEventListener('blur', function () {
+      var v = input.value.trim();
+      if (!v) return;
+      var n = parseFloat(v.replace(/[^0-9.]/g, ''));
+      if (isNaN(n)) return;
+      var fixed = n.toFixed(2);
+      if (fixed === input.value) return;
+      input.value = fixed;
+      if (after) after(fixed);
+    });
+  }
+
+  function makeCell(field, get, set, onInput) {
+    var wrap = el('span', 'vt-cell' + (field === 'qty' ? '' : ' is-money'));
+    var input = el('input', 'vt-input');
+    input.type = 'text';
+    input.inputMode = field === 'qty' ? 'numeric' : 'decimal';
+    input.placeholder = field === 'qty' ? '0' : (rowBase() || '0.00');
+    input.value = get();
+    input.classList.toggle('is-set', !!input.value);
+    input.addEventListener('input', function () {
+      var v = input.value.trim();
+      if (field === 'qty') { v = v.replace(/[^0-9]/g, ''); input.value = v; }
+      set(v);
+      input.classList.toggle('is-set', !!v);
+      if (onInput) onInput();
+      validate();
+    });
+    input.addEventListener('keydown', columnTab);
+    if (field !== 'qty') {
+      money2(input, function (v) { set(v); if (onInput) onInput(); validate(); });
+    }
+    wrap.appendChild(input);
+    return wrap;
+  }
+
+  /* Stock / preorder date, stored per row key */
+  /* 상태는 언제나 벤더가 고를 수 있다. 재고를 켜면 수량이 기본값을 정하되,
+     직접 고른 행은 그 선택을 지킨다 — 재고가 있어도 예약 물량이라 Preorder로 팔거나,
+     0인데 입고 예정이라 In Stock으로 두는 경우가 있다. */
+  function shipField(k, qtyKey) {
+    var wrap = el('span', 'vt-cell-ship');
+    var st = state.ship[k] || (state.ship[k] = { stock: 'In Stock', date: '', touched: false });
+
+    if (state.inventory && qtyKey) {
+      wrap.dataset.shipFor = qtyKey;
+      wrap.dataset.shipKey = k;
+      if (!st.touched) {
+        var q = parseInt(cell(qtyKey).qty || '0', 10);
+        st.stock = q > 0 ? 'In Stock' : 'Preorder';
+      }
+    }
+
+    var span = el('span', 'stock-field');
+    var sel = el('select', 'stock-select', '<option>In Stock</option><option>Preorder</option>');
+    sel.value = st.stock;
+    var date = el('input', 'stock-date');
+    date.type = 'text'; date.placeholder = 'MM/DD/YYYY'; date.value = st.date;
+    date.style.display = st.stock === 'Preorder' ? '' : 'none';
+    sel.addEventListener('change', function () {
+      st.stock = sel.value; st.touched = true;
+      date.style.display = st.stock === 'Preorder' ? '' : 'none';
+    });
+    date.addEventListener('input', function () { st.date = date.value; });
+    span.appendChild(sel); span.appendChild(date);
+    wrap.appendChild(span);
+    return wrap;
+  }
+
+  /* Redraw only the computed stock cells after a quantity edit. */
+  function refreshShipCells() {
+    if (!state.inventory) return;
+    document.querySelectorAll('#vtBody .vt-cell-ship[data-ship-for]').forEach(function (wrap) {
+      wrap.innerHTML = '';
+      wrap.appendChild(shipField(wrap.dataset.shipKey, wrap.dataset.shipFor).firstChild);
+    });
+  }
+
+  /* Rows for the current selling method. Keys are stable so switching
+     Pre <-> Open Pack never clobbers what the vendor already typed. */
+  function sellRows() {
+    var axes = liveOptions();
+    if (!axes.length) return { groups: [], total: 0 };
+
+    if (isPrePack()) {
+      /* The ratio axis lives INSIDE the box. Every other axis makes a
+         different box, so those are the rows. */
+      var rest = packAxes();
+      if (!rest.length) {
+        return { groups: [{ head: null, rows: [{ key: 'pack:*', label: 'Pack' }] }], total: 1 };
+      }
+      /* key needs every value so it stays unique; the label drops the group
+         value because the group header right above already shows it */
+      var mk = function (keyVals, labelVals) {
+        return {
+          key: 'pack:' + keyVals.join('|'),
+          label: (labelVals || keyVals).join(' \u00b7 ')
+        };
+      };
+      if (rest.length === 1) {
+        var flat = rest[0].values.map(function (v) { return mk([v]); });
+        return { groups: [{ head: null, rows: flat }], total: flat.length };
+      }
+      /* 2+ distinguishing axes -> group by the first so the list stays scannable */
+      var head = rest[0], tail = rest.slice(1), tailCombos = combos(tail);
+      var groups = head.values.map(function (hv) {
+        return {
+          head: { key: 'grp:' + hv, label: hv },
+          rows: tailCombos.map(function (tv) { return mk([hv].concat(tv), tv); })
+        };
+      });
+      return { groups: groups, total: head.values.length * tailCombos.length };
+    }
+
+    if (state.openGroupBy >= axes.length) state.openGroupBy = 0;
+    var p = axes[state.openGroupBy];
+    var rest = axes.filter(function (_, i) { return i !== state.openGroupBy; });
+    var restCombos = rest.length ? combos(rest) : [[]];
+    var groups = p.values.map(function (pv) {
+      return {
+        head: { key: 'grp:' + p.idx + ':' + pv, label: pv },
+        rows: restCombos.map(function (rv) {
+          var map = {}; map[p.idx] = pv;
+          rest.forEach(function (a, i) { map[a.idx] = rv[i]; });
+          return {
+            key: join(axes.map(function (a) { return map[a.idx]; })),
+            label: rv.length ? rv.join(' · ') : pv
+          };
+        })
+      };
+    });
+    return { groups: groups, total: p.values.length * restCombos.length };
+  }
+
+  function renderSellTable() {
+    var body = $('vtBody'), fill = $('vtFillAll');
+    body.innerHTML = ''; fill.innerHTML = ''; $('vtErrors').innerHTML = '';
+
+    document.querySelectorAll('.vt-col-unit').forEach(function (n) { n.hidden = !isPrePack(); });
+    document.querySelectorAll('.vt-col-qty').forEach(function (n) { n.hidden = !state.inventory; });
+    $('vtPriceColLabel').textContent = isPrePack() ? 'PACK PRICE' : 'UNIT PRICE';
+
+    $('sellTableTitle').textContent = isPrePack() ? 'Packs' : 'Variants';
+    $('vtAllLabel').childNodes[0].nodeValue = isPrePack() ? 'All packs ' : 'All variants ';
+
+    var model = sellRows();
+    $('variantCount').textContent = model.total
+      ? '(' + model.total + ' ' + unitWord(model.total !== 1) + ')' : '';
+
+    if (!model.total) {
+      body.appendChild(el('div', 'vt-empty', 'Add an option with at least one value first.'));
+      syncOptInButtons();
+      renderPrices(0, 0);
+      return;
+    }
+
+    var allKeys = [];
+    model.groups.forEach(function (g) { g.rows.forEach(function (r) { allKeys.push(r.key); }); });
+
+    /* Apply-to-all row */
+    txt(fill, 'span', 'vt-row-label', 'Apply to all ' + unitWord(true))
+      .style.color = 'var(--fg-secondary)';
+    activeFields().forEach(function (f) {
+      /* No bulk price here — the Prices field above already sets every row, and
+         two "set everything" controls in different units invites unit mistakes. */
+      if (f === 'ws') {
+        /* 비어 있던 자리에 모든 행이 물려받는 기준값을 적는다 */
+        var src = baseSource(), b = src.value, pcs = packPcs();
+        var spacer = el('span', 'vt-cell vt-cell-spacer vt-base');
+        spacer.style.width = '78px';
+        spacer.textContent = isNaN(b) ? '\u2014' : src.label + ' $' + ((isPrePack() ? b * pcs : b)).toFixed(2);
+        fill.appendChild(spacer);
+        if (isPrePack()) {
+          var bu = el('span', 'vt-cell-unit');
+          bu.textContent = isNaN(b) ? '' : '$' + b.toFixed(2);
+          fill.appendChild(bu);
+        }
+        return;
+      }
+      fill.appendChild(bulkCell(f, function (v) {
+        allKeys.forEach(function (k) { cell(k)[f] = v; });
+      }));
+    });
+    fill.appendChild(shipField('all'));
+
+    model.groups.forEach(function (g) {
+      if (g.head) {
+        var head = el('div', 'vt-group-head');
+        txt(head, 'span', 'vt-group-name', g.head.label);
+        var keys = g.rows.map(function (r) { return r.key; });
+        activeFields().forEach(function (f) {
+          head.appendChild(bulkCell(f, function (v) {
+            keys.forEach(function (k) { cell(k)[f] = v; });
+          }));
+          if (f === 'ws' && isPrePack()) head.appendChild(el('span', 'vt-cell-unit'));
+        });
+        head.appendChild(shipField(g.head.key));
+        body.appendChild(head);
+      }
+      var rows = el('div', 'vt-rows');
+      g.rows.forEach(function (r) {
+        var row = el('div', 'vt-row');
+        if (!g.head) row.style.paddingLeft = '12px';
+        row.dataset.vkey = r.key;
+        txt(row, 'span', 'vt-row-label', r.label);
+        activeFields().forEach(function (f) {
+          row.appendChild(makeCell(f,
+            function () { return cell(r.key)[f]; },
+            function (v) { cell(r.key)[f] = v; },
+            function () { refreshUnitCells(); refreshShipCells(); }));
+          if (f === 'ws' && isPrePack()) {
+            var u = el('span', 'vt-cell-unit');
+            u.dataset.unitFor = r.key;
+            row.appendChild(u);
+          }
+        });
+        row.appendChild(shipField(r.key, r.key));
+        rows.appendChild(row);
+      });
+      body.appendChild(rows);
+    });
+
+    syncOptInButtons();
+    refreshUnitCells();
+    refreshShipCells();
+    validate();
+  }
+
+  /* Filling a price column top-to-bottom is the real task, so Tab walks down
+     the same column instead of across the row. */
+  function columnTab(e) {
+    if (e.key !== 'Tab') return;
+    var cell = e.target.closest('.vt-cell');
+    var row = e.target.closest('.vt-row');
+    if (!cell || !row) return;
+    var col = [].indexOf.call(row.querySelectorAll('.vt-cell'), cell);
+    var rows = [].slice.call(document.querySelectorAll('#vtBody .vt-row'));
+    var next = rows[rows.indexOf(row) + (e.shiftKey ? -1 : 1)];
+    if (!next) return;                       /* let focus leave the table */
+    var target = next.querySelectorAll('.vt-cell')[col];
+    var input = target && target.querySelector('.vt-input');
+    if (!input) return;
+    e.preventDefault();
+    input.focus();
+    input.select();
+  }
+
+  function bulkCell(field, apply) {
+    return makeCell(field, function () { return ''; }, function (v) { apply(v); },
+      function () { syncRows(); refreshUnitCells(); refreshShipCells(); });
+  }
+
+  /* Pre Pack only: show what one piece of the pack works out to. */
+  function refreshUnitCells() {
+    document.querySelectorAll('#vtBody .vt-cell-unit').forEach(function (n) {
+      var c = state.cells[n.dataset.unitFor];
+      n.textContent = perUnitText(c ? c.ws : '');
+    });
+  }
+  function syncRows() {
+    var fs = activeFields();
+    document.querySelectorAll('#vtBody .vt-row').forEach(function (row) {
+      var c = cell(row.dataset.vkey);
+      row.querySelectorAll('.vt-input').forEach(function (input, i) {
+        input.value = c[fs[i]];
+        input.classList.toggle('is-set', !!c[fs[i]]);
+      });
+    });
+  }
+
+  var WARN_ICON = '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4v3.5"/><circle cx="7" cy="10" r=".6" fill="currentColor" stroke="none"/></svg>';
+
+  /* Missing WS (PLCY 2.1.3) + Sale >= WS (PLCY 2.1.2) */
+  /* Attach a problem to the row it belongs to, with a one-click fix when we
+     can work out what the vendor meant. */
+  function addInlineWarn(row, kind, text, fixValue) {
+    var d = el('div', 'vt-inline-warn' + (kind === 'error' ? ' is-error' : ''));
+    d.innerHTML = WARN_ICON + '<span>' + text + '</span>';
+    if (fixValue != null) {
+      var b = el('button', 'vt-inline-fix');
+      b.type = 'button';
+      b.innerHTML = '<span>Use $' + fixValue.toFixed(2) + '</span>';
+      b.addEventListener('click', function () {
+        cell(row.dataset.vkey).ws = fixValue.toFixed(2);
+        var i = row.querySelector('.vt-input');
+        if (i) { i.value = fixValue.toFixed(2); i.classList.add('is-set'); }
+        refreshUnitCells();
+        validate();
+      });
+      d.appendChild(b);
+    }
+    row.parentNode.insertBefore(d, row.nextSibling);
+  }
+
+  function scrollTableTo(row) {
+    var sc = document.querySelector('.vt-scroll');
+    if (!sc || !row) return;
+    sc.scrollTop += row.getBoundingClientRect().top - sc.getBoundingClientRect().top - 48;
+    var i = row.querySelector('.vt-input');
+    if (i) { i.focus(); i.select(); }
+  }
+
+  function validate() {
+    var box = $('vtErrors');
+    if (!box) return;
+    box.innerHTML = '';
+    document.querySelectorAll('.vt-inline-warn').forEach(function (n) { n.remove(); });
+
+    var missing = [], suspects = [];
+    var unitBase = parseFloat(baseVal('ws') || '');
+    var pcs = packPcs();
+    var expected = unitBase * pcs;
+    var canGuess = isPrePack() && pcs > 1 && !isNaN(unitBase) && unitBase > 0;
+
+    document.querySelectorAll('#vtBody .vt-row').forEach(function (row) {
+      var c = cell(row.dataset.vkey);
+      var input = row.querySelector('.vt-input');
+      if (input) input.classList.remove('is-missing', 'is-warn');
+
+      if (!c.ws && !rowBase()) {
+        if (input) input.classList.add('is-missing');
+        missing.push(row);
+        addInlineWarn(row, 'error',
+          '<b>' + (isPrePack() ? 'Pack Price' : 'Unit Price') + ' is missing.</b> ' +
+          'Fill it here, or set ' + baseSource().label + ' above to cover every row.', null);
+        return;
+      }
+
+      var v = parseFloat(c.ws || '');
+      if (canGuess && !isNaN(v) && v > 0 &&
+          Math.abs(v * pcs - expected) < Math.abs(v - expected)) {
+        if (input) input.classList.add('is-warn');
+        suspects.push(row);
+        addInlineWarn(row, 'warn',
+          '<b>Is that a pack price?</b> $' + v.toFixed(2) + ' for a ' + pcs +
+          'pcs box is $' + (v / pcs).toFixed(2) + ' per unit — far below the item price above.',
+          v * pcs);
+      }
+    });
+
+    /* Sale sits on the item now, so PLCY 2.1.2 is checked up there. */
+    var baseWs = parseFloat(baseVal('ws') || '');
+    var baseSale = parseFloat(baseVal('sale') || '');
+    var baseMsrp = parseFloat(baseVal('msrp') || '');
+    /* Sale Price는 바이어가 실제로 내는 값 = 할인가다. WS보다 높으면 잘못된 입력.
+       PRD SCV 4.2.4는 반대로 적혀 있으나 사용자 확인(2026-08-20)에 따라 뒤집었다. */
+    var saleBad = !isNaN(baseWs) && !isNaN(baseSale) && baseSale > baseWs;
+    /* MSRP는 소비자 권장가라 도매가보다 낮을 수 없다. */
+    var msrpBad = !isNaN(baseWs) && !isNaN(baseMsrp) && baseMsrp < baseWs;
+
+    /* A short count so problems scrolled out of the table are still findable. */
+    if (missing.length || suspects.length) {
+      var parts = [];
+      if (missing.length) parts.push('<b>' + missing.length + '</b> without a price');
+      if (suspects.length) parts.push('<b>' + suspects.length + '</b> that may be per-unit');
+      var sum = el('div', missing.length ? 'vt-error' : 'vt-warn', WARN_ICON +
+        '<span>' + parts.join(' · ') + ' — the detail sits under each row. ' +
+        '<button type="button" class="vt-jump">Jump to the first one</button></span>');
+      sum.querySelector('.vt-jump').addEventListener('click', function () {
+        scrollTableTo(missing[0] || suspects[0]);
+      });
+      box.appendChild(sum);
+    }
+
+    renderPrices(missing.length, saleBad ? 1 : 0, msrpBad ? 1 : 0);
+  }
+
+  /* Table footnote + the inventory switch state. */
+  function syncOptInButtons() {
+    var stocked = 0;
+    Object.keys(state.cells).forEach(function (k) { if (state.cells[k].qty) stocked++; });
+    $('invToggle').checked = state.inventory;
+
+    var note = $('vtNote');
+    if (!note) return;
+    var lines = [];
+    if (isPrePack()) {
+      var r = ratioAxis();
+      lines.push('A row is one box of <b>' + packPcs() + 'pcs</b>' +
+        (r ? ' mixed by <b>' + r.name + '</b>' : '') +
+        '. <b>Pack Price</b> is what you sell the whole box for.');
+    } else {
+      lines.push('A row is one variant. <b>Unit Price</b> is what you sell one of them for.');
+    }
+    lines.push('A blank cell uses <b>' + baseSource().label + '</b> above' +
+      (isPrePack() ? ' \u00d7 ' + packPcs() + 'pcs' : '') +
+      ' — fill one only when that ' + unitWord(false) + ' costs something different.');
+    if (state.inventory) {
+      lines.push('Quantity is the stock on hand for that ' + unitWord(false) +
+        (stocked ? ' \u00b7 <b>' + stocked + '</b> filled so far' : '') + '.');
+      lines.push('<b>Quantity sets Stock</b> \u2014 above 0 it defaults to In Stock, at 0 to <b>Preorder</b>. ' +
+        'You can still change any row yourself.');
+    }
+    lines.push('Use <b>Apply to all</b> or a group header to fill many rows at once \u00b7 <b>Tab</b> moves down the column.');
+    note.innerHTML = lines.join('<br>');
+  }
+
+  $('invToggle').addEventListener('change', function (e) {
+    state.inventory = e.target.checked;
+    renderSellTable();
+  });
+
+  ['baseWs', 'baseSale', 'baseMsrp'].forEach(function (id) {
+    $(id).addEventListener('input', renderSellTable);
+    money2($(id), renderSellTable);
+  });
+
+  /* Prices section stays editable at all times — options only change the copy. */
+  function renderPrices(missingCount, badCount, msrpCount) {
+    var opts = hasOptions();
+    $('pricesHint2').hidden = !opts;
+    var hint = 'Enter the price for this item';
+    if (opts) {
+      hint = 'Applies to everything you sell';
+      var src = baseSource(), b = src.value, pcs = packPcs();
+      if (isPrePack() && pcs > 1 && !isNaN(b)) {
+        hint = src.label + ' \u00d7 ' + pcs + 'pcs = $' + (b * pcs).toFixed(2) + ' per box';
+      }
+    }
+    $('pricesHint').textContent = hint;
+
+    var pcs = isPrePack() ? packPcs() : 1;
+    var wsVals = [], saleVals = [];
+    document.querySelectorAll('#vtBody .vt-row').forEach(function (row) {
+      var c = cell(row.dataset.vkey);
+      var w = parseFloat(c.ws || rowBase() || '');
+      if (!isNaN(w)) wsVals.push(w / pcs);   /* card shows per-unit, like the item field */
+      var sa = parseFloat(baseVal('sale') || '');
+      if (!isNaN(sa)) saleVals.push(sa);
+    });
+
+    updateStatusGate(missingCount, badCount, msrpCount, wsVals);
+    updateListCard(wsVals, saleVals);
+  }
+
+  /* PLCY 2.1.3 — Active requires Item Name or Style #, WS Price, Est. Ship date.
+     Mirrors Faire: saving is fine, going live is not. */
+  function updateStatusGate(missingCount, badCount, msrpCount, wsVals) {
+    var gate = $('statusGate'), badge = $('missingBadge');
+    var blockers = [];
+    if (hasOptions()) {
+      if (missingCount) blockers.push(missingCount + ' ' + unitWord(missingCount !== 1) + ' without a Wholesale Price');
+    } else if (!$('baseWs').value.trim()) {
+      blockers.push('Wholesale Price is empty');
+    }
+    if (badCount) blockers.push('Sale Price is higher than Wholesale Price');
+    if (msrpCount) blockers.push('MSRP is lower than Wholesale Price');
+
+    badge.hidden = !blockers.length;
+    if (!blockers.length) { gate.hidden = true; return; }
+
+    gate.hidden = false;
+    gate.innerHTML = WARN_ICON +
+      '<span><b>Cannot be set to Active</b> — ' + blockers.join(' · ') +
+      '.<br>The item can still be saved; it stays Inactive until this is resolved.</span>';
+    if ($('statusActive').checked) { $('statusInactive').checked = true; }
+  }
+
+  function updateListCard(wsVals, saleVals) {
+    var moneyEl = document.getElementById('listWholesale');
+    if (!moneyEl) return;
+    var money = function (n) { return '$' + n.toFixed(2); };
+    if (!hasOptions() || !wsVals.length) {
+      var b = parseFloat($('baseWs').value.trim() || '');
+      moneyEl.textContent = isNaN(b) ? '—' : money(b);
+      return;
+    }
+    var lo = Math.min.apply(null, wsVals), hi = Math.max.apply(null, wsVals);
+    moneyEl.textContent = lo === hi ? money(lo) : money(lo) + ' – ' + money(hi);
+  }
+
+  $('statusActive').addEventListener('click', function () { setTimeout(validate, 0); });
+
+  /* ══════════ Pre Pack configuration (how one pack is built) ══════════ */
+  function packQty(k) { return state.packQty[k] != null ? state.packQty[k] : ''; }
+
+  function renderPrePack() {
+    var axes = liveOptions();
+    var sel = $('prePackBy'), childLabel = $('prePackChildLabel'), wrap = $('prePackInputs');
+    wrap.innerHTML = '';
+
+    if (!axes.length) {
+      sel.innerHTML = '<option>\u2014</option>'; childLabel.textContent = '';
+      wrap.appendChild(el('div', 'vt-empty', 'Add an option first — a pack needs something to mix inside it.'));
+      $('prePackTotal').textContent = 'Pack Breakdown \u00b7 0pcs / Pack';
+      $('prePackDetail').textContent = '\u2014';
+      return;
+    }
+
+    var ratio = ratioAxis();
+    sel.innerHTML = '';
+    axes.forEach(function (a, i) {
+      var o = document.createElement('option');
+      o.value = String(i); o.textContent = axisLabel(a);
+      sel.appendChild(o);
+    });
+    sel.value = String(state.ratioBy);
+
+    var rest = packAxes();
+    childLabel.textContent = '';   /* 원본에는 설명 문구가 없다 */
+
+    /* One row, always — however many options the item has. */
+    var line = el('div', 'pack-inputs');
+    ratio.values.forEach(function (v) {
+      var slot = el('div', 'pack-slot');
+      slot.appendChild(numInput(v));
+      txt(slot, 'span', 'pack-slot-label', v);
+      line.appendChild(slot);
+    });
+    wrap.appendChild(line);
+
+    updateBreakdown(ratio);
+  }
+
+  function numInput(k) {
+    var input = el('input', 'pack-num');
+    input.type = 'text'; input.inputMode = 'numeric';
+    input.value = packQty(k); input.placeholder = '0';
+    input.addEventListener('input', function () {
+      state.packQty[k] = input.value.replace(/[^0-9]/g, '');
+      input.value = state.packQty[k];
+      var r = ratioAxis();
+      if (r) updateBreakdown(r);
+      syncOptInButtons();
+      renderSellTable();
+    });
+    return input;
+  }
+
+  function updateBreakdown(ratio) {
+    var parts = [], total = 0;
+    ratio.values.forEach(function (v) {
+      var n = parseInt(packQty(v) || '0', 10);
+      if (n > 0) { parts.push(v + '(' + n + ')'); total += n; }
+    });
+    $('prePackTotal').textContent = 'Pack Breakdown · ' + total + 'pcs / Pack';
+    $('prePackDetail').textContent = parts.length ? parts.join(' - ') : '—';
+  }
+
+  $('prePackBy').addEventListener('change', function (e) {
+    state.ratioBy = parseInt(e.target.value, 10) || 0;
+    state.ratioByTouched = true;      /* stop auto-guessing once the vendor decides */
+    renderPrePack(); renderSellTable();
+  });
+
+  /* ══════════ Open Pack grouping ══════════ */
+  function renderOpenPack() {
+    var axes = liveOptions(), sel = $('openGroupBy');
+    if (!axes.length) { sel.innerHTML = '<option>—</option>'; return; }
+    if (state.openGroupBy >= axes.length) state.openGroupBy = 0;
+    sel.innerHTML = '';
+    axes.forEach(function (a, i) {
+      var o = document.createElement('option');
+      o.value = String(i); o.textContent = axisLabel(a);
+      sel.appendChild(o);
+    });
+    sel.value = String(state.openGroupBy);
+  }
+
+  $('openGroupBy').addEventListener('change', function (e) {
+    state.openGroupBy = parseInt(e.target.value, 10) || 0;
+    renderSellTable();
+  });
+
+  /* ══════════ Misc ══════════ */
+  $('sellingToggle').addEventListener('click', function (ev) {
+    var btn = ev.target.closest('.toggle-pill');
+    if (!btn || btn.disabled) return;
+    this.querySelectorAll('.toggle-pill').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+    document.querySelectorAll('.pack-view').forEach(function (v) {
+      v.classList.toggle('is-active', v.dataset.view === btn.dataset.view);
+    });
+    state.sellingMethod = btn.dataset.view;
+    renderSellTable();
+  });
+
+  /* Expand / collapse the drawer — the tables get wide fast */
+  $('drawerExpand').addEventListener('click', function () {
+    var d = document.querySelector('.drawer');
+    var wide = d.classList.toggle('is-wide');
+    this.title = wide ? 'Collapse' : 'Expand';
+    this.innerHTML = wide
+      ? '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3L9 7M9 7V3.5M9 7h3.5"/><path d="M3 13l4-4M7 9v3.5M7 9H3.5"/></svg>'
+      : '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5H13.5V6.5"/><path d="M6.5 13.5H2.5V9.5"/><path d="M13.5 2.5L9 7"/><path d="M2.5 13.5L7 9"/></svg>';
+  });
+
+  function renderListSummary() {
+    var axes = liveOptions();
+    $('listOptSummary').innerHTML = axes.length
+      ? axes.map(function (a) { return a.name + ' · ' + a.values.length + ' value' + (a.values.length === 1 ? '' : 's'); }).join('<br>')
+      : '<span style="color:#cfcfcf">No options</span>';
+  }
+
+  /* A pack needs an option to mix inside the box. With none, only Open Pack
+     makes sense — same rule Faire applies when a product has no Size option. */
+  function syncSellingMethodAvailability() {
+    var pill = document.querySelector('.toggle-pill[data-view="pre-pack"]');
+    if (!pill) return;
+    var ok = hasOptions();
+    pill.disabled = !ok;
+    pill.title = ok ? '' : 'Add an option first — a pack needs something to mix inside it';
+    if (!ok && state.sellingMethod === 'pre-pack') {
+      state.sellingMethod = 'open-pack';
+      document.querySelectorAll('.toggle-pill').forEach(function (b) {
+        b.classList.toggle('is-active', b.dataset.view === 'open-pack');
+      });
+      document.querySelectorAll('.pack-view').forEach(function (v) {
+        v.classList.toggle('is-active', v.dataset.view === 'open-pack');
+      });
+    }
+  }
+
+  function renderDerived() {
+    syncSellingMethodAvailability();
+    renderPrePack();
+    renderOpenPack();
+    renderSellTable();
+    renderListSummary();
+  }
+
+  /* Seed pack quantities for the demo item (XS-XL = 1-2-2-2-1, 8 pcs) */
+  state.packQty['XS'] = '1';
+  state.packQty['S'] = '2';
+  state.packQty['M'] = '2';
+  state.packQty['L'] = '2';
+  state.packQty['XL'] = '1';
+
+
+  renderOptions();
+  renderDerived();
+
+  /* ══════════ Drawer: Save / Cancel / close / reopen — in memory only, no storage ══════════
+     The item is `state` (options, pack ratio, cells, ship, selling method, inventory) plus `state.item`
+     (name, style, status, base prices, images). Save commits a snapshot; Cancel and × restore it. */
+  var heroCard = $('listWholesale').closest('.item-card');
+  var savedState = null;
+
+  function readItem() {
+    return {
+      name: $('itemName').value, style: $('itemStyle').value,
+      status: $('statusActive').checked ? 'active' : 'inactive',
+      ws: $('baseWs').value, sale: $('baseSale').value, msrp: $('baseMsrp').value,
+      images: imagesApi.get(),
+      attribute: $('infoAttribute').value, tag: $('infoTag').value, note: $('infoNote').value
+    };
+  }
+  function writeItem(item) {
+    $('itemName').value = item.name; $('itemStyle').value = item.style;
+    $('statusActive').checked = item.status === 'active';
+    $('statusInactive').checked = item.status !== 'active';
+    $('baseWs').value = item.ws; $('baseSale').value = item.sale; $('baseMsrp').value = item.msrp;
+    imagesApi.set(item.images);
+    $('infoAttribute').value = item.attribute || ''; $('infoTag').value = item.tag || ''; $('infoNote').value = item.note || '';
+  }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  function updateHeroCard(item) {
+    heroCard.querySelector('.item-name').textContent = item.name;
+    heroCard.querySelector('.item-style').textContent = item.style;
+    var badge = heroCard.querySelector('.item-badge');
+    badge.textContent = item.status === 'active' ? 'ACTIVE' : 'INACTIVE';
+    badge.classList.toggle('is-inactive', item.status !== 'active');
+  }
+  function commit() {
+    renderSellTable();                       /* re-runs the price gate: an invalid price keeps the item Inactive */
+    state.item = readItem();
+    savedState = clone(state);
+    updateHeroCard(state.item);
+  }
+  function restore() {
+    var s = clone(savedState);
+    Object.keys(state).forEach(function (k) { delete state[k]; });
+    Object.keys(s).forEach(function (k) { state[k] = s[k]; });
+    writeItem(state.item);
+    document.querySelectorAll('.toggle-pill').forEach(function (b) { b.classList.toggle('is-active', b.dataset.view === state.sellingMethod); });
+    document.querySelectorAll('.pack-view').forEach(function (v) { v.classList.toggle('is-active', v.dataset.view === state.sellingMethod); });
+    renderOptions(); renderDerived();
+  }
+  function openDrawer() { document.body.classList.remove('drawer-closed'); document.querySelector('.drawer-body').scrollTop = 0; }
+  function closeDrawer() { document.body.classList.add('drawer-closed'); }
+
+  document.querySelector('.drawer-head .btn-primary').addEventListener('click', function () { commit(); closeDrawer(); });
+  document.querySelector('.drawer-head .btn-secondary').addEventListener('click', function () { restore(); closeDrawer(); });
+  document.querySelector('.drawer-close').addEventListener('click', function () { restore(); closeDrawer(); });
+  heroCard.style.cursor = 'pointer';
+  heroCard.addEventListener('click', function () { restore(); openDrawer(); });
+
+  commit();   /* the configured defaults are the first saved state; the drawer stays open on load */
+})();
+</script>
+
+</body>
+</html>

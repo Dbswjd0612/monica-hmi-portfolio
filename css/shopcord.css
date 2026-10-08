@@ -1,0 +1,244 @@
+/* Shopcord Linesheet: page styles.
+   Pure white, one typeface, one highlight colour (--accent, Shopcord magenta) used only as a small point. Hairlines and whitespace do the structure.
+   Layout is a ledger: a narrow label column names each section, content sits on the right.
+   Running text stays near 65 characters. Figures, tables and diagrams use the full right column. */
+:root{
+--bg:#FFFFFF;--fill:#F6F6F6;--ink:#0A0A0A;--text:#454545;--muted:#8C8C8C;--line:#ECECEC;
+--accent:#E11D74;
+--anno:#E21D76; /* figure annotation markers: the vendor prototype Save button colour (--primary #e21d76 in item-phase3.html) */
+--sans:Geist,ui-sans-serif,system-ui,-apple-system,sans-serif;
+--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img,video{max-width:100%}
+a{color:var(--ink);text-decoration:underline;text-decoration-color:#C9C9C9;text-underline-offset:3px}
+a:hover{text-decoration-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+::selection{background:rgba(225,29,116,.14)}
+p{margin:0}
+h1,h2,h3{font-family:var(--sans);margin:0;text-wrap:balance;color:var(--ink)}
+h2{text-wrap:wrap}
+.sc-page{overflow-x:clip}
+.sc-cap{font-size:13px;font-weight:400;line-height:1.5;color:var(--muted)}
+
+/* production navbar/footer on the white canvas */
+.sc-nav a,.sc-footer a{text-decoration:none}
+.sc-footer a:hover{color:var(--ink)}
+/* Top nav: same box model and layout as the home page nav (max-width applies to the content, 52px or 24px padding), in the white palette of the Item Creation case study, with the home page's purple hover. */
+.sc-nav{box-sizing:content-box}
+.sc-nav .sc-nav-brand{color:#111318}
+.sc-nav img{max-width:none}
+.sc-nav a:hover{color:#A78BFA}
+@media (max-width:374px){.sc-nav{gap:16px!important}.sc-nav .sc-nav-links{gap:18px!important}}
+@media (max-width:349px){.sc-nav .sc-nav-name{display:none}}
+.nl{position:relative}
+.nl::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:#A78BFA;transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.nl:hover::after{transform:scaleX(1)}
+@keyframes rv-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rv{animation:rv-in .9s cubic-bezier(.22,1,.36,1) both}
+
+.sc-wrap{max-width:1018px;margin:0 auto;padding:0 24px}
+
+/* hero */
+.sc-hero{padding:88px 0 72px;display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+.sc-hero h1{font-size:clamp(36px,6vw,68px);line-height:1.02;font-weight:500;letter-spacing:-.03em}
+.sc-thesis{font-size:clamp(19px,2.3vw,24px);line-height:1.4;letter-spacing:-.012em;max-width:32em;color:var(--text);text-wrap:pretty}
+.sc-ratio{display:inline-flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-self:start;font-family:var(--mono);font-size:12.5px;color:var(--text);background:var(--fill);border-radius:99px;padding:7px 14px}
+.sc-ratio b{font-weight:500;color:var(--ink)}
+.sc-meta{display:grid;grid-template-columns:repeat(4,max-content);justify-content:start;gap:24px 48px;margin:8px 0 0;padding:32px 0 0;border-top:1px solid var(--line)}
+.sc-meta div{min-width:0}
+.sc-meta dt{margin-bottom:4px;color:#6B6B6B}
+.sc-meta dd{margin:0;font-size:16px;line-height:1.5;color:var(--ink)}
+.sc-hero>.sc-slot{margin-top:24px}
+
+/* ledger sections */
+.sc-sec{display:grid;grid-template-columns:210px minmax(0,1fr);gap:16px 40px;padding:80px 0;border-top:1px solid var(--line)}
+.sc-label{padding-top:10px;align-self:start;position:sticky;top:24px}
+/* One width: everything in the content column fills it (--text-w stays as a hook, set to 100%).
+   Three vertical steps: 16px (h3 to its text), 24px (text to text), 56px (around figures, above h3). */
+.sc-body{--text-w:100%;container-type:inline-size;display:grid;grid-template-columns:minmax(0,1fr);gap:24px;min-width:0}
+.sc-body>:is(.sc-slot,.sc-scroll,.sc-two,.sc-duo){margin-top:32px}
+.sc-body>:is(.sc-slot,.sc-scroll,.sc-two):not([hidden])+*{margin-top:32px}
+/* an image block directly under a subsection heading sits 24px below it */
+.sc-body>h3+:is(.sc-slot,.sc-duo){margin-top:0}
+/* the Open Pack row sits 32px under its intro paragraph */
+.sc-body>.sc-prose+.sc-duo--flip{margin-top:8px}
+.sc-body>.sc-duo--flip+*,.sc-body>.sc-duo--flip+[hidden]+*{margin-top:32px}
+.sc-nowrap{white-space:nowrap}
+/* the flow diagram sits closer to its text: 40px above and below */
+.sc-body>.sc-flow,.sc-body>.sc-flow+*{margin-top:16px}
+/* Designing in code: intro paragraph to image = 24px grid gap + 24px, matching "What I worked on" (48px). */
+#handoff .sc-body > .sc-slot {
+  margin-top: 24px;
+}
+.sc-sec h2{font-size:clamp(24px,3.1vw,34px);line-height:1.12;font-weight:500;letter-spacing:-.035em}
+.sc-sec h3{font-size:20px;line-height:1.3;font-weight:500;letter-spacing:-.02em;margin-top:40px}
+.sc-sec h3+*{margin-top:-8px}
+.sc-prose{display:grid;gap:24px;max-width:var(--text-w);color:var(--text)}
+.sc-prose p{text-wrap:pretty}
+.sc-prose ul{margin:0;padding-left:1.1em;display:grid;gap:8px}
+.sc-prose li::marker{color:#BDBDBD}
+.sc-prose strong{color:var(--ink);font-weight:500}
+
+/* my role: four areas in two columns. The first two carry an image above the title; both images share one height. */
+.sc-roles{display:grid;grid-template-columns:minmax(0,1.111fr) minmax(0,1fr);gap:28px 32px;margin:24px 0 0;padding:0;list-style:none}
+.sc-roles li{min-width:0;display:flex;flex-direction:column}
+.sc-roles .sc-box{margin-bottom:24px}
+.sc-role-t{font-size:20px;font-weight:600;letter-spacing:-.02em;line-height:1.3;color:#171717}
+/* My role: the two secondary contributions (no image) sit one step lighter than the two main ones. */
+.sc-roles li:nth-child(n+3) .sc-role-t{font-weight:500}
+.sc-role-d{margin-top:8px;max-width:296px;font-size:16px;font-weight:400;line-height:1.6;color:#555555;text-wrap:pretty}
+
+/* UX challenge: Open Pack vs Pre-Pack, separated by whitespace only */
+.sc-compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 48px;max-width:var(--text-w);margin:0}
+.sc-compare div{min-width:0}
+.sc-compare dt{font-size:17px;font-weight:600;letter-spacing:-.015em;line-height:1.35;color:var(--ink)}
+.sc-compare dd{margin:6px 0 0;font-size:16px;line-height:1.6;color:#555555;text-wrap:pretty}
+
+/* examples inside the Pre-Pack / Open Pack bullets: pill label on the left, lines stacked to its right */
+.sc-ex{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin:0;padding:12px 16px;background:var(--fill);border-radius:10px}
+.sc-body>.sc-ex{margin-top:8px}
+.sc-ex-label{flex:none;font-size:13px;line-height:1.5;color:var(--muted);white-space:nowrap}
+.sc-ex-text{flex:1 1 240px;min-width:0;display:grid;font-size:15px;line-height:1.6;color:#555555}
+.sc-ex-text b{font-weight:600}
+/* Figure annotations: numbered markers on a layer that js/shopcord.js keeps on top of the loaded screen image. */
+.sc-box[data-anno]{position:relative}
+.sc-anno{position:absolute;left:0;top:0;pointer-events:none}
+.sc-mark{display:inline-grid;place-items:center;flex:none;width:20px;height:20px;border-radius:50%;background:var(--anno);border:0;color:#fff;font:500 12px/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:0}
+.sc-anno .sc-mark{position:absolute;left:calc(var(--x) + 6px);top:var(--y);margin-top:-10px}
+.sc-anno .sc-mark--out{left:calc(100% + 2px)}
+.sc-anno .sc-mark--left{left:auto;right:calc(100% + 6px)}
+.sc-ex-row{display:flex;align-items:baseline;gap:8px}
+.sc-ex-text:has(.sc-ex-row){row-gap:8px}
+
+/* flow diagram: two cards joined by one arrow, label above it and caption below. It follows the text measure
+   and stacks when its column gets narrow, via a container query. */
+.sc-flow{display:flex;align-items:stretch;list-style:none;margin:0;padding:0;max-width:var(--text-w)}
+.sc-node{flex:0 0 40%;min-width:0;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.05);border-radius:16px;padding:28px 32px;display:flex;flex-direction:column;justify-content:center;gap:4px}
+.sc-node strong{font-size:19px;font-weight:600;letter-spacing:-.02em;line-height:1.3;margin-top:2px}
+.sc-node .sc-what{font-size:14.5px;color:var(--text);line-height:1.5}
+.sc-link{flex:1 1 0;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr auto 1fr;padding:0 10px;text-align:center}
+.sc-link-line{display:none;position:relative;height:1px;background:#B4B4B4}
+.sc-link-line--end{display:block;grid-row:2;grid-column:1;align-self:center}
+/* icon slot: a grey circle on the arrow until js/shopcord.js finds icon-linesheet.svg or .png */
+.sc-icon{grid-row:2;grid-column:1;justify-self:center;align-self:center;z-index:1;width:40px;height:40px;border-radius:50%;background:var(--fill);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.sc-icon.is-filled img{display:block;width:20px;height:20px;object-fit:contain}
+.sc-link-line--end::after{content:"";position:absolute;right:-1px;top:50%;transform:translateY(-50%);border-left:6px solid #B4B4B4;border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+.sc-link strong{grid-row:1;align-self:end;margin-bottom:10px;font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.3}
+.sc-link-what{grid-row:3;align-self:start;margin-top:10px;font-size:12.5px;line-height:1.45;color:var(--muted);text-wrap:balance}
+
+/* tables: they scroll inside their own container, never the page */
+.sc-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:var(--text-w)}
+.sc-scroll:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.sc-scroll table{border-collapse:collapse;width:100%;font-size:15px;color:var(--text)}
+.sc-scroll th,.sc-scroll td{text-align:left;vertical-align:top;padding:16px 24px 16px 0;border-bottom:1px solid var(--line);line-height:1.5}
+.sc-scroll thead th{font-size:13px;font-weight:400;color:var(--muted);padding-top:0;padding-bottom:12px}
+.sc-scroll thead td{padding-top:0;padding-bottom:12px}
+.sc-scroll tbody th{font-weight:500;white-space:nowrap;color:var(--ink)}
+.sc-scroll tbody tr:last-child th,.sc-scroll tbody tr:last-child td{border-bottom:0}
+.sc-scroll code{font-family:var(--mono);font-size:.84em;color:var(--ink);background:var(--fill);border-radius:5px;padding:2px 6px;white-space:nowrap}
+.sc-cases{min-width:560px}
+.sc-match{min-width:480px}
+.sc-match td{width:50%}
+
+/* "To confirm" notes: remove each one once Monica answers it */
+.sc-note{font-size:14px;line-height:1.55;color:var(--muted);max-width:var(--text-w)}
+.sc-confirm{color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:2px 9px;margin-right:6px;font-size:12px;white-space:nowrap}
+
+/* image slots: a placeholder until js/shopcord.js finds the file */
+.sc-slot{margin:0;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;min-width:0;align-content:start}
+.sc-box{border-radius:14px;background:var(--fill);aspect-ratio:var(--r,16 / 9);width:100%;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);align-content:center;justify-items:center;gap:4px;text-align:center;padding:20px;overflow:hidden}
+.sc-box>span{max-width:100%}
+.sc-box .sc-slot-t{font-weight:500;font-size:15.5px;line-height:1.35;letter-spacing:-.01em;color:var(--ink)}
+.sc-box .sc-slot-f{font-family:var(--mono);font-size:11.5px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}
+.sc-box.is-filled{border:1px solid var(--line);background:var(--bg);aspect-ratio:auto;padding:0;display:block}
+.sc-box.is-filled img,.sc-box.is-filled video{display:block;width:100%;height:auto}
+.sc-box--fit.is-filled{aspect-ratio:var(--r);border:0}
+.sc-box--fit.is-filled img{height:100%;object-fit:cover}
+.sc-slot figcaption{font-size:13px;line-height:1.5;color:var(--muted)}
+.sc-figrow{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:6px 24px}
+.sc-protos{display:flex;flex-wrap:wrap;gap:6px 20px}
+.sc-protos button{appearance:none;background:none;border:0;padding:0;margin:0;font:inherit;line-height:inherit;color:var(--ink);text-decoration:none;white-space:nowrap;cursor:pointer}
+.sc-protos button span{color:var(--accent)}
+.sc-protos button:hover{text-decoration:underline;text-underline-offset:3px}
+.sc-protos button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* prototype modal (native <dialog>: background is inert while open) */
+html.sc-proto-open{overflow:hidden}
+.sc-proto{padding:0;border:0;background:none;max-width:none;max-height:none;width:100vw;height:100vh;height:100dvh;margin:0;overflow:hidden}
+.sc-proto::backdrop{background:rgba(10,10,10,.55)}
+.sc-proto[open]{display:flex;align-items:center;justify-content:center}
+.sc-proto-card{display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,.25);overflow:hidden;width:min(1280px,calc(100vw - 32px));height:min(860px,calc(100dvh - 32px))}
+.sc-proto[data-size="mobile"] .sc-proto-card{width:min(480px,calc(100vw - 32px));height:min(900px,calc(100dvh - 32px))}
+.sc-proto-bar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 12px 12px 20px;border-bottom:1px solid var(--line)}
+.sc-proto-head{min-width:0}
+.sc-proto-title{margin:0;font-size:15px;font-weight:600;letter-spacing:-.01em;line-height:1.35;color:var(--ink)}
+.sc-proto-credit{margin:2px 0 0;font-size:12px;line-height:1.4;color:var(--muted)}
+.sc-proto-close{flex:none;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer}
+.sc-proto-close:hover{background:var(--fill)}
+.sc-proto-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sc-proto-stage{flex:1 1 auto;min-height:0;display:flex;justify-content:center;background:var(--fill)}
+.sc-proto-frame-wrap{position:relative;width:100%;height:100%}
+.sc-proto[data-size="mobile"] .sc-proto-frame-wrap{width:min(430px,100%)}
+.sc-proto-frame{display:block;width:100%;height:100%;border:0;background:#fff}
+.sc-proto-status{position:absolute;inset:0;margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:24px;background:var(--fill);font-size:14px;line-height:1.5;color:var(--muted)}
+.sc-proto-status[hidden]{display:none}
+.sc-proto-error strong{color:var(--ink);font-weight:600}
+@media (max-width:600px){.sc-proto-card,.sc-proto[data-size="mobile"] .sc-proto-card{width:100vw;height:100dvh;border-radius:0}}
+/* paired figures: equal-height image containers, top-aligned; each column keeps its image with its text.
+   Filled images are contained (never stretched or cropped) inside the fixed-height box. */
+.sc-duo{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:24px 32px;align-items:start}
+.sc-duo--flip{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}
+/* text block centred against the image box (not the caption) */
+.sc-duo--center>.sc-duo-item:last-child{align-self:start;min-height:44cqw;align-content:center}
+.sc-duo-item{min-width:0;display:grid;gap:16px;align-content:start}
+.sc-box--eq{aspect-ratio:auto;height:44cqw}
+.sc-box--eq.is-filled{height:44cqw;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--fill);border:0}
+/* fixed-ratio box whose filled image floats, contained, on the grey panel */
+.sc-box--contain.is-filled{aspect-ratio:var(--r);display:flex;align-items:center;justify-content:center;padding:24px;background:var(--fill);border:0}
+.sc-box--contain.is-filled img,.sc-box--eq.is-filled img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;box-shadow:0 12px 32px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04)}
+.sc-duo-text{margin:0;font-size:18px;line-height:1.6;color:var(--text);text-wrap:pretty}
+ul.sc-duo-text{padding-left:1.1em;display:grid;gap:10px}
+.sc-duo-text li::marker{color:#BDBDBD}
+.sc-duo-text strong{font-weight:500;color:var(--ink)}
+/* Pre-Pack example bullets (vendor and buyer columns): 16px / 1.6. The indent stays at its previous 19.8px (1.1em of 18px) so bullet spacing does not change. */
+#pack .sc-duo:not(.sc-duo--flip) ul.sc-duo-text{font-size:16px;line-height:1.6;padding-left:19.8px}
+/* Open Pack explanation beside the image: 16px / 1.6 to match the Pre-Pack bullets. */
+#pack .sc-duo--flip p.sc-duo-text{font-size:16px;line-height:1.6}
+.sc-slot[hidden]{display:none}
+
+/* what worked / what was hard */
+.sc-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px}
+/* Prototyping and handoff cards: column gap 12px + 8px. The column minimum drops by the same 4px per column so the cards still stack at the same width. Row gap stays 12px. */
+#handoff .sc-two{grid-template-columns:repeat(auto-fit,minmax(min(236px,100%),1fr));column-gap:20px}
+.sc-two>div{background:#fff;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,.025);border-radius:16px;padding:28px 32px;display:grid;gap:8px;align-content:start;min-width:0;font-size:16px;line-height:1.6;color:var(--text)}
+
+/* reflection list */
+.sc-learn{display:grid;gap:0;max-width:var(--text-w);margin:0;padding:0;list-style:none}
+.sc-learn li{display:grid;gap:4px;padding:18px 0;border-top:1px solid var(--line);color:var(--text)}
+.sc-learn li:last-child{padding-bottom:0}
+.sc-learn strong{font-size:18px;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+
+/* next project */
+.sc-next{padding:56px 0 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;align-items:baseline}
+.sc-next a{font-weight:500;font-size:clamp(22px,3vw,30px);letter-spacing:-.035em;line-height:1.2;text-decoration:none;color:var(--ink)}
+.sc-next a span{display:inline-block;color:var(--accent);transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.sc-next a:hover span{transform:translateX(5px)}
+
+@container (max-width:599px){.sc-duo,.sc-duo--flip{grid-template-columns:minmax(0,1fr)}.sc-duo--center>.sc-duo-item:last-child{min-height:0}.sc-box--eq{height:auto;aspect-ratio:var(--r)}.sc-box--eq.is-filled{height:auto;aspect-ratio:auto}.sc-box--eq.is-filled:has(.sc-mark--out){padding-right:34px}.sc-box--eq.is-filled:has(.sc-mark--left){padding-left:38px}}
+@container (max-width:599px){.sc-flow{flex-direction:column}.sc-node{flex:none}.sc-link{flex:none;display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:0}.sc-link>.sc-link-line{order:1}.sc-link>strong{order:2}.sc-icon{order:3;margin:8px 0 2px}.sc-link-what{order:4}.sc-link>.sc-link-line--end{order:5}.sc-link-line{display:block;width:1px;height:18px}.sc-link strong{align-self:center;margin:8px 0 0}.sc-link-what{align-self:center;margin:3px 0 9px}.sc-link-line--end::after{right:auto;top:auto;left:50%;bottom:-1px;transform:translateX(-50%);border:0;border-top:6px solid #B4B4B4;border-left:3.5px solid transparent;border-right:3.5px solid transparent}}
+@media (max-width:900px){.pad{padding-left:24px!important;padding-right:24px!important}}
+/* Hero meta switches to its two-column layout before the four content-sized columns (about 717px) can overflow. */
+@media (max-width:799px){.sc-meta{grid-template-columns:repeat(2,max-content);gap:20px 24px}.sc-meta dd{font-size:15px;white-space:nowrap}}
+@media (max-width:760px){
+.sc-br{display:none}
+.sc-body{--text-w:100%}
+.sc-sec{grid-template-columns:minmax(0,1fr);padding:52px 0}
+.sc-label{position:static;padding-top:0}
+.sc-hero{padding:48px 0 56px}
+.sc-roles{grid-template-columns:minmax(0,1fr);gap:24px}
+.sc-compare{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:379px){.sc-meta{grid-template-columns:repeat(2,minmax(0,1fr))}.sc-meta dd{white-space:normal}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

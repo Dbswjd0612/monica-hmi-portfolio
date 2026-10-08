@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Framer's hero section</title>
+  <link rel="icon" type="image/png" href="/public/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Inter+Tight:wght@400..500&display=swap" rel="stylesheet">
+  <script defer src="../js/canvas-05.js" data-live></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111827;
+      --muted: #737c95;
+      --mut: var(--muted);
+      --hl: #e3e1ed;
+      --headline: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+      --body: 'Geist', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+      isolation: isolate;
+      background-color: #fff;
+      background-image:
+        linear-gradient(rgba(23, 25, 29, .032) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 25, 29, .032) 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: center top;
+      color: var(--ink);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    .grid-interaction {
+      --cursor-x: 0px;
+      --cursor-y: 0px;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 900ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .grid-interaction[data-active] {
+      opacity: 1;
+      transition-duration: 500ms;
+    }
+
+    .grid-interaction::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 920px;
+      height: 720px;
+      transform: translate3d(calc(var(--cursor-x) - 460px), calc(var(--cursor-y) - 360px), 0);
+      will-change: transform;
+      background:
+        radial-gradient(ellipse 180px 140px at 50% 50%, rgba(255, 255, 255, .78), rgba(255, 255, 255, .36) 40%, rgba(255, 255, 255, 0) 100%),
+        radial-gradient(ellipse 410px 300px at 44% 47%, rgba(153, 124, 250, .055), rgba(153, 124, 250, .022) 45%, rgba(153, 124, 250, 0) 85%),
+        radial-gradient(ellipse 350px 280px at 62% 55%, rgba(80, 118, 245, .035), rgba(80, 118, 245, 0) 85%);
+    }
+
+    .grid-interaction::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 24.5px 24.5px, rgba(235, 222, 255, .95) 0 .4px, rgba(192, 151, 255, .72) 1px, rgba(176, 132, 255, .24) 1.8px, rgba(176, 132, 255, 0) 3px);
+      background-size: 48px 48px;
+      /* Offset the centered dots to sit on the background grid intersections. */
+      background-position: calc(50% - 24px) -24px;
+      -webkit-mask-image: radial-gradient(circle 120px at var(--cursor-x) var(--cursor-y), #000 12%, rgba(0, 0, 0, .55) 58%, transparent 100%);
+      mask-image: radial-gradient(circle 120px at var(--cursor-x) var(--cursor-y), #000 12%, rgba(0, 0, 0, .55) 58%, transparent 100%);
+    }
+
+    @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+      .grid-interaction { display: none; transition: none; }
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .portfolio-nav {
+      position: relative;
+      z-index: 5;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 19px 52px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .portfolio-brand {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex-shrink: 0;
+    }
+
+    .portfolio-brand img {
+      width: 30px;
+      height: 30px;
+      display: block;
+      filter: invert(1);
+    }
+
+    .portfolio-brand span {
+      font: 600 14px/1.4 var(--body);
+      letter-spacing: .01em;
+    }
+
+    .portfolio-links {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font: 500 13px/1.4 var(--body);
+      letter-spacing: 0;
+      color: var(--muted);
+    }
+
+    .portfolio-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+    .portfolio-link:first-child { color: var(--ink); }
+    .portfolio-link:hover { color: var(--ink); }
+
+    .portfolio-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 7px;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .portfolio-link:hover::after,
+    .portfolio-link:focus-visible::after { transform: scaleX(1); }
+
+    .portfolio-nav a:focus-visible,
+    .portfolio-menu-toggle:focus-visible {
+      outline: 2px solid #8060e9;
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+
+    .portfolio-menu-toggle {
+      display: none;
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      margin-left: auto;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e9e7ef;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .portfolio-menu-toggle:hover { background: #f7f5fc; }
+    .portfolio-menu-icon { position: relative; width: 18px; height: 14px; }
+    .portfolio-menu-icon::before,
+    .portfolio-menu-icon::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 18px;
+      height: 1.5px;
+      border-radius: 2px;
+      background: currentColor;
+      transition: transform 180ms ease;
+    }
+    .portfolio-menu-icon::before { transform: translateY(-3px); }
+    .portfolio-menu-icon::after { transform: translateY(3px); }
+    [aria-expanded="true"] .portfolio-menu-icon::before { transform: rotate(45deg); }
+    [aria-expanded="true"] .portfolio-menu-icon::after { transform: rotate(-45deg); }
+
+    @media (max-width: 900px) {
+      .portfolio-nav { padding: 18px 24px; gap: 24px; }
+      .portfolio-links { gap: 20px; }
+    }
+
+    @media (max-width: 640px) {
+      .portfolio-nav { padding: 14px 24px; flex-wrap: wrap; gap: 12px; }
+      .portfolio-brand img { width: 28px; height: 28px; }
+      .portfolio-links {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+        gap: 8px;
+        font-size: 14px;
+      }
+      .portfolio-nav[data-enhanced] { flex-wrap: nowrap; }
+      .portfolio-nav[data-enhanced] .portfolio-menu-toggle { display: inline-flex; }
+      .portfolio-nav[data-enhanced] .portfolio-links {
+        display: none;
+        box-sizing: border-box;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 12px 24px 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        border-top: 1px solid #f0edf5;
+        border-bottom: 1px solid #e9e7ef;
+        background: #fff;
+        box-shadow: 0 16px 28px -20px rgba(35, 24, 70, .18);
+      }
+      .portfolio-nav[data-menu-open] .portfolio-links { display: flex; }
+      .portfolio-nav[data-enhanced] .portfolio-link {
+        min-height: 48px;
+        padding: 0 12px;
+        border-radius: 8px;
+      }
+      .portfolio-nav[data-enhanced] .portfolio-link:hover,
+      .portfolio-nav[data-enhanced] .portfolio-link:focus-visible { background: #f7f5fc; }
+      .portfolio-nav[data-enhanced] .portfolio-link::after { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .portfolio-link::after,
+      .portfolio-menu-icon::before,
+      .portfolio-menu-icon::after { transition: none; }
+    }
+
+    @media (min-width: 901px) {
+      .hero-section {
+        box-sizing: border-box;
+        height: 670px;
+        display: flex;
+        align-items: center;
+      }
+      .hero-g { width: 100%; }
+    }
+
+    .hero-copy {
+      --mut: #737c95;
+      color: #111827;
+    }
+
+    .hero-copy .h1 {
+      margin: 0;
+      font-family: var(--headline);
+      font-size: clamp(36px, calc(5vw - 7.6px), 56px);
+      font-weight: 450;
+      line-height: 1.02;
+      letter-spacing: -.035em;
+      text-wrap: pretty;
+    }
+
+    .hero-headline-line { display: block; white-space: nowrap; }
+
+    @media (max-width: 900px) {
+      .hero-headline-line { display: inline; white-space: normal; }
+    }
+
+    .hero-description {
+      margin: 0;
+      max-width: 54ch;
+      font-family: var(--body);
+      font-size: clamp(20px, 1.53vw, 22px);
+      font-weight: 400;
+      line-height: 1.55;
+      letter-spacing: 0;
+      color: var(--mut);
+      text-wrap: pretty;
+    }
+
+    @media (max-width: 900px) {
+      .hero-copy .h1 { font-size: clamp(38px, 5.5vw, 60px); }
+    }
+
+    @media (max-width: 560px) {
+      .hero-copy .h1 { font-size: clamp(34px, 9.5vw, 48px); line-height: 1.02; }
+    }
+
+    .hero-copy .hero-tags {
+      --mut: #7653cb;
+      --hl: #e0d7f5;
+    }
+
+    .hero-copy .hero-tags > span {
+      background: rgba(130, 98, 237, .06);
+    }
+
+    .hero-copy .hero-emphasis {
+      background: linear-gradient(100deg, #a78bfa 0%, #7c5cf6 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      padding: 14px 24px;
+      border: 1px solid #8060e9;
+      border-radius: 99px;
+      background: linear-gradient(115deg, #8262ed, #7051df);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(112, 81, 223, .14);
+      font: 500 14px/1.4 var(--body);
+      letter-spacing: 0;
+      transition: border-color .5s ease, background .5s ease, box-shadow .5s ease;
+    }
+
+    .cta:hover { border-color: #6b49db; background: linear-gradient(115deg, #7654e6, #6444d3); box-shadow: 0 10px 28px rgba(112, 81, 223, .22); }
+    .cta:focus-visible { outline: 2px solid #7051df; outline-offset: 5px; }
+    .cta-ar { display: inline-block; transition: transform .5s cubic-bezier(.22, 1, .36, 1); }
+    .cta:hover .cta-ar { transform: translateX(5px); }
+
+    .hero-canvas {
+      display: block;
+      width: 100%;
+      max-width: 546px;
+      aspect-ratio: 7 / 5;
+    }
+
+    @keyframes rv-in {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: none; }
+    }
+    .rv { animation: rv-in .9s cubic-bezier(.22, 1, .36, 1) both; }
+
+    @media (max-width: 900px) {
+      .hero-section { padding-left: 24px !important; padding-right: 24px !important; }
+      .hero-g { grid-template-columns: minmax(0, 1fr) !important; }
+      .hero-vis { height: auto !important; max-width: 100%; }
+      .hero-canvas { max-width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rv { animation: none; }
+      .cta, .cta-ar { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-interaction" aria-hidden="true"></div>
+  <nav class="portfolio-nav" aria-label="Main navigation">
+    <a class="portfolio-brand" href="/">
+      <img src="/public/images/home/monica-hwang-logo-2.png" alt="Monica Hwang logo" width="30" height="30">
+      <span>Monica Hwang</span>
+    </a>
+    <button class="portfolio-menu-toggle" type="button" aria-expanded="false" aria-controls="portfolio-navigation-links" aria-label="Open menu" hidden>
+      <span class="portfolio-menu-icon" aria-hidden="true"></span>
+    </button>
+    <div class="portfolio-links" id="portfolio-navigation-links">
+      <a class="portfolio-link" href="/#work">Projects</a>
+      <a class="portfolio-link" href="/public/documents/Monica_Hwang_Product_Designer_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+      <a class="portfolio-link" href="/about">About</a>
+    </div>
+  </nav>
+  <main>
+<section id="top" class="pad hero-section" aria-label="Introduction" style="position:relative;padding:110px 52px 120px;overflow:hidden">
+<div class="hero-g" style="position:relative;max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center">
+<div class="hero-copy" style="display:flex;flex-direction:column;gap:28px">
+<h1 class="rv h1"><span class="hero-headline-line">I design products that</span> <span class="hero-headline-line">bring clarity to</span> <span class="hero-headline-line"><span class="hero-emphasis">complex workflows.</span></span></h1>
+<p class="rv hero-description">I’m a Product Designer focused on B2B, AI-enabled, and data-rich experiences that make complex tasks clear and intuitive.</p>
+<div class="rv hero-tags" style="display:flex;flex-wrap:wrap;gap:8px">
+<span style="font:500 12px/1.4 var(--body);letter-spacing:0;color:var(--mut);border:1px solid var(--hl);border-radius:99px;padding:6px 13px;white-space:nowrap;flex:none">B2B &amp; Enterprise</span>
+<span style="font:500 12px/1.4 var(--body);letter-spacing:0;color:var(--mut);border:1px solid var(--hl);border-radius:99px;padding:6px 13px;white-space:nowrap;flex:none">AI Product Design</span>
+<span style="font:500 12px/1.4 var(--body);letter-spacing:0;color:var(--mut);border:1px solid var(--hl);border-radius:99px;padding:6px 13px;white-space:nowrap;flex:none">Workflow Design</span>
+<span style="font:500 12px/1.4 var(--body);letter-spacing:0;color:var(--mut);border:1px solid var(--hl);border-radius:99px;padding:6px 13px;white-space:nowrap;flex:none">Interaction Design</span>
+</div>
+<div class="rv" style="display:flex;align-items:center;gap:18px;margin-top:8px">
+<a class="cta" href="/#work"><span>Explore my work</span><span class="cta-ar">→</span></a>
+</div>
+</div>
+
+<div class="rv hero-vis" style="position:relative;height:440px;display:flex;align-items:center;justify-content:center;overflow:visible">
+  <portfolio-hero-canvas class="hero-canvas"></portfolio-hero-canvas>
+</div>
+</div>
+</section>
+  </main>
+  <script>
+    (() => {
+      const nav = document.querySelector('.portfolio-nav');
+      const toggle = nav.querySelector('.portfolio-menu-toggle');
+      const links = nav.querySelector('.portfolio-links');
+      const mobile = window.matchMedia('(max-width: 640px)');
+
+      const setOpen = (open, restoreFocus = false) => {
+        nav.toggleAttribute('data-menu-open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        if (restoreFocus) toggle.focus();
+      };
+
+      toggle.hidden = false;
+      nav.setAttribute('data-enhanced', '');
+      toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+      links.addEventListener('click', (event) => {
+        if (event.target.closest('a')) setOpen(false, mobile.matches);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && nav.hasAttribute('data-menu-open')) {
+          setOpen(false, true);
+        }
+      });
+      document.addEventListener('pointerdown', (event) => {
+        if (!nav.contains(event.target)) setOpen(false);
+      });
+      document.addEventListener('focusin', (event) => {
+        if (!nav.contains(event.target)) setOpen(false);
+      });
+      mobile.addEventListener('change', () => {
+        const focused = document.activeElement;
+        setOpen(false);
+        if (mobile.matches && links.contains(focused)) toggle.focus();
+        else if (!mobile.matches && focused === toggle) links.querySelector('a').focus();
+      });
+    })();
+
+    (() => {
+      const effect = document.querySelector('.grid-interaction');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      let frame = 0;
+      let previousTime = 0;
+      let active = false;
+      let currentX = 0;
+      let currentY = 0;
+      let targetX = 0;
+      let targetY = 0;
+      let clientX = 0;
+      let clientY = 0;
+
+      const enabled = () => finePointer.matches && !reducedMotion.matches;
+
+      const paint = () => {
+        effect.style.setProperty('--cursor-x', currentX.toFixed(2) + 'px');
+        effect.style.setProperty('--cursor-y', currentY.toFixed(2) + 'px');
+      };
+
+      const animate = (time) => {
+        frame = 0;
+        if (!active || !enabled()) return;
+        const elapsed = previousTime ? Math.min(time - previousTime, 64) : 16;
+        previousTime = time;
+        const ease = 1 - Math.exp(-elapsed / 125);
+        currentX += (targetX - currentX) * ease;
+        currentY += (targetY - currentY) * ease;
+        if (Math.hypot(targetX - currentX, targetY - currentY) < .2) {
+          currentX = targetX;
+          currentY = targetY;
+          paint();
+          previousTime = 0;
+          return;
+        }
+        paint();
+        frame = requestAnimationFrame(animate);
+      };
+
+      const schedule = () => {
+        if (!frame) {
+          previousTime = 0;
+          frame = requestAnimationFrame(animate);
+        }
+      };
+
+      const hide = () => {
+        active = false;
+        effect.removeAttribute('data-active');
+        cancelAnimationFrame(frame);
+        frame = 0;
+        previousTime = 0;
+      };
+
+      window.addEventListener('pointermove', (event) => {
+        if (!enabled() || event.pointerType !== 'mouse' || event.target.closest?.('.portfolio-nav')) {
+          hide();
+          return;
+        }
+        clientX = event.clientX;
+        clientY = event.clientY;
+        targetX = clientX + window.scrollX;
+        targetY = clientY + window.scrollY;
+        if (!active) {
+          currentX = targetX;
+          currentY = targetY;
+          paint();
+          active = true;
+          effect.setAttribute('data-active', '');
+        }
+        schedule();
+      }, { passive: true });
+
+      window.addEventListener('scroll', () => {
+        if (!active) return;
+        targetX = clientX + window.scrollX;
+        targetY = clientY + window.scrollY;
+        schedule();
+      }, { passive: true });
+      document.documentElement.addEventListener('pointerleave', hide);
+      window.addEventListener('pointercancel', hide);
+      window.addEventListener('blur', hide);
+      window.addEventListener('resize', hide);
+      document.addEventListener('visibilitychange', () => { if (document.hidden) hide(); });
+      reducedMotion.addEventListener('change', hide);
+      finePointer.addEventListener('change', hide);
+    })();
+  </script>
+</body>
+</html>
