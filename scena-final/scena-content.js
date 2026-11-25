@@ -153,7 +153,7 @@ window.SCENA_CONTENT = (function () {
         distinctLead: 'The example above shows a photo that couldn\'t be compared. But what if no fresh photo arrives at all?',
         distinct: [
           { t: 'No fresh image obtained', d: 'No new check is saved, so there is no new result to review.' },
-          { t: 'Image obtained, comparison unavailable', d: 'A not_compared result may be saved, so the owner can still review it.' }
+          { t: 'Image obtained, comparison unavailable', d: 'A “Couldn’t compare” result may be saved, so the owner can still review it.' }
         ],
         reasonsLabel: 'Other reason labels',
         reasons: ['Too blurry', 'View blocked', 'Low confidence', 'View alignment uncertain', 'Image unavailable', 'Image too old']
@@ -191,7 +191,7 @@ window.SCENA_CONTENT = (function () {
       heading: 'What the prototype showed, and what it didn\'t',
       blocks: [
         { title: '01 · What we tested', text: 'My teammate and I tested Scena with the restaurant’s Ring cameras. We marked an area on a reference photo, ran a check, and reviewed the before-and-after photos in the app.' },
-        { title: '02 · What we’d test next', text: 'We’d show owners “Similar” and “Couldn’t compare” one at a time and ask what they’d do next. Would they recognize when Scena couldn’t tell whether anything had changed?' }
+        { title: '02 · What we’d test next', text: 'We’d first explore whether checking a space against a reference fits naturally into an owner’s routine. We’d also test whether owners understand the difference between “Similar” and “Couldn’t compare,” and what they would do next.' }
       ]
     }
   };
