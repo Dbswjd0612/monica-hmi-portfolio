@@ -1,5 +1,8 @@
 body{margin:0;background:#101215;color:#E8EAEC;font-family:Archivo,ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#E8EAEC;text-decoration:none}a:hover{color:#F97316}
+/* Shared type system (css/type.css), active on /orbit/ through body.type-system; /orbit-framer/ also loads this file but has no class.
+   The system diagrams keep their original typography: inside them --mono stays JetBrains Mono. */
+.type-system :is(.ch2-chain,.smod-wrap,.ia,.bnd,.br-g,.vfy,.phys){--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace}
 @keyframes ob-pulse{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes phys-pulse-slow{0%,100%{opacity:.1}50%{opacity:.48}}
 @keyframes phys-pulse-fast{0%,100%{opacity:.12}50%{opacity:.55}}

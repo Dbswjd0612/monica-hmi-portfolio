@@ -1,0 +1,23 @@
+/* Portfolio type system, shared by the case studies that opt in with class "type-system" on <body> (Scena and Shopcord so far).
+   Pages without the class keep their fonts, so shopcord.css and every page that shares it without opting in stay as they were.
+   Roles, not sizes, pick the family:
+   - Mulish: the project title (700) and chapter-level headings or major editorial statements (500 to 600)
+   - Geist: section headings and subheadings (500 to 600); body text, descriptions, captions, labels and metadata (400)
+   - Geist Mono: technical labels, and navigation links where the page already set them in monospace
+   Shopcord's --sans and --mono point at these roles, so its rules follow without being edited.
+   Each page loads the weights it uses in one Google Fonts request in its <head>. Sizes, line heights and tracking stay Shopcord's. */
+.type-system{
+--font-display:Mulish,Geist,ui-sans-serif,system-ui,-apple-system,sans-serif;
+--font-text:Geist,ui-sans-serif,system-ui,-apple-system,sans-serif;
+--font-mono:'Geist Mono',ui-monospace,SFMono-Regular,monospace;
+--sans:var(--font-text);
+--mono:var(--font-mono);
+font-family:var(--font-text);
+}
+/* the project title in Mulish Bold (each page has one h1) */
+.type-system :is(h1,.sc-hero h1){font-family:var(--font-display);font-weight:700}
+/* chapter-level headings and major editorial statements; their weights stay with the page */
+.type-system .t-statement{font-family:var(--font-display)}
+/* the titles in a role list ("My role") all take the h3 subheading weight, 500, like "The UX challenge".
+   shopcord.css sets them to 600 for the first two and 500 after; card titles elsewhere keep their 600. */
+.type-system .sc-roles li .sc-role-t{font-weight:500}

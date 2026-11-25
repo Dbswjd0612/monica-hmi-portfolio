@@ -1,0 +1,11 @@
+/* Shared layout refinements for the coded case studies that load this file (Scena and Shopcord), after shopcord.css.
+   shopcord.css stays untouched because other pages (the Framer copy of Shopcord, the wireframe, new-case-study) share it. */
+
+/* Hero metadata: four equal columns on desktop, so Role, Team, Timeline and Status start at the same positions on every
+   case study. Long values wrap inside their column. Below 900px the four items sit in two equal columns.
+   Label and value styles (sizes, colours, the 15px value size under 800px) stay Shopcord's. */
+.sc-meta{grid-template-columns:repeat(4,minmax(0,1fr));column-gap:32px}
+.sc-meta dd{white-space:normal}
+@media (max-width:899px){
+.sc-meta{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px}
+}

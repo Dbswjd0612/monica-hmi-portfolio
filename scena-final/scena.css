@@ -1,0 +1,2043 @@
+:root {
+  --paper:#FFFFFF;
+  --ink:#172024;
+  --muted:#6a7274;
+  --blue:#0076c8;
+  --line:#d8dcda;
+  --dark:#102b3b;
+  --font-text:Geist,Arial,sans-serif;
+  --font-display:Mulish,Arial,sans-serif}
+* {
+  box-sizing:border-box}
+html {
+  scroll-behavior:smooth}
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font:400 17px/1.65 var(--font-text);
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,p,figure,ul,ol {
+  margin:0}
+a {
+  color:inherit;
+  text-decoration:none}
+button,input {
+  font:inherit}
+button {
+  cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible {
+  outline:3px solid #48aaff;
+  outline-offset:5px}
+img {
+  display:block;
+  width:100%;
+  height:auto}
+ul {
+  padding-left:20px}
+li+li {
+  margin-top:12px}
+h1,h2,h3,h4 {
+  font-weight:500}
+h2 {
+  font-family:var(--font-display);
+  font-size:clamp(36px,4.4vw,66px);
+  line-height:1.07;
+  letter-spacing:-.055em;
+  text-wrap:balance}
+/* Shared chapter heading: Problem & Pivot, Product approach, Key design decisions */
+:root {
+  --chapter-title-size:clamp(36px, 4.75vw, 52px)}
+h2.chapter-title {
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:var(--chapter-title-size);
+  line-height:1.07;
+  letter-spacing:-.055em;
+  text-wrap:balance}
+h3 {
+  font-size:30px;
+  line-height:1.18;
+  letter-spacing:-.035em}
+h4 {
+  font-size:18px;
+  line-height:1.35}
+p {
+  text-wrap:pretty}
+em {
+  font-style:normal;
+  color:var(--muted)}
+.chapter {
+  padding-block:112px}
+.eyebrow {
+  display:flex;
+  gap:30px;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:.04em;
+  margin-bottom:56px}
+.eyebrow>span {
+  font-size:11px;
+  color:var(--blue)}
+.small,figcaption,.screen-label,.stage-caption {
+  font-size:12px;
+  line-height:1.5}
+.small {
+  letter-spacing:.035em}
+.muted {
+  color:var(--muted)}
+.blue {
+  color:var(--blue)}
+.dim {
+  color:#9cb2bd}
+.prose {
+  display:grid;
+  gap:24px;
+  color:#4e5b60}
+.split {
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  gap:96px;
+  align-items:start}
+#problem .story-intro > h2 > .muted {
+  display:block}
+.dark {
+  background:var(--dark);
+  color:#f5f7f8}
+.dark .eyebrow>span {
+  color:#6fc1ff}
+.dark p {
+  color:#c2cfd5}
+.dark .blue {
+  color:#6fc1ff}
+.site-nav {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+  font-size:13px}
+.site-nav .brand {
+  font-weight:500;
+  letter-spacing:-.025em}
+.site-nav .nav-links {
+  display:flex;
+  gap:30px}
+.exploration {
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:.08em}
+.hero {
+  padding-top:52px;
+  scroll-margin-top:85px}
+.hero > .eyebrow {
+  column-gap:12px;
+  margin-bottom:24px}
+.hero-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px}
+.hero h1 {
+  font-family:var(--font-display);
+  font-size:clamp(min(76px, calc(64px + 1.2vw)), 7.6vw, 108px);
+  font-weight:700;
+  line-height:1.08;
+  letter-spacing:-.09em;
+  margin-left:-.055em}
+.hero-title>p {
+  font-size:clamp(24px,2.8vw,40px);
+  line-height:1.23;
+  letter-spacing:-.04em}
+/* Align the visible title and tagline within the centered desktop row. */
+@media (min-width:1001px) {
+  .hero h1 {
+    translate:0 -2.5px;
+  }
+}
+.hero-deck {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:48px;
+  margin:25px 0 54px}
+.hero-deck>p {
+  max-width:560px;
+  color:var(--muted);
+  font-size:20px}
+.links {
+  display:flex;
+  gap:28px;
+  white-space:nowrap;
+  font-size:14px}
+.hero-deck > .links > a {
+  --cta-reveal:0;
+  position:relative;
+  border-bottom:1px solid #999999;
+  padding-bottom:0.5px;
+  transition:opacity 120ms ease-out}
+.hero-deck > .links > a::after {
+  content:'';
+  position:absolute;
+  inset-inline:0;
+  bottom:-1px;
+  height:1px;
+  background:#1A1A1A;
+  pointer-events:none;
+  opacity:var(--cta-reveal);
+  transform:scaleX(var(--cta-reveal));
+  transform-origin:left center;
+  transition:transform 250ms ease-out, opacity 250ms ease-out}
+.hero-deck > .links > a:focus-visible {
+  --cta-reveal:1}
+@media (hover:hover) {
+  .hero-deck > .links > a:hover {
+    --cta-reveal:1}
+}
+.hero-deck > .links > a:is(:active, .is-pressed) {
+  opacity:.8}
+.hero-deck > .links > a > .cta-arrow {
+  display:inline-block}
+@media (prefers-reduced-motion:no-preference) {
+  .hero-deck > .links > a > .cta-arrow {
+    transform:translate(calc(2px * var(--cta-reveal)), calc(-2px * var(--cta-reveal)));
+    transition:transform 250ms ease-out}
+}
+.hero-stage {
+  background:#dfe8e9;
+  display:flex;
+  align-items:start;
+  justify-content:center;
+  gap:6%;
+  padding:55px 5% 0;
+  height:660px;
+  overflow:hidden;
+  position:relative;
+  border-top:1px solid #c8d9dd}
+.hero-phone {
+  width:25%;
+  max-width:263px}
+.hero-phone img,.device img {
+  border-radius:22px;
+  box-shadow:0 18px 35px #102b3b12;
+  border:1px solid #d9dfdf}
+.hero-phone.phone-1 {
+  margin-top:65px}
+.hero-phone.phone-2 {
+  margin-top:130px}
+.screen-label {
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:18px}
+.screen-label span {
+  color:#6c848d}
+.stage-caption {
+  color:var(--muted);
+  padding-top:16px}
+.metadata {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:24px;
+  padding:40px 0 0;
+  margin-top:28px;
+  border-top:1px solid var(--line)}
+.metadata span {
+  font-size:11px;
+  color:var(--muted)}
+.metadata p {
+  font-size:15px;
+  margin-top:8px;
+  overflow-wrap:break-word}
+/* Four equal columns hold every value on one line while a quarter of the row is at least 179px
+   ("About 2 weeks · Oct 2026"). Below 861px it is narrower, so the row becomes two equal columns. */
+@media(max-width:860px) {
+.metadata {
+  grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Divider under the metadata: the same 1px line as the one above Role, across the content container.
+   It is drawn below the block, inside the next chapter's existing top padding, so it adds no height:
+   the distance from the metadata to the chapter label stays 112 / 85 / 64px. The line sits at about 3/7 of it. */
+.metadata {
+  position:relative;
+  --meta-rule-gap:48px}
+.metadata:after {
+  content:'';
+  position:absolute;
+  inset-inline:0;
+  top:calc(100% + var(--meta-rule-gap));
+  border-top:1px solid var(--line);
+  pointer-events:none}
+@media(max-width:1000px) {
+.metadata {
+  --meta-rule-gap:36px}
+}
+@media(max-width:650px) {
+.metadata {
+  --meta-rule-gap:28px}
+}
+/* Room between that divider and the first chapter label: 24px more than the chapter's own top padding
+   (20px at 1000px and below). The hero ends 24px lower; the divider stays where it is under the metadata. */
+.hero {
+  padding-bottom:24px}
+@media(max-width:1000px) {
+.hero {
+  padding-bottom:20px}
+}
+.context-line {
+  margin:65px 0 40px}
+.context-line strong {
+  display:block;
+  font-weight:500;
+  font-size:26px;
+  line-height:1.35;
+  letter-spacing:-.03em}
+.missing {
+  border:1px dashed #b9c2c2;
+  padding:24px;
+  min-height:130px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  color:#657479;
+  font-size:13px}
+.missing span {
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:8px}
+.comparison {
+  --reveal:50%}
+.compare-view {
+  --compare-target:44px;
+  position:relative}
+.compare-view>img {
+  aspect-ratio:2677/1506}
+.after-layer {
+  position:absolute;
+  inset:0;
+  clip-path:inset(0 0 0 var(--reveal))}
+.photo-tag {
+  position:absolute;
+  z-index:1;
+  top:24px;
+  padding:6px 10px;
+  border-radius:4px;
+  background:rgba(255, 255, 255, 0.85);
+  font-family:var(--font-text);
+  font-size:12px;
+  font-weight:500}
+.before-tag {
+  left:24px}
+.after-tag {
+  right:24px}
+.compare-drag-area {
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none}
+.compare-range {
+  position:absolute;
+  top:50%;
+  /* Extend the native track by half a thumb at each end to match the photo edges. */
+  left:calc(var(--compare-target) / -2);
+  width:calc(100% + var(--compare-target));
+  height:var(--compare-target);
+  margin:0;
+  padding:0;
+  border:0;
+  opacity:0;
+  appearance:none;
+  transform:translateY(-50%);
+  pointer-events:auto;
+  cursor:ew-resize;
+  touch-action:pan-y pinch-zoom}
+.compare-range::-webkit-slider-thumb {
+  appearance:none;
+  width:var(--compare-target);
+  height:var(--compare-target)}
+.compare-range::-moz-range-thumb {
+  width:var(--compare-target);
+  height:var(--compare-target);
+  border:0}
+.slider-line {
+  position:absolute;
+  inset-block:0;
+  left:var(--reveal);
+  width:2px;
+  background:#fff;
+  transform:translateX(-50%);
+  pointer-events:none}
+.compare-handle {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:32px;
+  height:32px;
+  border:1px solid #17202440;
+  border-radius:50%;
+  background:#fff;
+  color:var(--ink);
+  display:grid;
+  place-items:center;
+  font-size:16px;
+  line-height:1}
+.compare-drag-area:has(.compare-range:focus-visible) + .slider-line .compare-handle {
+  outline:2px solid var(--blue);
+  outline-offset:2px}
+.compare-caption {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:6px 20px}
+figcaption {
+  color:var(--muted);
+  margin-top:14px}
+.pivot {
+  margin-top:88px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px 96px}
+@media (min-width:651px) {
+  #problem .pivot {
+    row-gap:32px}
+  #problem .pivot > .prose {
+    margin-top:56px}
+}
+.pivot-title>span {
+  font-size:12px;
+  color:var(--muted)}
+.pivot-title h3 {
+  font-family:var(--font-display);
+  font-size:70px;
+  letter-spacing:-.07em;
+  margin-top:20px}
+.pivot-title h3 span {
+  color:var(--blue)}
+/* Supporting line under Event -> State: secondary copy, not a heading.
+   The margin is small because the 70px heading's line box already adds space; the visible gap from the
+   heading's baseline to this line's capitals is about 24px. */
+.pivot-title .pivot-lead {
+  margin-top:2px;
+  font-family:var(--font-text);
+  font-size:19px;
+  font-weight:400;
+  line-height:1.4;
+  color:var(--muted)}
+@media (max-width:650px) {
+  .pivot-title .pivot-lead {
+    margin-top:4px;
+    font-size:17px}
+}
+.pivot-path {
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:96px}
+.pivot-path>div {
+  border-top:1px solid var(--line);
+  padding-top:24px}
+.pivot-path>div:last-child {
+  border-color:var(--blue)}
+.pivot-path h4 {
+  margin:12px 0 16px;
+  font-size:24px}
+.pivot-path ul {
+  font-size:16px;
+  color:var(--muted)}
+.approach > .chapter {
+  padding-block:clamp(40px, 7vw, 58px)}
+.approach .eyebrow {
+  margin-bottom:clamp(32px, 4vw, 44px)}
+.flow-track {
+  margin-top:clamp(18px, 2vw, 28px);
+  border-bottom:1px solid #ffffff26}
+.track-key {
+  display:flex;
+  justify-content:space-between;
+  color:#92aebd;
+  font-size:10px;
+  letter-spacing:.12em;
+  padding-bottom:12px}
+.flow-step {
+  display:grid;
+  grid-template-columns:70px 1fr 100px 1fr;
+  align-items:center;
+  border-top:1px solid #ffffff26;
+  padding-block:19px;
+  gap:24px}
+.flow-index {
+  font-size:13px;
+  color:#6fc1ff}
+.human {
+  display:grid;
+  grid-template-columns:120px 1fr;
+  gap:25px;
+  align-items:baseline}
+.human h3 {
+  font-size:28px}
+.human p,.system p {
+  font-size:16px;
+  max-width:270px}
+.handoff {
+  font-size:30px;
+  line-height:1;
+  color:#71b8e6;
+  transform:rotate(-90deg);
+  text-align:center}
+.system {
+  display:flex;
+  align-items:baseline}
+#decisions {
+  padding-block-end:clamp(48px, 7vw, 88px)}
+#decisions > .eyebrow {
+  margin-bottom:clamp(28px, 4vw, 44px)}
+.decisions-intro {
+  margin-bottom:88px}
+/* Decision intros share the chapter's left edge: eyebrow label, heading, paragraph, then evidence. */
+.decision-heading {
+  margin-bottom:64px}
+.big-no {
+  font-family:var(--font-display);
+  font-size:60px;
+  line-height:1;
+  color:#a9b5b9;
+  letter-spacing:-.06em}
+.decision-heading h3,.decision-heading h2 {
+  max-width:840px;
+  margin-top:18px}
+/* One Decision heading size for D1 (h3) and D2/D3 (h2), a step below the 52px chapter heading.
+   Before: D1 46px, D2/D3 clamp(36px,4.4vw,66px); phones D1 32px, D2/D3 34px. */
+.decision-heading {
+  --decision-title-size:clamp(28px, 2.5vw, 36px)}
+.decision-heading h3,.decision-heading h2 {
+  font-size:var(--decision-title-size)}
+.decision-heading h3 {
+  font-family:var(--font-display);
+  line-height:1.12}
+.decision-heading p {
+  max-width:650px;
+  margin-top:24px;
+  color:var(--muted)}
+.notes {
+  list-style:none;
+  padding:0;
+  margin-top:30px;
+  display:grid;
+  gap:24px}
+.notes li {
+  display:flex;
+  gap:18px;
+  margin:0}
+.note-no {
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid #849da6;
+  border-radius:100%;
+  width:24px;
+  height:24px;
+  flex-shrink:0}
+.notes p {
+  font-size:14px;
+  color:var(--muted);
+  margin-top:8px}
+.dark .notes p {
+  color:#c2cfd5}
+.reasoning {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+  align-items:center}
+.reasoning-screen {
+  position:relative;
+  /* Decision 02 screen at 90% (was 370px) so it weighs less against the three layers */
+  max-width:333px;
+  margin:auto}
+.reasoning-screen figcaption {
+  color:#9cb2bd}
+.reason-step {
+  border:0;
+  border-top:1px solid #ffffff30;
+  padding:30px 0;
+  background:none;
+  color:inherit;
+  text-align:left;
+  width:100%;
+  display:grid;
+  grid-template-columns:35px 1fr;
+  gap:18px}
+.reason-step>span {
+  font-size:12px;
+  color:#74c4ff}
+.reason-step h3 {
+  font-size:28px}
+.reason-step p {
+  font-size:16px;
+  margin-top:14px}
+.decision-details {
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  gap:90px;
+  margin-top:100px;
+  padding-top:60px;
+  border-top:1px solid #ffffff26;
+  align-items:start}
+.decision-details img {
+  border-radius:12px}
+.decision-details>div:last-child img {
+  max-height:420px;
+  object-fit:contain;
+  object-position:left}
+.decision-details figcaption {
+  color:#9cb2bd}
+.decision-details p {
+  margin-top:24px;
+  font-size:15px}
+.uncertainty {
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:100px;
+  align-items:start}
+.result-demo {
+  background:#e8edef;
+  padding:30px 35px;
+  text-align:center}
+.result-demo .device {
+  max-width:320px;
+  margin:28px auto}
+.segmented {
+  display:flex;
+  border:1px solid #bac7cc;
+  padding:4px;
+  border-radius:50px;
+  gap:4px}
+.segmented button {
+  flex:1;
+  border:0;
+  background:transparent;
+  border-radius:40px;
+  font-size:12px;
+  padding:10px}
+.segmented button.selected {
+  background:var(--dark);
+  color:white}
+.rules>h3 {
+  font-size:36px;
+  margin:18px 0 35px}
+.rules>h4 {
+  margin-top:45px}
+.rule-list {
+  list-style:none;
+  padding:0;
+  margin:24px 0 35px;
+  border-top:1px solid var(--line)}
+.rule-list li {
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  border-bottom:1px solid var(--line);
+  padding:15px 0;
+  margin:0;
+  font-size:14px}
+.rule-list li span:last-child {
+  color:var(--blue)}
+.rule-list .blocked span:last-child {
+  color:#8c5b31}
+.rules .prose {
+  font-size:15px}
+.failure-pair {
+  display:grid;
+  grid-template-columns:1.1fr 1fr 1fr;
+  gap:50px;
+  border-top:1px solid var(--line);
+  margin-top:70px;
+  padding-top:35px}
+.failure-pair h3 {
+  font-size:24px}
+.failure-pair h4 {
+  margin:12px 0}
+.failure-pair p {
+  font-size:15px;
+  color:var(--muted)}
+.decision-three .rail-step>.small {
+  margin-top:36px}
+.constraints {
+  background:#e9ede9}
+.time-diagram {
+  display:grid;
+  grid-template-columns:max-content minmax(0, 1fr) minmax(max-content, 33.333%);
+  align-items:center;
+  column-gap:clamp(16px, 3vw, 32px);
+  margin-block:clamp(40px, 6vw, 64px) clamp(16px, 2vw, 24px);
+  padding:40px 0;
+  border-block:1px solid #becac7}
+.time-diagram span {
+  font-size:11px;
+  color:var(--blue)}
+.time-diagram h3 {
+  font-size:28px;
+  margin:16px 0 8px}
+.time-diagram p {
+  font-size:14px;
+  color:var(--muted)}
+.time-line {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-block-start:12px}
+.time-line::before,.time-line::after {
+  content:"";
+  flex:1;
+  height:1px;
+  background:#a9bab7}
+.time-line span {
+  color:#526164;
+  white-space:nowrap}
+.time-line > span {
+  display:flex;
+  align-items:center;
+  gap:4px}
+.time-arrow::before {
+  content:"→"}
+.constraint-row {
+  display:grid;
+  grid-template-columns:70px 1fr 1fr;
+  gap:40px;
+  padding:50px 0;
+  border-bottom:1px solid #cdd6d1}
+/* Add room between copy and evidence while keeping the screenshot track fixed. */
+#constraints .constraint-row > div:first-of-type {
+  margin-inline-end:clamp(0px, calc(14vw - 140px), 28px)}
+.constraint-row .big-no {
+  font-size:30.6px}
+.constraint-row h3 {
+  font-size:26px}
+.constraint-row p {
+  color:#3f4e52;
+  font-size:16px;
+  margin-top:20px}
+.constraint-row h4 {
+  margin-top:26px;
+  font-size:13px;
+  color:var(--blue)}
+.constraint-row figure+figure {
+  margin-top:24px}
+.constraint-row img {
+  border-radius:6px}
+.collaboration {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:95px;
+  padding-top:80px}
+.collaboration h3 {
+  font-size:36px;
+  margin-top:22px}
+.collaboration .prose {
+  font-size:16px}
+.collab-chain {
+  display:flex;
+  gap:15px;
+  align-items:center;
+  font-size:12px;
+  margin-top:40px;
+  flex-wrap:wrap}
+.collab-chain b {
+  color:var(--blue);
+  font-weight:400}
+.validation h2 {
+  font-size:clamp(44px,6vw,84px)}
+.validation-intro {
+  margin:28px 0 70px;
+  font-size:22px;
+  color:var(--muted)}
+.validation-ledger {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px}
+.validation-ledger h3 {
+  margin:22px 0;
+  font-size:25px}
+.validation-ledger ul {
+  list-style:none;
+  padding:0;
+  color:#566467}
+.validation-ledger li {
+  border-top:1px solid var(--line);
+  padding-top:15px;
+  margin-top:15px}
+.validation-ledger article+article {
+  margin-top:45px}
+.demonstrated {
+  border-top:2px solid var(--blue);
+  padding-top:25px}
+.validation-ledger>div:last-child {
+  padding-top:27px}
+.evidence-note {
+  margin-top:60px;
+  padding:24px 0;
+  border-block:1px solid var(--line);
+  color:var(--muted);
+  font-size:14px}
+.reflection {
+  display:flex;
+  align-items:baseline;
+  gap:30px;
+  padding:40px 0}
+.reflection p {
+  font-size:20px}
+.closing {
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  border-top:1px solid var(--ink);
+  padding-top:30px;
+  margin-top:70px;
+  font-size:12px}
+.site-footer {
+  padding:30px 0 40px;
+  font-size:12px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  border-top:1px solid var(--line)}
+
+@media(min-width:1600px) {
+  .hero-stage {
+  height:720px}
+}
+@media(max-width:1000px) {
+.decisions-intro {
+  margin-bottom:max(48px, calc(5vw + 12px))}
+.split,.pivot,.pivot-path,.reasoning,.uncertainty,.collaboration,.validation-ledger {
+  gap:45px}
+.hero-stage {
+  height:520px;
+  gap:7%}
+.hero-phone {
+  width:27%}
+.flow-step {
+  grid-template-columns:35px 1fr 40px 1fr;
+  gap:18px}
+.human {
+  grid-template-columns:1fr;
+  gap:12px}
+.flow-step > .handoff,.flow-step > .system {
+  align-self:end}
+.flow-step > .handoff {
+  margin-bottom:12px}
+.decision-details {
+  gap:45px}
+.constraint-row {
+  grid-template-columns:40px 1fr 1fr;
+  gap:25px}
+.failure-pair {
+  gap:25px}
+.hero-title>p {
+  font-size:26px}
+.hero-deck {
+  align-items:start}
+.chapter {
+  padding-block:85px}
+}
+
+@media(max-width:650px) {
+.site-nav {
+  padding:20px 0}
+.site-nav .nav-links {
+  gap:18px;
+  font-size:12px}
+.exploration {
+  display:none}
+.hero {
+  padding-top:35px}
+.hero-title {
+  display:block}
+.hero-title>p {
+  font-size:28px;
+  margin-top:15px}
+.hero-deck {
+  display:block;
+  margin:25px 0 35px}
+.hero-deck>p {
+  font-size:17px}
+.links {
+  margin-top:25px}
+.hero-stage {
+  height:auto;
+  padding:30px 20px;
+  gap:20px;
+  align-items:start;
+  overflow-x:auto;
+  justify-content:flex-start;
+  scroll-snap-type:x mandatory}
+.hero-phone {
+  min-width:68%;
+  width:68%;
+  scroll-snap-align:center}
+.hero-phone.phone-1,.hero-phone.phone-2 {
+  margin-top:0}
+.screen-label {
+  margin-bottom:12px}
+.hero-phone img {
+  border-radius:16px}
+.metadata {
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:25px 20px;
+  margin-top:25px;
+  padding-top:25px}
+.metadata p {
+  font-size:13px}
+.stage-caption {
+  font-size:11px}
+.chapter {
+  padding-block:64px}
+.eyebrow {
+  margin-bottom:35px;
+  gap:20px}
+.split,.pivot,.pivot-path,.reasoning,.decision-details,.uncertainty,.collaboration,.validation-ledger {
+  grid-template-columns:1fr;
+  gap:35px}
+.split h2:not(.chapter-title) {
+  font-size:40px}
+#problem .story-intro > h2 > .muted {
+  display:inline}
+.context-line {
+  margin-top:40px}
+.context-line strong {
+  font-size:25px}
+.photo-tag {
+  top:10px}
+.before-tag {
+  left:10px}
+.after-tag {
+  right:10px}
+.pivot {
+  margin-top:45px}
+.pivot-title h3 {
+  font-size:60px}
+.pivot-path {
+  gap:30px}
+.track-key {
+  display:none}
+.flow-step {
+  grid-template-columns:28px 1fr;
+  gap:12px 15px;
+  padding-block:17px}
+.human {
+  grid-column:2}
+.flow-index {
+  align-self:start;
+  padding-top:6px}
+.human h3 {
+  font-size:26px}
+.handoff {
+  grid-column:2;
+  transform:none;
+  text-align:left;
+  font-size:22px;
+  line-height:1}
+.flow-step > .handoff {
+  margin-bottom:0}
+.system {
+  grid-column:2}
+.human p,.system p {
+  max-width:none}
+.decisions-intro {
+  gap:20px}
+.decision-heading {
+  margin-bottom:40px}
+.big-no {
+  font-size:40px}
+.decision-heading {
+  --decision-title-size:28px}
+.decision-heading .small {
+  font-size:10px}
+.decision-heading p {
+  font-size:16px}
+.notes p {
+  font-size:14px}
+.reasoning-screen {
+  /* 90% (was 280px) */
+  max-width:252px}
+.reason-step h3 {
+  font-size:24px}
+.decision-details {
+  margin-top:45px;
+  padding-top:35px}
+.decision-details>div:last-child img {
+  max-height:360px}
+.result-demo {
+  padding:20px}
+.rules>h3 {
+  font-size:30px}
+.failure-pair {
+  grid-template-columns:1fr;
+  margin-top:45px}
+.failure-pair>div {
+  border-top:1px solid var(--line);
+  padding-top:20px}
+.time-diagram {
+  grid-template-columns:minmax(0, 1fr);
+  gap:25px}
+.time-line {
+  margin-block-start:0}
+.time-arrow::before {
+  content:"↓"}
+.time-diagram h3 {
+  font-size:25px}
+.constraint-row {
+  grid-template-columns:32px 1fr;
+  padding:30px 0}
+.constraint-row>div:last-child {
+  grid-column:2}
+.constraint-row h3 {
+  font-size:24px}
+.collaboration {
+  padding-top:45px}
+.collaboration h3 {
+  font-size:30px}
+.validation-intro {
+  font-size:18px;
+  margin-bottom:40px}
+.validation-ledger {
+  gap:30px}
+.reflection {
+  flex-wrap:wrap;
+  gap:15px}
+.closing {
+  margin-top:35px}
+.site-footer {
+  gap:20px;
+  font-size:11px}
+.small {
+  font-size:11px}
+}
+@media(prefers-reduced-motion:reduce) {
+  html {
+  scroll-behavior:auto}
+*,*:before,*:after {
+  transition:none!important;
+  animation:none!important}
+}
+
+
+/* Final presentation: retain complete hero screens and readable dark-chapter copy. */
+@media(min-width:651px) {
+  .hero-stage {
+  height:auto;
+  padding-bottom:64px}
+}
+
+.dark .decision-heading p {
+  color:#c2cfd5}
+
+
+/* Option B: editorial decision index. The line continues across sections with a gap at each number. */
+/* Numbers sit small inside a circle on the line (was 42px numerals). The circle is an odd width so it
+   centres exactly on the 1px line; --rail-size is the circle height, --rail-num the numeral size. */
+#scena-root {
+  --rail-w:80px;
+  --rail-mark:29px;
+  --rail-size:29px;
+  --rail-num:13px;
+  --rail-top:1px;
+  --rail-gap:8px;
+  --rail-x:calc((var(--rail-mark) - 1px) / 2)}
+.rail-step {
+  position:relative;
+  padding-left:var(--rail-w)}
+.rail-step::before,.rail-step:is(.rail-middle,.rail-last)::after {
+  content:"";
+  position:absolute;
+  left:var(--rail-x);
+  width:1px;
+  background:#cdd3d1}
+.rail-step::before {
+  top:calc(var(--rail-top) + var(--rail-size) + var(--rail-gap));
+  bottom:0}
+.dark .rail-step::before,.dark .rail-step::after {
+  background:#ffffff26}
+.rail-no {
+  position:absolute;
+  left:0;
+  top:var(--rail-top);
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:var(--rail-mark);
+  height:var(--rail-size);
+  border:1px solid #c3c9cb;
+  border-radius:50%;
+  color:#8a9396;
+  transition:color .25s ease,border-color .25s ease;
+  font:400 var(--rail-num)/1 var(--font-text);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0}
+.dark .rail-no {
+  border-color:#ffffff40;
+  color:#8fa6b2}
+.rail-step.is-active > .rail-no {
+  border-color:var(--blue);
+  color:var(--blue)}
+.dark .rail-step.is-active > .rail-no {
+  border-color:#6fc1ff;
+  color:#6fc1ff}
+@media (prefers-reduced-motion:reduce) {
+  .rail-no {
+    transition:none}
+}
+@supports (overflow:clip) {
+  #decisions,#decision-b > .wrap,#decision-c {
+    overflow-y:clip}
+  .rail-step:is(.rail-first,.rail-middle)::before {
+    bottom:-2000px}
+  .rail-step:is(.rail-middle,.rail-last)::after {
+    top:-2000px;
+    bottom:calc(100% - var(--rail-top) + var(--rail-gap))}
+}
+@media (max-width:1000px) {
+  #scena-root {
+    --rail-w:56px;
+    --rail-mark:27px;
+    --rail-size:27px;
+    --rail-top:2px}
+}
+@media (max-width:650px) {
+  #scena-root {
+    --rail-w:34px;
+    --rail-mark:23px;
+    --rail-size:23px;
+    --rail-top:5px}
+}
+
+/* Section 03 decision rhythm (remove this block to revert).
+   Before: eyebrow -> heading 23px, heading -> paragraph 24px, paragraph -> mockup 64px (40px on phones),
+   paragraph capped at 700px. Now 24 / 22 / 56, paragraph capped at 640px on wide screens;
+   narrower screens already give it less than that. Phones keep their 40px gap to the mockup. */
+#scena-root .rail-step .decision-heading :is(h2,h3) {
+  margin-top:19px}
+#scena-root .rail-step .decision-heading p {
+  margin-top:22px;
+  max-width:640px}
+#scena-root .rail-step .decision-heading {
+  margin-bottom:56px}
+@media (max-width:650px) {
+  #scena-root .rail-step .decision-heading {
+    margin-bottom:40px}
+}
+
+#decision-a.rail-step .decision-heading {
+  margin-bottom:clamp(28px, 3vw, 40px)}
+#decision-a.rail-step .decision-heading h3 {
+  margin-top:12px}
+#decision-a.rail-step .decision-heading p {
+  margin-top:16px}
+
+/* Decision 01 evidence: three-track diagonal (left screen | notes | right screen).
+   --sd-w   screen width (both screens)
+   --sd-h   screen height from the files' proportion (1071 x 2317)
+   --sd-d   diagonal drop: the editor starts 31% of the way down the reference screen (52% on tablet)
+   Rows are explicit so the drop comes from the grid, not from margins or note heights:
+     row 1 = drop (Expected state sits here, beside the top of the reference screen)
+     row 2 = overlap of the two screens
+     row 3 = drop again (Owner-defined Care Spots sits here, beside the lower half of the editor)
+   Both notes share the middle track, so they never take a screenshot's left edge. */
+#decision-a .setup-diagonal {
+  --sd-w:clamp(200px, 26vw, 268px);
+  --sd-h:calc(var(--sd-w) * 2.1634);
+  /* drop 31% of the screen height so the panel is about 900px tall (was 52%, about 1025px) */
+  --sd-d:calc(var(--sd-h) * .31);
+  display:grid;
+  grid-template-columns:var(--sd-w) minmax(180px, 280px) var(--sd-w);
+  grid-template-rows:var(--sd-d) calc(var(--sd-h) - var(--sd-d)) var(--sd-d) auto;
+  grid-template-areas:
+    "ref   noteA ."
+    "ref   .     edit"
+    ".     noteB edit"
+    "cap   cap   cap";
+  /* screen <-> step gap: a fixed 24px (was clamp(20px, 2.2vw, 32px), before that clamp(24px, 3.5vw, 56px)) */
+  column-gap:24px;
+  row-gap:0;
+  justify-content:center;
+  justify-items:stretch;
+  align-items:start;
+  /* +20% on every side: top/bottom 60 -> 72px, left/right 70 -> 84px at full width
+     (originally clamp(24px, 4vw, 48px)) */
+  padding-block:clamp(34px, 6vw, 72px);
+  padding-inline:clamp(34px, 7vw, 84px)}
+.setup-diagonal > .device {
+  margin:0;
+  width:100%}
+.setup-diagonal > .sd-ref { grid-area:ref }
+.setup-diagonal > .sd-edit { grid-area:edit }
+.setup-diagonal > .sd-note-ref {
+  grid-area:noteA;
+  align-self:start;
+  justify-self:start;
+  max-width:236px}
+.setup-diagonal > .sd-note-spots {
+  grid-area:noteB;
+  /* bottom of the block sits on the editor's bottom edge (row 3 ends where the editor ends; was 24px above) */
+  align-self:end;
+  justify-self:end;
+  max-width:236px;
+  margin-bottom:0;
+  /* faces the editor on its right */
+  text-align:right}
+/* small blue step label above each note heading */
+.sd-note > .sd-step {
+  display:block;
+  margin-bottom:4px;
+  font-family:var(--font-text);
+  font-size:10px;
+  font-weight:400;
+  line-height:1.4;
+  letter-spacing:.06em;
+  color:#0077CC}
+.sd-note h4 {
+  font-family:var(--font-text);
+  font-size:14px;
+  font-weight:500;
+  line-height:1.35;
+  letter-spacing:-.01em;
+  color:var(--ink)}
+/* desktop-only line break in the Expected state note ("...comparisons. / Its capture time...").
+   It needs the full 236px note width, which the three-track layout reaches from about 1162px. */
+@media (max-width:1169px) {
+  .sd-note .sd-br {
+    display:none}
+}
+.sd-note p {
+  margin-top:4px;
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted)}
+.setup-diagonal > .sd-caption {
+  grid-area:cap;
+  margin-top:32px;
+  font-size:12px;
+  line-height:1.5;
+  color:var(--muted)}
+/* Tablet (1100px and below; the wider side padding needs the room): too narrow for three tracks. Two columns keep the drop; each note sits 24px under its own screen. */
+@media (max-width:1100px) {
+  #decision-a .setup-diagonal {
+    --sd-d:calc(var(--sd-h) * .52);
+    grid-template-columns:repeat(2, var(--sd-w));
+    grid-template-rows:var(--sd-d) calc(var(--sd-h) - var(--sd-d)) var(--sd-d) auto auto;
+    grid-template-areas:
+      "ref   ."
+      "ref   edit"
+      "noteA edit"
+      ".     noteB"
+      "cap   cap"}
+  .setup-diagonal > .sd-note {
+    align-self:start;
+    justify-self:stretch;
+    max-width:none;
+    margin-bottom:0;
+    padding-top:24px;
+    text-align:left}
+}
+/* Phones: one sequence in document order, 24px from each screen to its note. */
+@media (max-width:650px) {
+  #decision-a .setup-diagonal {
+    grid-template-columns:minmax(0, 252px);
+    grid-template-rows:none;
+    grid-template-areas:"ref" "noteA" "edit" "noteB" "cap"}
+  .setup-diagonal > .sd-note {
+    padding-top:24px}
+  .setup-diagonal > .sd-edit {
+    margin-top:40px}
+  .setup-diagonal > .sd-caption {
+    margin-top:28px}
+}
+
+
+/* Decision 02: sky-blue bracket "]" beside the phone, grouping the Before/After photo evidence.
+   Rows measured on compare-v2.png (1170 x 2616, Figma 263:3457): "Before" label row 335, After photo bottom row 1715.
+   cqw = 1% of the screen's width, so the bracket tracks the screenshot. 28px clear of the phone.
+   Shown only where the space between the phone and the text can hold it. */
+.reasoning-screen {
+  width:100%;
+  container-type:inline-size}
+@media (min-width:1001px) {
+  .reasoning-screen:after {
+    content:'';
+    position:absolute;
+    left:calc(100% + 28px);
+    top:28.632cqw;
+    height:117.949cqw;
+    width:20px;
+    box-sizing:border-box;
+    border:1.5px solid #68c4ff;
+    border-left:0;
+    pointer-events:none}
+}
+
+/* Decision 02 description: desktop line breaks (after "attention." and "photos and").
+   The longest line is about 577px; below 720px the paragraph is narrower than that, so it wraps naturally. */
+@media (max-width:720px) {
+  .desk-br {
+    display:none}
+}
+
+/* Decision 02 detail crops: each card sits centred on its own light-gray panel (same panel style as the
+   Decision 01 evidence) with the hero screen shadow. Two equal columns; caption and text sit under the panel,
+   on its left edge. Padding is a share of the panel width so the card keeps its place at every size. */
+@media (min-width:651px) {
+  .decision-details {
+    grid-template-columns:1fr 1fr;
+    gap:40px}
+}
+.ui-panel {
+  /* panel background removed: only the card itself shows on the navy */
+  display:flex;
+  justify-content:flex-start;
+  align-items:flex-start}
+#scena-root .decision-details .ui-panel img {
+  border-radius:8px;
+  outline:0;
+  box-shadow:0 12px 32px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04)}
+#scena-root .decision-details .ui-panel-decision img {
+  width:100%}
+/* the tall history card keeps its own width at a 420px height cap (no letterbox fill around it) */
+#scena-root .decision-details .ui-panel-history img {
+  width:auto;
+  max-width:100%;
+  max-height:420px;
+  object-fit:fill}
+.decision-details figcaption {
+  margin-top:28px}
+.decision-details > div > p {
+  margin-top:8px;
+  max-width:520px}
+
+/* Decision 02 · History record panel (reversible experiment): the right module only sits in a thin
+   outlined panel on the navy; order is heading → text → screenshot. The left module is untouched. */
+.decision-details > .history-panel {
+  border:1px solid rgba(156,178,189,.28);
+  border-radius:12px;
+  padding:24px;
+  min-width:0}
+.history-panel figcaption {
+  margin-top:0}
+.decision-details > .history-panel p {
+  margin-top:8px;
+  max-width:520px}
+.history-panel .ui-panel-history {
+  margin-top:28px}
+@media (max-width:650px) {
+  .decision-details > .history-panel {
+    padding:20px 16px}
+}
+
+/* Decision 02 · Owner decision card: the Figma crop (owner-decision-v2.png) reads larger than the old one,
+   so cap it near its previous on-page height (~330px). Remove this block to return to full column width. */
+#scena-root .decision-details .ui-panel-decision img {
+  width:min(100%, 440px)}
+/* Balance: the Owner decision module sits vertically centred against the taller History panel,
+   so the empty space is shared above and below instead of piling up at the bottom left. */
+@media (min-width:651px) {
+  .decision-details > div:first-child {
+    align-self:center}
+}
+
+/* Decision 03 · comparison toggle screen: same hero shadow as the Decision 01 screens (both toggle states). */
+#scena-root #decision-c .result-demo .device img {
+  box-shadow:0 12px 32px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04)}
+
+/* Decision 03 toggle motion: one dark pill slides between the two options, the label colours ease,
+   and the two screens cross-fade in place (0.5s), stacked in one grid cell. */
+.segmented {
+  position:relative}
+.segmented::before {
+  content:'';
+  position:absolute;
+  top:4px;
+  bottom:4px;
+  left:4px;
+  width:calc(50% - 6px);
+  border-radius:40px;
+  background:var(--dark);
+  transition:transform .42s cubic-bezier(.32,.72,0,1)}
+.segmented[data-active="right"]::before {
+  transform:translateX(calc(100% + 4px))}
+.segmented button {
+  position:relative;
+  z-index:1;
+  cursor:pointer;
+  transition:color .3s ease}
+.segmented button.selected {
+  background:transparent}
+#result-image {
+  display:grid}
+#result-image > figure {
+  grid-area:1/1;
+  transition:opacity .5s cubic-bezier(.4,0,.2,1)}
+#result-image > .is-entering,#result-image > .is-leaving {
+  opacity:0}
+@media (prefers-reduced-motion:reduce) {
+  .segmented::before,.segmented button,#result-image > figure {
+    transition:none}
+}
+
+/* Decision 03 · right-side subheading ("The result changes. / So do the choices.") sits below the main
+   Decision heading: 28px on desktop (was 36px), scaling to 22px on small screens (was 30px). */
+#decision-c .rules > h3 {
+  font-size:clamp(22px, 2.2vw, 28px);
+  line-height:1.2}
+
+/* Decision 03 toggle width = the screen below it: same 320px cap, centred, shrinking with it on small screens. */
+.result-demo .segmented {
+  width:100%;
+  max-width:320px;
+  margin-inline:auto;
+  box-sizing:border-box}
+/* keep both labels on one line when the screen (and toggle) narrows, e.g. 221px on tablet */
+.result-demo .segmented {
+  container-type:inline-size}
+.result-demo .segmented button {
+  padding-inline:4px;
+  white-space:nowrap;
+  font-size:min(12px, 4.9cqw)}
+
+/* Decision 03 · screen captions ("Different and three choices" / "Not compared and two choices") hidden. */
+#result-image figcaption {
+  display:none}
+
+/* Decision 03 · comparison panel margins: equal space on all four sides of the toggle + screen column.
+   Top and bottom match the side space ((panel width - 320px) / 2), never less than the side padding. */
+#decision-c .result-demo {
+  --rd-pad:35px;
+  padding:max(var(--rd-pad), calc((100% - 320px) / 2)) var(--rd-pad)}
+#decision-c .result-demo .device {
+  margin:28px auto 0}
+@media (max-width:650px) {
+  #decision-c .result-demo {
+    --rd-pad:20px}
+}
+
+/* Decision 01 panel: 64px top/bottom and 84px left/right margins from 1170px up. The bottom is measured to what you SEE
+   (the editor screen's lower edge / the STEP 02 text baseline), not to the text's line box. */
+@media (min-width:1170px) {
+  #decision-a .setup-diagonal {
+    padding:64px 84px 62px}
+}
+
+/* Decision 01 screens about 10% larger from 1170px up (268px -> 295px). To keep the 100px side margins,
+   each note may also use the empty cell beside it (STEP 01 spans the middle + right column in the top row,
+   STEP 02 spans the left + middle column in the bottom row), so the middle column can narrow safely. */
+@media (min-width:1170px) {
+  #decision-a .setup-diagonal {
+    --sd-w:clamp(200px, 25vw, 295px);
+    grid-template-columns:var(--sd-w) minmax(120px, 280px) var(--sd-w);
+    grid-template-areas:"ref noteA noteA" "ref . edit" "noteB noteB edit" "cap cap cap"}
+}
+
+/* Decision 01 · STEP 01 / STEP 02 labels: a little more presence (10px -> 12px, Medium, .02em, 6px to heading). */
+#decision-a .sd-note > .sd-step {
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.02em;
+  line-height:1.4;
+  margin-bottom:6px}
+/* Decision 01 · note type: title 14 -> 16px Medium, description 13 -> 14px Regular, 6px between
+   title and description to match the label gap. Notes may use the full middle track (up to 280px,
+   was 236px) so the larger text wraps less, mainly STEP 02. Tablet/phone already go full width. */
+#decision-a .sd-note h4 {
+  font-size:16px;
+  font-weight:500}
+#decision-a .sd-note p {
+  margin-top:6px;
+  font-size:14px;
+  font-weight:400}
+@media (min-width:1101px) {
+  /* The middle track is often narrower than 280px; each note extends into the empty cell beside
+     it (STEP 01 to the right, STEP 02 to the left), never over a screenshot. */
+  #decision-a .setup-diagonal > .sd-note-ref,
+  #decision-a .setup-diagonal > .sd-note-spots {
+    width:280px;
+    max-width:none}
+}
+
+/* Decision 03 · "Comparison limitations" supporting module: a quiet outlined box 40px under the two notes. Badges reproduce the Figma component
+   "Badge / Compare Failure Reason" (node 45:64): 3px 8px padding, 4px gap, 12px radius, 16px icon,
+   13px medium label, per-reason colours. */
+@media (min-width:651px) {
+  #decision-c .rules {
+    align-self:stretch;
+    display:flex;
+    flex-direction:column}
+  #decision-c .rules > .small.blue {
+    display:block}
+  #decision-c .rules > .notes {
+    margin-top:35px}
+  #decision-c .limits {
+    margin-top:40px}
+}
+@media (max-width:650px) {
+  #decision-c .limits {
+    margin-top:40px}
+}
+#decision-c .limits {
+  padding:28px;
+  border:1px solid rgba(23,32,36,.12);
+  border-radius:14px}
+#decision-c .limits-eyebrow {
+  display:block;
+  color:var(--muted)}
+#decision-c .limit-badges {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:16px 0 0;
+  padding:0;
+  list-style:none;
+  align-items:center}
+#decision-c .limit-badge + .limit-badge {
+  margin-top:0}
+#decision-c .limit-badge {
+  box-shadow:inset 0 0 0 1px var(--badge-stroke);
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:3px 8px;
+  border-radius:12px;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, "Segoe UI", sans-serif;
+  font-size:13px;
+  font-weight:400;
+  line-height:16px;
+  white-space:nowrap}
+#decision-c .limit-badge img {
+  width:16px;
+  height:16px;
+  flex:none;
+  margin:0;
+  box-shadow:none;
+  border:0;
+  border-radius:0;
+  background:none}
+#decision-c .lb-dark {
+  --badge-stroke:#ebd9bd;
+  background:#fff3e3;
+  color:#a56600}
+#decision-c .lb-blurry {
+  --badge-stroke:#e1d4c7;
+  background:#f8f1e8;
+  color:#876241}
+#decision-c .lb-blocked {
+  --badge-stroke:#ecd2d7;
+  background:#fff0f2;
+  color:#a34a5b}
+#decision-c .limits > p {
+  margin-top:16px;
+  font-size:15px;
+  line-height:1.5;
+  color:var(--muted)}
+@media (max-width:650px) {
+  #decision-c .limits {
+    padding:20px}
+}
+
+/* Decision 03 · "Two failures that look similar and are not": wider intro column, two equal case columns.
+   Desktop 1.6fr 1fr 1fr with 32px gaps; tablet eases to 1.25fr so the case columns don't get too narrow;
+   mobile keeps the existing single-column stack. */
+#decision-c .failure-pair {
+  align-items:start}
+@supports (grid-template-rows:subgrid) {
+  @media (min-width:651px) {
+    /* The cases share rows for the number, heading, and description. */
+    #decision-c .failure-pair {
+      grid-template-rows:auto auto 1fr;
+      row-gap:0}
+    #decision-c .failure-pair > div {
+      grid-row:1 / span 3}
+    #decision-c .failure-pair > div:not(.failure-intro) {
+      display:grid;
+      grid-template-rows:subgrid}
+  }
+}
+@media (min-width:1001px) {
+  #decision-c .failure-pair {
+    grid-template-columns:1.6fr 1fr 1fr;
+    column-gap:32px}
+}
+@media (min-width:651px) and (max-width:1000px) {
+  #decision-c .failure-pair {
+    grid-template-columns:1.25fr 1fr 1fr}
+}
+
+/* Decision 03 · comparison panel a little wider on desktop: the toggle and screen stay 320px, side space
+   grows 59px -> 80px (panel 438px -> 480px). The column gap eases 100px -> 80px so the right column keeps
+   most of its width. Top and bottom space stay 59px. */
+@media (min-width:1001px) {
+  #decision-c .uncertainty {
+    grid-template-columns:min(480px, 47%) minmax(0, 1fr);
+    column-gap:80px}
+  #decision-c .result-demo {
+    padding-block:59px}
+}
+/* Unavailable reasons: all six Figma variants (Badge / Compare Failure Reason, node 45:64). */
+#decision-c .lb-moved {
+  --badge-stroke:#d8d0f0;
+  background:#f2eeff;
+  color:#6e56b5}
+#decision-c .lb-unavailable {
+  --badge-stroke:#d3d6d8;
+  background:#f1f3f4;
+  color:#5f6368}
+#decision-c .lb-noref {
+  --badge-stroke:#d0dde0;
+  background:#eef4f7;
+  color:#56717f}
+#decision-c .limit-badges {
+  gap:10px 8px}
+/* narrow boxes: a little less padding so the six badges settle into three even rows of two */
+@media (max-width:1000px) {
+  #decision-c .limits {
+    padding:22px 20px}
+}
+@media (max-width:650px) {
+  #decision-c .limits {
+    padding:20px 14px}
+  #decision-c .limit-badges {
+    column-gap:6px}
+}
+
+/* The introduction keeps a balanced heading and a compact reading width. */
+#decision-c .failure-intro h3 {
+  max-width:15em;
+  text-wrap:balance}
+#decision-c .failure-intro p {
+  margin-top:16px;
+  max-width:400px;
+  line-height:1.6}
+@media (max-width:650px) {
+  #decision-c .failure-pair > .failure-intro {
+    border-top:0;
+    padding-top:0}
+}
+
+/* Problem section · compare slider handle: a clean pair of chevrons instead of the "↔" glyph,
+   on a slightly larger white knob with a soft shadow. */
+.compare-handle {
+  width:36px;
+  height:36px;
+  border:1px solid rgba(23,32,36,.10);
+  box-shadow:0 2px 8px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06)}
+.compare-handle svg {
+  display:block}
+
+/* Problem · "Event -> State": the blue arrow is a drawn line + open straight head (no curved glyph tips).
+   Sized in em so it follows the 70px / 60px heading. */
+.pivot-title h3 .pivot-arrow {
+  display:inline-block;
+  width:.6364em;
+  height:.444em;
+  vertical-align:.04em;
+  letter-spacing:0}
+.pivot-title h3 .pivot-arrow svg {
+  display:block;
+  width:100%;
+  height:100%}
+
+/* Decision 03 · "Decision availability": a quiet hairline summary under the Unavailable reasons box,
+   on the same left/right edges. No card, border box, icons or shadows. */
+#decision-c .availability {
+  margin-top:22px}
+#decision-c .availability-eyebrow {
+  display:block;
+  color:var(--muted)}
+#decision-c .availability-table {
+  width:100%;
+  margin-top:10px;
+  border-collapse:collapse;
+  font-family:var(--font-text)}
+#decision-c .availability-table thead th {
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip:rect(0 0 0 0);
+  white-space:nowrap}
+#decision-c .availability-table tbody tr {
+  height:42px;
+  border-bottom:1px solid var(--line)}
+#decision-c .availability-table tbody tr:first-child {
+  border-top:1px solid var(--line)}
+#decision-c .availability-table tbody th {
+  padding:0 12px 0 0;
+  text-align:left;
+  font-size:14px;
+  font-weight:400;
+  color:var(--ink)}
+#decision-c .availability-table td {
+  padding:0;
+  text-align:right;
+  font-size:13px;
+  white-space:nowrap;
+  color:var(--blue)}
+#decision-c .availability-table .is-blocked td {
+  color:#8c5b31}
+
+/* Decision 03 · right-column rhythm (spacing only). Three levels:
+   small  8px   heading -> description (unchanged)
+   medium 16-20px / 40px  items inside a group (badge-box internals, table label, the two reasoning notes)
+   large  60px / 52px  between the three groups: reasoning -> reasons box -> availability table */
+#decision-c .rules > .notes {
+  row-gap:40px}
+#decision-c .rules .limits {
+  margin-top:60px;
+  padding:30px}
+#decision-c .limit-badges {
+  margin-top:20px}
+#decision-c .limits > p {
+  margin-top:20px}
+#decision-c .availability {
+  margin-top:52px}
+#decision-c .availability-table {
+  margin-top:16px}
+#decision-c .availability-table tbody tr {
+  height:54px}
+@media (max-width:1000px) {
+  #decision-c .rules .limits {
+    padding:24px 20px}
+}
+@media (max-width:650px) {
+  #decision-c .rules > .notes {
+    row-gap:32px}
+  #decision-c .rules .limits {
+    margin-top:48px;
+    padding:22px 14px}
+  #decision-c .availability {
+    margin-top:44px}
+}
+/* badges: a touch more air between them (rows 10 -> 12px, columns 8 -> 10px; mobile keeps 6px columns so rows of two still fit) */
+#decision-c .limit-badges {
+  gap:12px 10px}
+@media (max-width:650px) {
+  #decision-c .limit-badges {
+    gap:12px 6px}
+}
+/* availability table: same space above it as above the Unavailable reasons box (60px; 48px on mobile) */
+#decision-c .availability {
+  margin-top:60px}
+@media (max-width:650px) {
+  #decision-c .availability {
+    margin-top:48px}
+}
+/* availability rows: a little more air between the hairlines and the text (54px -> 60px rows) */
+#decision-c .availability-table tbody tr {
+  height:60px}
+
+/* Decision 03 · "Two failures" case numbers 01 / 02 in Scena blue (same blue as the eyebrows above). */
+#decision-c .failure-pair > div:not(.failure-intro) > .small {
+  color:var(--blue)}
+/* availability table, quieter: 60px -> 50px rows; "Available" in muted gray, "Blocked" keeps its amber-brown */
+#decision-c .availability-table tbody tr {
+  height:50px}
+#decision-c .availability-table .is-available td {
+  color:var(--muted)}
+/* availability status marks: a tiny check before "Available", a short dash before "Blocked" (same colour as the label) */
+#decision-c .availability-table td::before {
+  content:'';
+  display:inline-block;
+  width:12px;
+  height:12px;
+  margin-right:6px;
+  vertical-align:-1px;
+  background-color:currentColor;
+  -webkit-mask:var(--status-icon) center / contain no-repeat;
+  mask:var(--status-icon) center / contain no-repeat}
+#decision-c .availability-table .is-available td {
+  --status-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 6.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E")}
+#decision-c .availability-table .is-blocked td {
+  --status-icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M3 6h6'/%3E%3C/svg%3E")}
+
+/* Section 04 · Working with real constraints: background #E5EEF4 (was #E9EDE9). */
+#scena-root .constraints {
+  background:#E5EEF4}
+
+/* Decision 03 · "Two failures": both case headings on two lines on desktop so the pair reads evenly
+   (the shared subgrid rows already start both descriptions at the same Y). */
+@media (min-width:1001px) {
+  #decision-c .failure-pair > div:not(.failure-intro) h4 {
+    text-wrap:balance}
+}
+
+/* Decision 03 · "Two failures": number gutter. Each case is a small 2-column grid: a fixed 16px gutter for
+   the blue 01 / 02, then the heading and description sharing one left edge. Numbers sit on the heading's
+   first baseline. The earlier shared-row (subgrid) layout is switched off so all three headings start at the
+   top of the grid. */
+@media (min-width:651px) {
+  #decision-c .failure-pair {
+    grid-template-rows:none;
+    row-gap:0}
+  #decision-c .failure-pair > div {
+    grid-row:auto}
+}
+#decision-c .failure-pair > div:not(.failure-intro) {
+  display:grid;
+  grid-template-columns:16px minmax(0, 1fr);
+  grid-template-rows:auto auto;
+  column-gap:16px;
+  align-items:baseline}
+#decision-c .failure-pair > div:not(.failure-intro) > .small {
+  grid-column:1;
+  grid-row:1}
+#decision-c .failure-pair > div:not(.failure-intro) > h4 {
+  grid-column:2;
+  grid-row:1;
+  margin:0}
+#decision-c .failure-pair > div:not(.failure-intro) > p {
+  grid-column:2;
+  grid-row:2;
+  margin-top:12px}
+
+/* Decision 03 · end-of-section rhythm (measured before: panel -> divider 70, divider -> columns 36,
+   columns -> Chapter 04 112 from the section's bottom padding). Now 62 / 44 / 80 on desktop and tablet. */
+@media (min-width:651px) {
+  #decision-c .failure-pair {
+    margin-top:62px;
+    padding-top:44px}
+  #decision-c.decision-three {
+    padding-bottom:80px}
+}
+
+/* Chapter 04 · UX response callout: the earlier left-rule callout (light-blue rule + tinted fill), re-coloured
+   for the light #E5EEF4 section: a 3px Scena-blue rule and a white fill at 45% opacity. */
+#constraints .ux-response {
+  margin-top:28px;
+  padding:20px 24px 22px;
+  border-left:3px solid var(--blue);
+  background:rgba(255,255,255,.45)}
+#constraints .ux-response h4 {
+  margin-top:0}
+#constraints .ux-response p {
+  margin-top:8px;
+  font-size:14px}
+
+/* The timestamp outline follows the scale of the 1160 x 769 source screenshot. */
+#constraints .constraint-row:nth-of-type(1) figure {
+  position:relative;
+  container-type:inline-size}
+#constraints .constraint-row:nth-of-type(1) figure::after {
+  content:'';
+  position:absolute;
+  left:64.914cqw;
+  top:3.190cqw;
+  width:33.017cqw;
+  height:6.293cqw;
+  box-sizing:border-box;
+  border:1.5px solid #68c4ff;
+  border-radius:4px;
+  background:transparent;
+  box-shadow:none;
+  pointer-events:none}
+
+/* Hero · more space between the three screens on desktop: gap 7% (about 69px) -> 9.5% (about 94px).
+   Screens keep their size; the side margins absorb the difference. */
+@media (min-width:1001px) {
+  main#scena-root .hero-stage {
+    gap:9.5%}
+}
+
+/* Chapter 04 · evidence screenshots a little smaller on desktop/tablet so the text leads:
+   row 01 at 85% of the column, row 02's screenshot at 92%. Left-aligned; captions follow the image edge.
+   (Row 01's timestamp highlight is sized from the figure, so it scales with it.) */
+/* (separate 85% / 92% widths removed: see the shared --evidence-w rule below) */
+
+/* Chapter 04 · row 02, second evidence: the full C06 Find When phone screen exported from Figma (780 x 1688).
+   Shown whole at phone scale (not stretched to the column), left-aligned under the entry-point image. */
+#constraints .constraint-row:nth-of-type(2) figure + figure img {
+  display:block;
+  width:100%;
+  height:auto}
+
+/* Chapter 04 · one shared evidence width. All three right-side evidence figures (capture timestamp,
+   entry point, Find When) use --evidence-w: 85% of the right column on desktop/tablet (the earlier
+   Constraint 01 width), full width on mobile. Left-aligned; height follows each image's own ratio. */
+#constraints {
+  --evidence-w:100%}
+@media (min-width:651px) {
+  #constraints {
+    --evidence-w:85%}
+}
+#constraints .constraint-row figure {
+  width:var(--evidence-w);
+  margin-inline:0}
+#constraints .constraint-row figure img {
+  display:block;
+  width:100%;
+  height:auto}
+
+/* Chapter 05 · "Built and tested. / Still learning." uses the shared chapter heading size
+   (the older .validation h2 rule made it larger than chapters 01-04). */
+#validation h2.chapter-title {
+  font-size:var(--chapter-title-size);
+  line-height:1.07;
+  letter-spacing:-.055em}
+
+/* Design x Engineering step chain: same drawn arrow as the "Event -> State" title, scaled to the label size. */
+.collab-chain .chain-arrow {
+  display:inline-block;
+  flex:none;
+  width:1.5em;
+  height:1.047em}
+.collab-chain .chain-arrow svg {
+  display:block;
+  width:100%;
+  height:100%}
+
+/* Chapter 04 · desktop only: a slightly wider copy column and narrower evidence images.
+   Tablet and mobile keep the rules above. */
+@media (min-width:1001px) {
+  #constraints .constraint-row {
+    grid-template-columns:70px minmax(0,1.2fr) minmax(0,1fr)}
+  #constraints {
+    --evidence-w:80%}
+}
+
+/* Chapter 05 · two plain blocks (01 What we tested / 02 What we'd test next): one heading and one
+   paragraph each, tops aligned, no eyebrow labels, rules or list dividers. Stacks via the shared
+   mobile single-column rule for .validation-ledger. */
+/* Top rules copied from the "Event -> State" pair (.pivot-path): 1px, grey on the left, blue on the right. */
+.validation-ledger.tested article {
+  border-top:1px solid var(--line);
+  padding-top:24px}
+.validation-ledger.tested article:last-child {
+  border-color:var(--blue)}
+.validation-ledger.tested article+article {
+  margin-top:0}
+.validation-ledger.tested h3 {
+  margin:0 0 18px}
+.validation-ledger.tested p {
+  margin:0;
+  color:#566467}
+
+/* Chapter 05 end: the closing row follows the two blocks directly (testing note and Reflection
+   removed) and now holds only the "Back to the beginning" link, kept on the right. */
+#validation .closing {
+  justify-content:flex-end}
+
+/* Chapter 04 · "When was the photo taken?" (replaces the Capture -> Retrieval time diagram).
+   Two equal steps with the timestamp as the largest text, a plain arrow between them, and one
+   caption. Same rules, margins and colors as the diagram it replaces; stacks in order on mobile. */
+.time-check {
+  margin-block:clamp(40px, 6vw, 64px) clamp(16px, 2vw, 24px);
+  padding:40px 0;
+  border-block:1px solid #becac7}
+.time-check-title {
+  margin:0 0 32px;
+  font-size:22px}
+.time-check-steps {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  align-items:center;
+  column-gap:clamp(24px, 5vw, 64px)}
+.time-check-label {
+  display:block;
+  font-size:11px;
+  color:var(--blue)}
+.time-check-time {
+  margin:14px 0 8px;
+  font-size:clamp(40px, 5vw, 56px);
+  font-weight:500;
+  line-height:1;
+  letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+  color:var(--ink)}
+.time-check-text {
+  margin:0;
+  font-size:16px;
+  color:#566467}
+.time-check-arrow {
+  display:block;
+  width:48px;
+  height:33.5px;
+  color:var(--blue)}
+.time-check-arrow svg {
+  display:block;
+  width:100%;
+  height:100%}
+.time-check-caption {
+  margin:32px 0 0;
+  font-size:14px;
+  color:#566467}
+@media (max-width:650px) {
+  .time-check-title {
+    margin-bottom:24px;
+    font-size:20px}
+  .time-check-steps {
+    grid-template-columns:minmax(0,1fr);
+    row-gap:20px}
+  .time-check-arrow {
+    width:36px;
+    height:25px;
+    transform:rotate(90deg);
+    transform-origin:center;
+    margin-left:2px}
+  .time-check-caption {
+    margin-top:24px}
+}
+
+/* Footer: one row under a single grey rule. Copyright on the left; "Back to top" and
+   "Let's talk" side by side on the right. (The separate closing row in Chapter 05 is gone.) */
+.site-footer-links {
+  display:flex;
+  gap:28px}
+@media (max-width:650px) {
+  .site-footer-links {
+    gap:18px}
+}
+
+/* Chapter 04 text colors on the pale blue background: primary body #3f4e52, secondary text and
+   captions #566467. (.constraint-row p, .time-check-text and .time-check-caption are set above.) */
+#constraints .collaboration .prose {
+  color:#3f4e52}
+#constraints .split .prose,
+#constraints figcaption {
+  color:#566467}
+
+/* Chapter 02 · Optional Investigation: a small supporting note under the Set / Compare / Decide
+   track, on the same column grid as the step rows (empty number column, no arrow). */
+.flow-optional {
+  display:grid;
+  grid-template-columns:70px minmax(0,1fr);
+  column-gap:24px;
+  margin-top:28px}
+.flow-optional > * {
+  grid-column:2}
+.flow-optional-label {
+  font-size:11px;
+  letter-spacing:.12em;
+  color:#6fc1ff}
+.flow-optional p {
+  margin:8px 0 0;
+  font-size:15px}
+@media (max-width:1000px) {
+  .flow-optional {
+    grid-template-columns:35px minmax(0,1fr);
+    column-gap:18px}
+}
+@media (max-width:650px) {
+  .flow-optional {
+    grid-template-columns:28px minmax(0,1fr);
+    column-gap:15px;
+    margin-top:22px}
+}
+
+/* Chapter 02 · desktop rows: every column (number, title, owner text, arrow, Scena text) centred on
+   the row, with the step title centred against its own description instead of sitting on its first
+   line. A shared minimum height keeps the three rows even; a row still grows if its text wraps more. */
+@media (min-width:1001px) {
+  #approach .flow-step {
+    align-items:center;
+    min-height:118px;
+    box-sizing:border-box}
+  #approach .human {
+    align-items:center}
+}

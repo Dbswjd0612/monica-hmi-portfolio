@@ -3,6 +3,11 @@
    This file only sets Scena's accent and adds what Shopcord has no class for. Shopcord's own files stay untouched. */
 :root{--accent:#0076C8;--anno:#0076C8}
 ::selection{background:rgba(0,118,200,.14)}
+
+/* Type: the shared system is css/type.css (this page's body has class type-system).
+   The Key design decisions chapter and Product approach statement use the display face.
+   The wireframe, which also loads this file, has no type-system class. */
+.type-system :is(h2.sn-chapter,h3.sn-dh){font-family:var(--font-display);font-weight:500}
 /* keeps the footer from jumping up the page while js/scena.js fills this element */
 #scena-root{min-height:100vh}
 
@@ -11,16 +16,22 @@
 .sn-media img{display:block;width:100%;height:auto}
 .sc-box--contain.is-filled .sn-media img{width:100%}
 .sn-media .sc-anno{width:100%;height:100%}
+/* a photo outside a panel takes the panel's 14px corner radius (Shopcord's .sc-box), so it matches the page's other images */
+.sc-slot>.sn-media>img{border-radius:14px}
 
 /* hero: Shopcord's panel at the same size and border, holding three screens at their original phone proportions.
-   Their height leaves the panel's top and bottom margins close to Shopcord's composed image. The gap is 48px at full width.
+   Their height leaves the panel's top and bottom margins close to Shopcord's composed image. The gap is 64px at full width.
    Sizes are percentages of the panel, so the group scales the way Shopcord's image does. */
 .sn-screens{--r:970 / 558}
-.sc-box.sn-screens{gap:4.96%;padding:0;border:1px solid var(--line)}
+.sc-box.sn-screens{gap:6.61%;padding:0;border:1px solid var(--line)}
 .sn-screens .sn-media{flex:0 0 21%}
 /* hero lead: size and the grey come from Shopcord's .sc-thesis. The tagline is in the primary text colour. */
 .sn-tagline{color:var(--ink)}
 .sn-description{text-wrap:pretty}
+/* on this page the lead reads as two levels: the tagline in Geist Medium at the thesis size, then the description in Regular,
+   a step smaller (never under 17px) and 10px below it, in the thesis grey */
+.type-system .sn-tagline{font-weight:500}
+.type-system .sn-description{margin-top:10px;font-size:max(17px,.875em)}
 @media (min-width:768px){
 .sn-line{display:block}
 }
@@ -37,6 +48,13 @@
 /* text */
 .sc-sec h2{text-wrap:pretty}
 .sc-sec h2+h3{margin-top:0}
+/* Problem: the closing lead-in stays with the question it introduces, closer than the 24px between paragraphs */
+.sn-ask{display:grid;gap:4px}
+/* Problem heading: each sentence on its own line once the column fits the longer one with about 15% to spare
+   (measured at every width: a 720px desktop column uses 82%). Narrower columns wrap the heading naturally. */
+@container (min-width:520px){
+.sn-break{display:block}
+}
 .sc-duo-text.sn-small{font-size:16px}
 ul.sn-numbered{padding-left:0;list-style:none}
 .sn-numbered li{display:flex;align-items:baseline;gap:10px}
@@ -45,11 +63,22 @@ ul.sn-numbered{padding-left:0;list-style:none}
 .sn-compare dd{margin-top:10px}
 .sn-compare ul{gap:6px}
 
-/* a decision heading sits at the h2 size, and the sub-heading under it at Shopcord's h3 size */
-.sc-sec h3.sn-dh{margin-top:0;font-size:clamp(24px,3.1vw,34px);line-height:1.12;letter-spacing:-.035em}
+/* a decision heading: Mulish 500 like the chapter heading, just under it in size (32px against 34px at full width,
+   22px against 24px on phones) and above the 20px sub-headings beneath it */
+.sc-sec h3.sn-dh{margin-top:0;line-height:1.15;letter-spacing:-.03em}
+.type-system #decisions h3.sn-dh{font-family:var(--font-display);font-size:clamp(22px,2.9vw,32px);font-weight:500}
 .sc-body>.sn-dh+*{margin-top:0}
 .sn-h4{margin:40px 0 0;font-size:20px;line-height:1.3;font-weight:500;letter-spacing:-.02em}
 .sc-body>.sn-h4+*{margin-top:-8px}
+
+/* The chapter inherits the shared h2 size and line height. Blue supplies the only emphasis.
+   Keep the existing section padding between this introduction and Decision 1. */
+#decisions-intro{padding-bottom:0}
+.sn-chapter .sn-break{display:block}
+.sn-chapter strong{font-weight:500;color:var(--accent)}
+#decision-a{border-top:0}
+/* a note on its own line under a screen's caption, broken at a phrase rather than leaving a short last line */
+.sn-cap-note{display:block;margin-top:2px;text-wrap:balance}
 
 /* pairs: Shopcord's .sc-duo with two equal columns, because both sides are upright screens. It stacks at Shopcord's own width.
    48px from text to figure, as in Shopcord's "What I worked on". */
@@ -74,10 +103,44 @@ ul.sn-numbered{padding-left:0;list-style:none}
 #decision-b .sn-crop{--r:1080 / 1390}
 }
 
-/* tables: Shopcord's .sc-scroll styles. Its row headings stay on one line, which the flow table's questions cannot. */
-.sc-body>h2+.sc-scroll{margin-top:8px}
-.sn-map{table-layout:fixed}
-.sn-map tbody th{white-space:normal}
+/* Product approach: three content columns with actor-led descriptions.
+   Mobile uses the same content as ordered step groups so its reading order stays natural. */
+.sn-approach-matrix{display:none;width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0}
+.sn-approach-matrix tr{position:relative}
+#flow>.sc-label{position:static;align-self:start}
+.sn-approach-matrix th,.sn-approach-matrix td{vertical-align:top;text-align:left}
+.sn-approach-matrix thead th,.sn-approach-matrix thead td{padding:0 8px 16px 0;border-bottom:1px solid var(--line)}
+.sn-approach-matrix tbody td{padding:20px 8px 20px 0}
+#flow .sn-approach-matrix,#flow .sn-steps{margin-top:32px}
+.sn-approach-matrix td,.sn-approach-matrix td p,.sn-step-role dd p{text-wrap:balance}
+#flow td p,#flow .sn-step-role dd p{font-family:var(--font-text);font-weight:400}
+#flow .sn-actor{font-weight:400;color:inherit}
+.sn-matrix-owner td{color:var(--text)}
+/* Extend only the System surface so its 24px inset preserves the column text alignment.
+   It reads as a light editorial band rather than a card: a subtler grey than the page's panels and a 10px radius,
+   the radius of the page's example boxes. */
+.sn-matrix-system{isolation:isolate}
+.sn-matrix-system>td:first-child::before{content:"";position:absolute;inset:0;margin-inline:-24px;background:#F7F7F7;border-radius:10px;z-index:-1;pointer-events:none}
+.sn-approach-matrix .sn-matrix-system td{padding-top:24px;padding-bottom:24px;color:var(--text)}
+.sn-step-head{display:grid;align-content:start;gap:8px}
+.sc-sec .sn-step-head h3{margin:0}
+.sn-steps{display:grid;grid-template-columns:minmax(0,1fr);gap:24px;margin:0;padding:0;list-style:none}
+.sn-steps li{min-width:0;display:grid;align-content:start;gap:16px}
+.sn-steps .sn-step-head{padding-bottom:16px;border-bottom:1px solid var(--line)}
+.sn-step-role{display:grid;align-content:start;gap:8px;margin:0}
+.sn-step-role dd{margin:0;color:var(--text)}
+.sn-step-role--system{margin-inline:0;padding:16px;border-radius:10px;background:#F7F7F7}
+.sn-step-role--system dd{color:var(--text)}
+@container (min-width:600px){
+.sn-approach-matrix{display:table}
+.sn-steps{display:none}
+}
+/* The two-line statement uses one display weight; only colour changes. */
+.type-system h2.sn-shift{font-family:var(--font-text);font-weight:500}
+.sn-shift span{display:block}
+.sn-shift span:first-child{color:var(--text)}
+
+/* tables: Shopcord's .sc-scroll styles */
 .sc-scroll tbody th,.sc-scroll td{text-wrap:pretty}
 .sn-rules td{padding-right:0}
 .sn-rule-icon{margin-right:4px;color:var(--anno)}
@@ -105,17 +168,6 @@ ul.sn-numbered{padding-left:0;list-style:none}
 .sn-crop .sn-media{max-width:420px}
 /* a before and after pair stays side by side until the column is phone width */
 .sc-duo.sn-pair{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-/* the flow table becomes grouped rows */
-.sn-map,.sn-map tbody,.sn-map tr,.sn-map th,.sn-map td{display:block}
-.sn-map thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
-.sn-map tbody tr{padding:16px 0;border-bottom:1px solid var(--line)}
-.sn-map tbody tr:first-child{padding-top:0}
-.sn-map tbody tr:last-child{padding-bottom:0;border-bottom:0}
-.sn-map tbody th,.sn-map td{padding:0;border:0}
-.sn-map tbody th{font-size:16px}
-.sn-map td{margin-top:10px}
-/* the empty alt keeps screen readers from reading the column name twice; the first line is the fallback where that syntax is unknown */
-.sn-map td::before{content:attr(data-label);content:attr(data-label) / "";display:block;font-size:13px;color:#6B6B6B}
 }
 @container (max-width:439px){
 .sc-duo.sn-pair{grid-template-columns:minmax(0,1fr)}

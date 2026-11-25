@@ -1,0 +1,22 @@
+/* Original Scena navbar rules, isolated to Final's navbar. */
+.sc-nav {
+  --font-text: Geist, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  font: 400 18px/1.65 var(--font-text);
+  color: #0A0A0A;
+}
+.sc-nav a { color: #0A0A0A; text-decoration: none; text-underline-offset: 3px; }
+.sc-nav .sc-nav-brand { color: #111318; }
+.sc-nav img { max-width: none; }
+.sc-nav a:hover { color: #A78BFA; }
+.sc-nav a:focus-visible { outline: 2px solid #0076C8; outline-offset: 3px; border-radius: 2px; }
+.sc-nav .nl { position: relative; }
+.sc-nav .nl::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -5px;
+  height: 1px; background: #A78BFA; transform: scaleX(0); transform-origin: left;
+  transition: transform .45s cubic-bezier(.22,1,.36,1);
+}
+.sc-nav .nl:hover::after { transform: scaleX(1); }
+@media (max-width:374px) { .sc-nav { gap:16px !important; } .sc-nav .sc-nav-links { gap:18px !important; } }
+@media (max-width:349px) { .sc-nav .sc-nav-name { display:none; } }
+@media (prefers-reduced-motion:reduce) { .sc-nav .nl::after { transition:none !important; } }

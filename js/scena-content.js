@@ -22,8 +22,8 @@ window.SCENA_CONTENT = (function () {
       description: ['Scena turns Ring snapshots into before-and-after checks', 'for the spots a business owner cares about.'],
       meta: [
         { label: 'Role', value: 'Product & Design' },
-        { label: 'Team', value: '2 people' },
-        { label: 'Timeline', value: 'About 2 weeks' },
+        { label: 'Team', value: '1 designer + 1 engineer' },
+        { label: 'Timeline', value: 'About 2 weeks · Oct 2026' },
         { label: 'Status', value: 'Submitted Oct 2026' }
       ],
       demoLabel: 'View demo',
@@ -39,51 +39,58 @@ window.SCENA_CONTENT = (function () {
 
     problem: {
       label: 'Problem and pivot',
-      heading: 'Ring captures the moments. Scena connects them to show what changed.',
-      question: 'Is everything still where it should be?',
+      // Each sentence takes its own line where the column fits the longer one comfortably. Narrower, the heading wraps naturally.
+      heading: ['Ring captures activity.', 'We wanted to know what was still there.'],
       body: [
-        'After a long closing shift at a working sushi restaurant, small things can get missed: a door not fully closed, prep items left out.',
-        'A Ring alert says a moment of activity occurred. Connecting those moments into the condition of the space, across time, is still the owner\'s job.'
+        'At the sushi restaurant my teammate runs, Ring cameras were already part of the routine. I help out there sometimes, and we started asking what else they could do.',
+        'A motion alert can flag activity near the rear exit. On its own, it does not show the condition of the space later: whether a box is still by the door or whether the door closed fully.'
       ],
+      // The lead-in sits right above the question it introduces. The question renders in bold, inside curly quotes.
+      lead: 'At closing, we wanted to be able to answer:',
+      question: 'Is everything still where it should be?',
       context: { src: null, w: 16, h: 9, label: 'Restaurant or Ring camera context photo', alt: '' },
       pair: [
-        { caption: 'Before', image: { src: null, w: 16, h: 10, label: 'Approved before photo', alt: '' } },
-        { caption: 'After', image: { src: null, w: 16, h: 10, label: 'Approved after photo', alt: '' } }
+        // Each caption sits under its photo at the left, in the same light grey as the page's other figure captions.
+        { caption: 'Before', image: { src: P + 'rear-exit-before.png', w: 2677, h: 1506, label: 'Rear exit, before', alt: 'The closed rear exit door, with metal shelving on the left and a stainless bin against the wall on the right. The floor in front of the door is clear.' } },
+        { caption: 'After', image: { src: P + 'rear-exit-after.png', w: 2677, h: 1506, label: 'Rear exit, after', alt: 'The same rear exit with a cardboard box on the floor beside the door, outlined in blue, and a dark mat in front of the door.' } }
       ],
       pivotHeading: 'Event → State',
-      pivotBody: 'The first idea was a closing checklist. It overlapped with Ring Modes and Motion Schedules, so we moved from following events to comparing states. The owner chooses a reference, chooses Care Spots, and decides the follow-up.',
+      pivotBody: 'We first explored a closing checklist with reminders and alerts. Ring already captured moments throughout the day, but understanding how the space had changed between them still required manual review. We became more interested in comparing those moments than simply tracking events.',
       compare: [
-        { title: 'Closing checklist', note: 'Initial idea', items: ['Reminders and alerts around closing', 'Follows events', 'Overlapped with Ring Modes and Motion Schedules'] },
-        { title: 'State comparison', note: 'Direction we built', items: ['A saved reference of how the space should look', 'Compares owner-chosen areas across time', 'The owner decides the follow-up'] }
+        { title: 'Closing checklist', note: 'Initial idea', items: ['Reminders and alerts around closing', 'Focus on what happened and when'] },
+        { title: 'State comparison', note: 'Direction we built', items: ['Compare selected areas against a saved reference', 'Focus on what changed and what remains'] }
       ]
     },
 
     flow: {
-      label: 'From system to flow',
-      heading: 'What the owner asks, and what the system does',
-      columns: ['User question', 'User action', 'System support'],
-      rows: [
-        ['What should this space look like?', 'Choose a reference and Care Spots.', 'Save the baseline and selected regions.'],
-        ['What looks different?', 'Run a check and review the photos.', 'Obtain and validate the image, compare selected areas, and present an observation.'],
-        ['Does this need my attention?', 'Choose a follow-up.', 'Preserve the observation and owner decision separately.']
+      label: 'Product approach',
+      heading: ['What the owner does.', 'What Scena handles.'],
+      ownerLabel: 'Owner',
+      systemLabel: 'System',
+      steps: [
+        { title: 'Set', owner: 'The owner picks a reference and marks spots.', system: 'Scena saves the reference and each spot.' },
+        { title: 'Compare', owner: 'The owner runs a check and reviews photos.', system: 'Scena gets a fresh photo and compares spots.' },
+        { title: 'Decide', owner: 'The owner chooses a follow-up.', system: 'Scena keeps the decision and observation apart.' }
       ]
     },
 
     decisions: {
       label: 'Key design decisions',
-      heading: 'Evidence, observation and decision stay apart',
-      note: 'Screens come from the submitted design file for the mobile-first web prototype and show a design scenario, not field-test captures. The team tested the live integration with real Ring cameras at a working sushi restaurant.',
+      // The chapter heading: two lines on desktop, with "in charge" in the accent
+      heading: ['The owner stays in charge', 'at every step.'],
+      emphasis: 'in charge',
 
       a: {
-        label: 'Decision 1',
+        label: 'Decision 1 · Set',
         heading: 'The owner defines what to watch',
         body: [
-          'Scena does not assume what normal looks like. The owner picks the photo that shows the expected state, then marks the areas that matter.',
-          'Each camera allows up to three Care Spots. Only those regions are compared.'
+          'Scena doesn\'t assume what normal looks like. The owner picks a reference photo and marks up to three Care Spots, the only areas Scena compares.'
         ],
         items: [
           {
             caption: 'Select Reference',
+            // Where the chapter's screens come from, under its first screen
+            captionNote: 'Screens show a design scenario from the submitted design file.',
             image: { src: P + 'select-reference.png', w: 1071, h: 2317, label: 'Select Reference', alt: 'Monitoring setup step 1 of 2: a selected photo of the rear exit, with three recent photos to choose from and a Continue button.', marks: [{ n: 1, y: 44 }] },
             notes: [{ n: 1, t: 'Expected state', d: 'The selected photo becomes the reference, with its capture time above it.' }]
           },
@@ -168,7 +175,7 @@ window.SCENA_CONTENT = (function () {
         }
       ],
       collaborationLabel: 'Collaboration',
-      collaboration: 'Monica defined and checked the flows, states, and UI. Sungwoo implemented the integration and application behavior. On-site testing was shared.'
+      collaboration: 'I used my interactive front-end prototype to keep the implementation aligned with the MVP. I built it with Claude Code and Codex to communicate the intended flows, interactions, and UI. It served as an implementation reference while Sungwoo built the final application and Ring integration. When the initial build included features beyond the MVP, I reviewed the scope against my prototype. Walking through the build, I checked interaction logic, UI consistency, and alignment with Ring\'s visual language, including colors, icons, and interface patterns. I documented discrepancies in Figma and Markdown, along with the expected behavior and what to prioritize. From there, I worked with Sungwoo, and we refined the experience before submission.'
     },
 
     validation: {

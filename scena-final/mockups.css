@@ -1,0 +1,72 @@
+/* Final-only screenshot presentation. Original Scena: --fill #F6F6F6,
+   --line #ECECEC, .sc-box radius 14px, contained screenshots radius 8px.
+   An inset outline draws the 1px frame without changing the content box,
+   image dimensions, responsive geometry or existing inner padding. */
+#scena-root :is(.hero-stage, .setup-composition, .result-demo) {
+  background: #F6F6F6;
+  border-radius: 14px;
+  outline: 1px solid #ECECEC;
+  outline-offset: -1px;
+  box-shadow: none;
+}
+/* Retain the hero's existing 1px top border in layout; the inset frame above
+   supplies its visible line consistently on all four sides. */
+#scena-root .hero-stage { border-top-color: transparent; }
+#scena-root :is(.hero-phone, .device) img {
+  background: #F6F6F6;
+  border-color: #ECECEC;
+  border-radius: 8px;
+  box-shadow: none;
+}
+/* Use the original Scena hero image shadow from css/shopcord.css. */
+#scena-root .hero-stage > .hero-phone > img {
+  box-shadow: 0 12px 32px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+}
+/* Existing UI detail crops have no padded wrapper. Style their present frame
+   without adding a wrapper around captions or nearby explanatory content. */
+#scena-root :is(.decision-details, .constraint-row) img {
+  background: #F6F6F6;
+  border-radius: 8px;
+  outline: 1px solid #ECECEC;
+  outline-offset: -1px;
+  box-shadow: none;
+}
+
+/* Hero gallery: compact composition with the three screens level.
+   Before: screens 25% wide (248px at full width), stepped 65px apart, 55px top and 64px bottom padding, 819px tall. */
+@media (min-width: 651px) {
+  /* 60px above the labels and below the screens (her value; was 44px) */
+  #scena-root .hero-stage { padding-block: 60px; }
+  /* no steps: 01, 02 and 03 start on one line (the phone scroller below 651px already does) */
+  #scena-root .hero-phone.phone-1,
+  #scena-root .hero-phone.phone-2 { margin-top: 0; }
+}
+@media (min-width: 1001px) {
+  /* 92% of the earlier width at full size, never below 210px so the UI text stays readable on narrower desktops */
+  #scena-root .hero-phone { width: clamp(210px, 23%, 228px); }
+  /* a slightly wider gap keeps the same proportion between the gaps and the side margins as before (1 : 2) */
+  #scena-root .hero-stage { gap: 7%; }
+}
+/* One height for all three screens, at every width.
+   Care Spots and Compare are 932 x 2016 files and are shown whole, at their own proportion.
+   The Home export is a little taller (its Figma frame is 390 x 856, the others 390 x 844). Its box takes the same
+   proportion and the picture is held at the top, so the only part outside the box is the blank white strip under
+   the tab bar (about 37 of the file's 2568 rows; the last 60 rows are plain white). The file is the untouched export.
+   content-box plus calc keeps the 1px frame outside the picture, so the 932 x 2016 screens are neither scaled nor trimmed. */
+#scena-root .hero-stage > .hero-phone > img {
+  box-sizing: content-box;
+  width: calc(100% - 2px);
+  height: auto;
+  aspect-ratio: 932 / 2016;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Hero gallery caption: one line where it fits. Where it has to wrap (tablet, phone) the lines are evened out,
+   so a single word is never left alone on the last line. */
+#scena-root .stage-caption { text-wrap: balance; }
+
+/* Match the Decision 1 screen shadows to the hero screens. */
+#scena-root #decision-a .device img {
+  box-shadow: 0 12px 32px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+}

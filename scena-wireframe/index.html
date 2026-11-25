@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scena wireframe · Monica Hwang</title>
+<link rel="icon" type="image/png" href="/public/images/favicon.png">
+<!-- DRAFT: layout preview for the six-section Scena case study, with working copy. Nothing links here. /scena/ is unchanged. -->
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/shopcord.css">
+<link rel="stylesheet" href="/css/scena.css">
+<link rel="stylesheet" href="/scena-wireframe/wireframe.css">
+<script src="/scena-wireframe/wireframe.js" defer></script>
+</head>
+<body>
+
+<!-- Wireframe tool only: each section's block is sized by its real height on the page -->
+<div class="wf-bar" id="wf-bar">
+<span class="wf-tag">Wireframe</span>
+<nav class="wf-map" aria-label="Sections, sized by their height on the page">
+<a href="#overview" data-sec="overview" data-name="01 Overview"><b>01</b><i></i></a>
+<a href="#context" data-sec="context" data-name="02 From Restaurant Context to Product Focus"><b>02</b><i></i></a>
+<a href="#core" data-sec="core" data-name="03 Shaping the Core Experience"><b>03</b><i></i></a>
+<a href="#uncertainty" data-sec="uncertainty" data-name="04 Designing for Uncertainty"><b>04</b><i></i></a>
+<a href="#build" data-sec="build" data-name="05 From Prototype to Working Product"><b>05</b><i></i></a>
+<a href="#next" data-sec="next" data-name="06 What We Built &amp; What Comes Next"><b>06</b><i></i></a>
+</nav>
+<div class="wf-view" role="group" aria-label="Preview width">
+<button type="button" data-view="desktop" aria-pressed="true">Desktop</button>
+<button type="button" data-view="mobile" aria-pressed="false">Mobile</button>
+</div>
+</div>
+<div class="wf-phone" id="wf-phone" hidden><iframe title="The same page at 390px wide"></iframe></div>
+
+<div class="sc-page">
+
+<nav class="pad sc-nav" style="position:relative;z-index:5;max-width:1180px;margin:0 auto;padding:26px 52px;display:flex;align-items:center;gap:28px;border-bottom:1px solid rgba(17,19,24,.12)">
+<a href="/" class="sc-nav-brand" style="display:flex;align-items:center;gap:9px"><img src="/public/images/home/monica-hwang-logo-2.png" alt="Monica Hwang logo" style="width:30px;height:30px;display:block;filter:invert(1)"><span class="sc-nav-name" style="font:500 10.8px 'IBM Plex Sans',ui-sans-serif,system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase">Monica Hwang</span></a>
+<div class="sc-nav-links" style="margin-left:auto;display:flex;align-items:center;gap:26px;font:400 10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#626875">
+<a class="nl" href="/#work" style="color:inherit">Projects</a>
+<a class="nl" href="/public/documents/Monica_Hwang_Product_Designer_Resume.pdf" target="_blank" rel="noopener" style="color:inherit">Resume</a>
+<a class="nl" href="/about" style="color:inherit">About</a>
+</div>
+</nav>
+
+<main class="sc-wrap">
+
+<!-- 01 Overview: the current hero, unchanged. Short. -->
+<header class="sc-hero" id="overview">
+  <p class="sc-cap sc-kicker rv">Amazon Developer Hackathon 2026 · Ring Track · Mobile-first web prototype</p>
+  <h1 class="rv">Scena</h1>
+  <div class="sc-thesis rv">
+    <p class="sn-tagline"><span class="sc-nowrap">See what changed.</span> <span class="sc-nowrap">Decide what matters.</span></p>
+    <p class="sn-description">Scena turns Ring snapshots into <span class="sc-nowrap">before-and-after</span> checks <span class="sn-line">for the spots a business owner cares about.</span></p>
+  </div>
+  <dl class="sc-meta rv">
+    <div><dt class="sc-cap">Role</dt><dd>Product &amp; Design</dd></div>
+    <div><dt class="sc-cap">Team</dt><dd>2 people</dd></div>
+    <div><dt class="sc-cap">Timeline</dt><dd>About 2 weeks</dd></div>
+    <div><dt class="sc-cap">Status</dt><dd>Submitted Oct 2026</dd></div>
+  </dl>
+  <figure class="sc-slot rv">
+    <div class="sc-box sc-box--contain is-filled sn-screens" role="group" aria-label="Care Spots, Compare and Decide screens">
+      <div class="sn-media"><img src="/public/images/scena/hero-care-spots.png" width="932" height="2016" alt="Monitoring setup step 2 of 2: three owner-drawn Care Spots outlined on a reference photo, listed as Rear Exit, Back Door and Shelf, with a Save Care Spots button."></div>
+      <div class="sn-media"><img src="/public/images/scena/hero-compare.png" width="932" height="2016" alt="Compare screen with Before and After photos of the rear exit, the observation &quot;Looks like something new&quot;, and three owner choices with none selected yet."></div>
+      <div class="sn-media"><img src="/public/images/scena/hero-decide.png" width="932" height="2016" alt="The same screen with the photos dimmed, so the observation and the owner choices stand out. Needs review is selected."></div>
+    </div>
+    <figcaption class="sc-figrow"><span>Care Spots → Compare → Decide. Screens show a design scenario. The hosted demo replays saved Ring checks.</span><span class="sc-protos">
+      <a href="https://helloscena.com/demo" target="_blank" rel="noopener" aria-label="View demo, opens in a new tab">View demo <span aria-hidden="true">↗</span></a>
+      <a href="https://youtu.be/xhdx7LHqDKc" target="_blank" rel="noopener" aria-label="Watch video, opens in a new tab">Watch video <span aria-hidden="true">↗</span></a>
+    </span></figcaption>
+  </figure>
+</header>
+
+<!-- 02: context beside one photo slot, then the question at full width, then the pivot as Shopcord's flow diagram. -->
+<section class="sc-sec" id="context">
+  <p class="sc-cap sc-label">02 · From Restaurant Context to Product Focus</p>
+  <div class="sc-body">
+    <h2>Ring was already at the restaurant</h2>
+    <div class="sc-duo sn-even wf-context">
+      <div class="sc-prose">
+        <p>My teammate runs a sushi restaurant, and I sometimes help out there. Ring cameras were already in place, and their alerts said when a moment of activity occurred.</p>
+      </div>
+      <figure class="sc-slot">
+        <div class="sc-box wf-ph" style="--r:16 / 10"><span class="sc-cap sc-slot-n">Placeholder</span><span class="sc-slot-t">Restaurant or Ring camera photo</span><span class="wf-need">One real photo of the space. Needs the owner's OK for public use.</span></div>
+        <figcaption>The working restaurant where Ring cameras were already in place.</figcaption>
+      </figure>
+    </div>
+    <p class="wf-question">I know a box was set down, but will it still be in that spot later?</p>
+    <div class="sc-prose"><p>An alert can answer the first half. The second half is about the state of the space over time, and connecting those moments was still the owner's job.</p></div>
+    <ol class="sc-flow" aria-label="From a closing checklist to state comparison.">
+      <li class="sc-node"><span class="sc-cap sc-who">First idea</span><strong>Closing checklist</strong><span class="sc-what">Followed events. It overlapped with Ring Modes and Motion Schedules.</span></li>
+      <li class="sc-link"><span class="sc-link-line" aria-hidden="true"></span><strong>Event → State</strong><span class="sc-link-what">The pivot</span><span class="sc-link-line sc-link-line--end" aria-hidden="true"></span></li>
+      <li class="sc-node"><span class="sc-cap sc-who">What we built</span><strong>State comparison</strong><span class="sc-what">Compares owner-chosen areas with a saved reference. The owner decides the follow-up.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 03: a short table as the way in, then two setup screens. Side by side on desktop, in setup order on mobile. -->
+<section class="sc-sec" id="core">
+  <p class="sc-cap sc-label">03 · Shaping the Core Experience</p>
+  <div class="sc-body">
+    <p class="wf-lead">What the owner asks, and what the system does</p>
+    <div class="sc-scroll"><table class="sn-map" role="table" aria-label="What the owner asks, and what the system does"><thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">User question</th><th scope="col" role="columnheader">User action</th><th scope="col" role="columnheader">System support</th></tr></thead><tbody role="rowgroup">
+      <tr role="row"><th scope="row" role="rowheader">What should this space look like?</th><td role="cell" data-label="User action">Choose a reference and Care Spots.</td><td role="cell" data-label="System support">Saves the baseline and regions.</td></tr>
+      <tr role="row"><th scope="row" role="rowheader">What looks different?</th><td role="cell" data-label="User action">Run a check and review the photos.</td><td role="cell" data-label="System support">Validates the image, compares selected areas, presents an observation.</td></tr>
+      <tr role="row"><th scope="row" role="rowheader">Does this need my attention?</th><td role="cell" data-label="User action">Choose a follow-up.</td><td role="cell" data-label="System support">Keeps the observation and the decision separate.</td></tr>
+    </tbody></table></div>
+    <h2>The owner defines what to watch.</h2>
+    <div class="sc-prose"><p>Scena does not assume what normal looks like. The owner picks the expected state, then marks the areas that matter.</p></div>
+    <div class="sc-duo sn-even">
+      <div class="sc-duo-item">
+        <figure class="sc-slot">
+          <div class="sc-box sc-box--contain is-filled sn-stage"><div class="sn-media"><img src="/public/images/scena/select-reference.png" width="1071" height="2317" alt="Monitoring setup step 1 of 2: a selected photo of the rear exit, with three recent photos to choose from and a Continue button." loading="lazy" decoding="async"><div class="sc-anno" aria-hidden="true"><span class="sc-mark sc-mark--left" style="--y:44%">1</span></div></div></div>
+          <figcaption>Step 1, Select Reference. The owner sets the baseline, not the system.</figcaption>
+        </figure>
+        <ul class="sc-duo-text sn-small sn-numbered">
+          <li><span class="sc-mark" aria-hidden="true">1</span><span><strong>Expected state.</strong> The selected photo becomes the reference, with its capture time above it.</span></li>
+        </ul>
+      </div>
+      <div class="sc-duo-item">
+        <figure class="sc-slot">
+          <div class="sc-box sc-box--contain is-filled sn-stage"><div class="sn-media"><img src="/public/images/scena/care-spot-editor.png" width="1086" height="2351" alt="Care Spots editor on a dark background: a blue outline with corner handles around the door, a name field reading Rear Exit, and Add another Care Spot." loading="lazy" decoding="async"><div class="sc-anno" aria-hidden="true"><span class="sc-mark sc-mark--out" style="--y:32%">2</span><span class="sc-mark sc-mark--out" style="--y:64%">3</span></div></div></div>
+          <figcaption>Step 2, Care Spot editor. Only the areas the owner marks are compared.</figcaption>
+        </figure>
+        <ul class="sc-duo-text sn-small sn-numbered">
+          <li><span class="sc-mark" aria-hidden="true">2</span><span><strong>Owner-defined region.</strong> The Care Spot outline is drawn by the owner. It is not an AI detection.</span></li>
+          <li><span class="sc-mark" aria-hidden="true">3</span><span><strong>Named by the owner.</strong> The owner can name each spot, up to three per camera.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04, the heaviest section: one full Compare, then same-size crops, a small rules table, and History last. -->
+<section class="sc-sec" id="uncertainty">
+  <p class="sc-cap sc-label">04 · Designing for Uncertainty</p>
+  <div class="sc-body">
+    <h2>The system observes. The owner decides.</h2>
+    <div class="sc-prose"><p>A visible difference is not an operational follow-up. A box near the exit might be a delivery or a problem, and only the owner knows which.</p></div>
+    <div class="sc-duo sn-center">
+      <figure class="sc-slot">
+        <div class="sc-box sc-box--contain is-filled sn-stage"><div class="sn-media"><img src="/public/images/scena/compare.png" width="1086" height="2334" alt="Compare screen for Rear Exit: Before and After photos, the observation &quot;Looks like something new&quot;, a Review related events link, and three owner choices with Needs review selected." loading="lazy" decoding="async"><div class="sc-anno" aria-hidden="true"><span class="sc-mark sc-mark--out" style="--y:30.4%">1</span><span class="sc-mark sc-mark--out" style="--y:70.2%">2</span><span class="sc-mark sc-mark--out" style="--y:88.5%">3</span></div></div></div>
+        <figcaption>Compare. Evidence first, then what the system saw, then what the owner decides. A design scenario, not a field-test capture. <span class="wf-flag">Open: the blue outline on the After photo isn't explained yet. Who or what draws it?</span></figcaption>
+      </figure>
+      <ul class="sc-duo-text sn-small sn-numbered">
+        <li><span class="sc-mark" aria-hidden="true">1</span><span><strong>Photo evidence.</strong> Before and After, each with its own time.</span></li>
+        <li><span class="sc-mark" aria-hidden="true">2</span><span><strong>System observation.</strong> AI describes what looks different, in words such as “Looks like something new”.</span></li>
+        <li><span class="sc-mark" aria-hidden="true">3</span><span><strong>Owner judgment.</strong> Needs review, No action needed or Not actually a change.</span></li>
+      </ul>
+    </div>
+
+    <h3>Couldn't compare ≠ No change</h3>
+    <div class="sc-prose"><p>A dark, blocked or stale image is not evidence that nothing changed. Looks similar means a comparison happened. Couldn't compare means it didn't, so it gets its own result and its own actions.</p></div>
+    <div class="sc-duo sn-even wf-crops">
+      <figure class="sc-slot">
+        <strong class="wf-crop-t">Looks different</strong>
+        <div class="sc-box sc-box--contain is-filled sn-crop"><div class="sn-media"><img src="/scena-wireframe/crop-comparable.png" width="932" height="601" alt="Close-up of a comparable result: the observation Looks like something new, the line Something appears near the rear exit, a Review related events link, and three owner choices with none selected." loading="lazy" decoding="async"></div></div>
+        <figcaption>Says what looks different, and offers three choices.</figcaption>
+      </figure>
+      <figure class="sc-slot">
+        <strong class="wf-crop-t">Too dark</strong>
+        <div class="sc-box sc-box--contain is-filled sn-crop"><div class="sn-media"><img src="/scena-wireframe/crop-too-dark.png" width="932" height="601" alt="Close-up of a Too dark result: a Too dark badge, the heading Couldn't compare, a short explanation, and two owner choices, Needs review and No action needed." loading="lazy" decoding="async"></div></div>
+        <figcaption>Names the reason, says Couldn't compare, and offers two.</figcaption>
+      </figure>
+    </div>
+    <p class="wf-flag">Stand-in: the Looks different crop is cut from the hero's Compare, because no choice is selected there. Its sentence differs from the screen above.</p>
+    <div class="sc-scroll wf-rules-wrap"><table class="sn-rules wf-rules" aria-label="Which owner choices a Couldn't compare result allows"><thead><tr><th scope="col">Owner choice</th><th scope="col">When it couldn't compare</th></tr></thead><tbody>
+      <tr><th scope="row">Needs review</th><td><span class="sn-rule-icon" aria-hidden="true">✓</span> Allowed</td></tr>
+      <tr><th scope="row">No action needed</th><td><span class="sn-rule-icon" aria-hidden="true">✓</span> Allowed</td></tr>
+      <tr><th scope="row">Not actually a change</th><td class="wf-off"><span class="sn-rule-icon" aria-hidden="true">✕</span> Blocked</td></tr>
+    </tbody></table></div>
+    <div class="sc-prose wf-after-table"><p>Not actually a change corrects a false positive. A comparison that never happened has nothing to correct.</p></div>
+
+    <h3>History keeps both</h3>
+    <div class="sc-duo sc-duo--flip">
+      <div class="sc-prose"><p>The observation and the owner's decision stay on separate lines. A later decision leaves the original observation in place.</p></div>
+      <figure class="sc-slot">
+        <div class="sc-box sc-box--contain is-filled sn-crop"><div class="sn-media"><img src="/scena-wireframe/crop-history.png" width="1080" height="1106" alt="History list: each check shows its date and observation, such as Looks different, with the owner decision on a separate line, such as Needs review or No action needed. One check reads Couldn't compare, Too dark." loading="lazy" decoding="async"></div></div>
+        <figcaption>Oct 12 is the check above. Looks different is the system's line. Needs review, under it, is the owner's.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 05: one column on purpose. Each step reads text, then one wide visual: prototype scene, implementation crop, real QA item. -->
+<section class="sc-sec" id="build">
+  <p class="sc-cap sc-label">05 · From Prototype to Working Product</p>
+  <div class="sc-body">
+    <h2>I used my interactive prototype to keep the implementation aligned with the MVP</h2>
+    <div class="sc-prose"><p>I built this front-end prototype with Claude Code and Codex to communicate the intended flows, interactions, and UI. It served as an implementation reference while Sungwoo built the final application and Ring integration.</p></div>
+
+    <h3><span class="sc-cap wf-step">Prototype</span>Reviewing the scope</h3>
+    <div class="sc-prose"><p>When the initial build included features beyond the MVP, I reviewed the scope against my prototype.</p></div>
+    <figure class="sc-slot">
+      <div class="sc-box wf-ph" style="--r:16 / 8"><span class="sc-cap sc-slot-n">Placeholder</span><span class="sc-slot-t">Working prototype scene</span><span class="wf-need">A capture of the prototype running, on a flow engineering referred to. One screen or a short row of screens, not a Figma frame.</span></div>
+      <figcaption><span class="wf-flag">To write: which flow this shows, and what engineering took from it</span></figcaption>
+    </figure>
+
+    <h3><span class="sc-cap wf-step">Implementation</span>Capture time, reflected in the UI</h3>
+    <div class="sc-prose"><p>Retrieving an image does not mean it was just captured. So each photo shows its capture time, and a stale image is not presented as a fresh check.</p><p>Ring events apply to the whole camera, not to one Care Spot. So the link reads Review related events, and the events are clues, not an exact time or cause.</p></div>
+    <figure class="sc-slot">
+      <div class="sc-box sc-box--contain is-filled sn-crop"><div class="sn-media"><img src="/public/images/scena/capture-time.png" width="1086" height="214" alt="The After label with its timestamp, Oct 12 at 7:54 AM, above the top of the After photo." loading="lazy" decoding="async"></div></div>
+      <figcaption>Capture time sits on the photo's label, because retrieval time says nothing about when it was taken. <span class="wf-flag">Stand-in from the submitted design. Replace with the same label captured from the running app</span></figcaption>
+    </figure>
+
+    <h3><span class="sc-cap wf-step">QA</span>Checking the build, then refining the experience with Sungwoo</h3>
+    <div class="sc-prose"><p>Walking through the build, I checked interaction logic, UI consistency, and alignment with Ring's visual language, including colors, icons, and interface patterns. I documented discrepancies in Figma and Markdown, along with the expected behavior and what to prioritize. From there, we refined the experience before submission.</p></div>
+    <figure class="sc-slot">
+      <div class="sc-box wf-ph" style="--r:16 / 6"><span class="sc-cap sc-slot-n">Placeholder</span><span class="sc-slot-t">One real QA item</span><span class="wf-need">From the Figma or Markdown QA doc. Must show the screen, the expected behavior and the fix priority.</span></div>
+      <figcaption><span class="wf-flag">To write: what this item changed, and why it got that priority</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 06: text only and light. No screens repeated. -->
+<section class="sc-sec" id="next">
+  <p class="sc-cap sc-label">06 · What We Built &amp; What Comes Next</p>
+  <div class="sc-body">
+    <h2>It ran end to end on real cameras. <span class="sn-line">How owners read it is still open.</span></h2>
+    <ul class="sc-learn">
+      <li><strong>What we built</strong><span>A working Ring-connected build covering setup, comparison, owner review and history.</span></li>
+      <li><strong>How we tested it</strong><span>End-to-end functional testing with real Ring cameras at the restaurant. Not a formal usability evaluation.</span></li>
+      <li><strong>Two questions to validate</strong><span>Can owners tell Looks similar from Couldn't compare?</span><span>Do they understand the follow-up choices, and pick a fitting next step?</span></li>
+      <li><strong>Possible next improvements</strong><span>Clearer feedback and recovery when a fresh capture fails.</span><span>A clear sign of which camera an automatic check targets.</span></li>
+    </ul>
+    <div class="sc-ex wf-ph"><span class="sc-ex-label">Reflection</span><span class="sc-ex-text"><span>Monica to write. Two or three sentences, for example on what designing for an uncertain AI result taught you.</span></span></div>
+  </div>
+</section>
+
+<div class="sc-next"><span class="sc-cap">Next project</span><a href="/shopcord/">Shopcord Linesheet <span aria-hidden="true">→</span></a></div>
+
+</main>
+
+<footer class="pad sc-footer" style="max-width:1180px;margin:0 auto;padding:0 52px">
+<div style="margin:80px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:18px;align-items:center;font:400 10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)">
+<span>© 2026 Monica Hwang</span><a href="mailto:monica1837@gmail.com" style="color:var(--muted)">Email</a><a href="https://www.linkedin.com/in/monica-hwang-679966195/" target="_blank" rel="noopener" style="color:var(--muted)">LinkedIn</a><span style="margin-left:auto">Designed &amp; built by Monica Hwang</span>
+</div>
+</footer>
+
+</div>
+</body>
+</html>

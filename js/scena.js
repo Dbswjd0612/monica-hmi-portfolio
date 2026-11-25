@@ -14,6 +14,10 @@
   function paras(a) { return map(a, function (p) { return '<p>' + e(p) + '</p>'; }); }
   // A hyphenated word never breaks at its hyphen
   function keepHyphens(s) { return e(s).replace(/\S+-\S+/g, function (w) { return '<span class="sc-nowrap">' + w + '</span>'; }); }
+  // Sentences that may each take their own line. css/scena.css decides at which column width.
+  function sentences(t) {
+    return Array.isArray(t) ? e(t[0]) + map(t.slice(1), function (s) { return ' <span class="sn-break">' + e(s) + '</span>'; }) : e(t);
+  }
   function bullets(a) { return '<div class="sc-prose"><ul>' + map(a, function (i) { return '<li>' + e(i) + '</li>'; }) + '</ul></div>'; }
 
   function placeholder(img) {
@@ -34,12 +38,13 @@
     return '<div class="sc-box sc-box--contain is-filled ' + cls + '">' + media(img) + '</div>';
   }
 
-  function slot(inner, caption) {
-    return '<figure class="sc-slot">' + inner + (caption ? '<figcaption>' + e(caption) + '</figcaption>' : '') + '</figure>';
+  // A caption may carry a note on its own line below it. The space keeps the two apart in the page's plain text too.
+  function slot(inner, caption, note) {
+    return '<figure class="sc-slot">' + inner + (caption ? '<figcaption>' + e(caption) + (note ? ' <span class="sn-cap-note">' + e(note) + '</span>' : '') + '</figcaption>' : '') + '</figure>';
   }
 
   // A full screen
-  function stage(item) { return slot(panel(item.image, 'sn-stage'), item.caption); }
+  function stage(item) { return slot(panel(item.image, 'sn-stage'), item.caption, item.captionNote); }
 
   // A close-up of part of a screen
   function closeUp(item) { return slot(panel(item.image, 'sn-crop'), item.caption); }
@@ -81,8 +86,8 @@
   function problem() {
     var p = C.problem;
     return row('section', 'problem', p.label,
-      '<h2>' + e(p.heading) + '</h2>' +
-      '<div class="sc-prose"><p>' + e(p.body[0]) + '</p><p><strong>“' + e(p.question) + '”</strong></p><p>' + e(p.body[1]) + '</p></div>' +
+      '<h2>' + sentences(p.heading) + '</h2>' +
+      '<div class="sc-prose">' + map(p.body, function (t) { return '<p>' + keepHyphens(t) + '</p>'; }) + '<div class="sn-ask"><p>' + e(p.lead) + '</p><p><strong>“' + e(p.question) + '”</strong></p></div></div>' +
       figure({ image: p.context }) +
       '<div class="sc-duo sn-even sn-pair">' + map(p.pair, function (f) { return figure(f); }) + '</div>' +
       '<h3>' + e(p.pivotHeading) + '</h3>' +
@@ -92,15 +97,30 @@
       }) + '</dl>');
   }
 
+  // One content source feeds the desktop matrix and the mobile step reading order.
   function flow() {
     var f = C.flow;
-    // explicit roles: the stacked layout sets display:block, which would otherwise drop the table semantics
+    function cellText(text) {
+      var actor = text.indexOf('The owner') === 0 ? 'The owner' : 'Scena';
+      return '<span class="sn-actor">' + e(actor) + '</span>' + e(text.slice(actor.length));
+    }
+    var label = e(f.steps.map(function (s) { return s.title; }).join(', then ')) + '.';
+    function stepHead(s, i) {
+      return '<div class="sn-step-head"><h3>' + e(s.title) + '</h3></div>';
+    }
+    var matrix = '<table class="sn-approach-matrix" aria-label="' + label + '"><colgroup><col span="3"></colgroup><thead><tr>' +
+      map(f.steps, function (s, i) { return '<th scope="col">' + stepHead(s, i) + '</th>'; }) + '</tr></thead><tbody>' +
+      '<tr class="sn-matrix-owner" aria-label="' + e(f.ownerLabel) + '">' +
+      map(f.steps, function (s) { return '<td><p>' + cellText(s.owner) + '</p></td>'; }) + '</tr>' +
+      '<tr class="sn-matrix-system" aria-label="' + e(f.systemLabel) + '">' +
+      map(f.steps, function (s) { return '<td><p>' + cellText(s.system) + '</p></td>'; }) + '</tr></tbody></table>';
+    var mobile = '<ol class="sn-steps" aria-label="' + label + '">' + map(f.steps, function (s, i) {
+      return '<li>' + stepHead(s, i) +
+        '<dl class="sn-step-role"><dt class="sc-cap">' + e(f.ownerLabel) + '</dt><dd class="sc-prose"><p>' + cellText(s.owner) + '</p></dd></dl>' +
+        '<dl class="sn-step-role sn-step-role--system"><dt class="sc-cap">' + e(f.systemLabel) + '</dt><dd class="sc-prose"><p>' + cellText(s.system) + '</p></dd></dl></li>';
+    }) + '</ol>';
     return row('section', 'flow', f.label,
-      '<h2>' + e(f.heading) + '</h2>' +
-      '<div class="sc-scroll"><table class="sn-map" role="table" aria-label="' + e(f.heading) + '"><thead role="rowgroup"><tr role="row">' + map(f.columns, function (c) { return '<th scope="col" role="columnheader">' + e(c) + '</th>'; }) + '</tr></thead><tbody role="rowgroup">' +
-      map(f.rows, function (r) {
-        return '<tr role="row"><th scope="row" role="rowheader">' + e(r[0]) + '</th><td role="cell" data-label="' + e(f.columns[1]) + '">' + e(r[1]) + '</td><td role="cell" data-label="' + e(f.columns[2]) + '">' + e(r[2]) + '</td></tr>';
-      }) + '</tbody></table></div>');
+      '<h2 class="sn-shift"><span>' + e(f.heading[0]) + '</span> <span>' + e(f.heading[1]) + '</span></h2>' + matrix + mobile);
   }
 
   function decisionA(a) {
@@ -146,10 +166,17 @@
       '<p class="sc-note">' + e(c.reasonsLabel) + ': ' + map(c.reasons, function (r, i) { return (i ? ' · ' : '') + e(r); }) + '.</p>');
   }
 
+  // The chapter heading: each line after the first sits on its own line where the column is wide enough (.sn-break, as in the
+  // Problem heading) and wraps naturally on narrow screens. The emphasis phrase is marked wherever it appears.
+  function chapterHeading(lines, emphasis) {
+    var mark = function (l) { return emphasis ? e(l).replace(e(emphasis), '<strong>' + e(emphasis) + '</strong>') : e(l); };
+    return '<h2 class="sn-chapter">' + mark(lines[0]) + map(lines.slice(1), function (l) { return ' <span class="sn-break">' + mark(l) + '</span>'; }) + '</h2>';
+  }
+
   function decisions() {
     var d = C.decisions;
     return '<section id="decisions">' +
-      row('div', 'decisions-intro', d.label, '<h2>' + e(d.heading) + '</h2><div class="sc-prose"><p>' + e(d.note) + '</p></div>') +
+      row('div', 'decisions-intro', d.label, chapterHeading(d.heading, d.emphasis)) +
       decisionA(d.a) + decisionB(d.b) + decisionC(d.c) +
       '</section>';
   }

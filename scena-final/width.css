@@ -1,0 +1,30 @@
+/* Shared content container for Scena Final, including the navbar and footer. */
+.sc-page {
+  --content-width: 1100px;
+  --reading-width: 700px;
+  --page-gutter: 48px;
+}
+.sc-page .wrap {
+  width: 100%;
+  max-width: min(var(--content-width), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+}
+#scena-root .prose,
+#scena-root .decision-heading p {
+  max-width: var(--reading-width);
+}
+/* Extend the note's rules across the container while retaining its reading width. */
+#scena-root .evidence-note {
+  padding-inline-end: max(0px, calc(100% - var(--reading-width)));
+}
+@media (min-width: 1001px) {
+  #scena-root .collaboration {
+    grid-template-columns: minmax(240px, 1fr) minmax(0, var(--reading-width));
+  }
+}
+@media (max-width: 1000px) {
+  .sc-page { --page-gutter: 28px; }
+}
+@media (max-width: 650px) {
+  .sc-page { --page-gutter: 20px; }
+}
