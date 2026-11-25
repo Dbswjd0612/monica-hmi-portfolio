@@ -32,7 +32,7 @@ window.SCENA_CONTENT = (function () {
       screensLabel: 'Home, Care Spots and Compare screens',
       screens: [
         // The Home screenshot uses the Too dark badge from the Ring Project H01 export (263:2874).
-        { src: '/scena-final/images/hero-home.png', w: 1170, h: 2568, label: 'Home / Monitoring', alt: 'Scena Home for Sushi Restaurant: 3 cameras, last closing at 10:02 PM and a Run a check button. Under "2 spots need a look" it lists Rear Exit, Looks like something new; Dining Aisle, Position looks different; and Back Door, Too dark.' },
+        { src: '/scena/images/hero-home.png', w: 1170, h: 2568, label: 'Home / Monitoring', alt: 'Scena Home for Sushi Restaurant: 3 cameras, last closing at 10:02 PM and a Run a check button. Under "2 spots need a look" it lists Rear Exit, Looks like something new; Dining Aisle, Position looks different; and Back Door, Too dark.' },
         { src: P + 'hero-care-spots.png', w: 932, h: 2016, label: 'Care Spots', alt: 'Monitoring setup step 2 of 2: three owner-drawn Care Spots outlined on a reference photo, listed as Rear Exit, Back Door and Shelf, with a Save Care Spots button.' },
         { src: P + 'hero-compare.png', w: 932, h: 2016, label: 'Compare & Decide', alt: 'Compare screen with Before and After photos of the rear exit, the observation "Looks like something new", and three owner choices with none selected yet.' }
       ]
@@ -122,7 +122,7 @@ window.SCENA_CONTENT = (function () {
         supportA: { caption: 'Owner decision', image: { src: P + 'owner-decision-v3.png', w: 1160, h: 886, label: 'Owner decision', alt: 'Close-up of the observation text above the three owner choices, with Needs review selected.' } },
         supportText: 'The selected state uses a filled control and a check mark, so the choice does not rely on color alone.',
         // Keep the History crop with the Too dark badge from Ring Project (682:245).
-        supportB: { caption: 'History keeps both', image: { src: '/scena-final/images/history-crop-v2.png', w: 1080, h: 1439, label: 'History crop', alt: 'History list: each check shows its date and observation, such as Looks different, with the owner decision on a separate line, such as Needs review or No action needed.' } },
+        supportB: { caption: 'History keeps both', image: { src: '/scena/images/history-crop-v2.png', w: 1080, h: 1439, label: 'History crop', alt: 'History list: each check shows its date and observation, such as Looks different, with the owner decision on a separate line, such as Needs review or No action needed.' } },
         historyText: 'History shows the observation and the decision on separate lines. A later decision leaves the original observation in place. Status is written in words, and blue or amber only supports it.'
       },
 
@@ -132,7 +132,7 @@ window.SCENA_CONTENT = (function () {
         lead: 'Camera photos aren\'t always clear enough to compare. Sometimes a Care Spot is too dark or blocked from view. Scena marks the result as Not compared rather than assuming nothing changed, and adjusts which decisions the owner can make.',
         left: { title: 'Comparable result', caption: 'Different and three choices', image: { src: P + 'compare-v3.png', w: 1086, h: 2443, label: 'Comparable result', alt: 'Compare screen with two photos, the observation "Looks like something new", and three owner choices.', marks: [{ n: 1, y: 70.2 }, { n: 2, y: 88.5 }] } },
         // Keep the existing follow-up controls with the Too dark badge from Ring Project (263:3598).
-        right: { title: 'Too dark', caption: 'Not compared and two choices', image: { src: '/scena-final/images/too-dark-v3.png', w: 1086, h: 2443, label: 'Too dark comparison', alt: 'Compare screen with a Before photo and an empty After area, a Too dark badge, the heading Couldn\'t compare, and two owner choices: Needs review and No action needed.', marks: [{ n: 1, y: 76.5, side: 'right' }, { n: 2, y: 93, side: 'right' }] } },
+        right: { title: 'Too dark', caption: 'Not compared and two choices', image: { src: '/scena/images/too-dark-v3.png', w: 1086, h: 2443, label: 'Too dark comparison', alt: 'Compare screen with a Before photo and an empty After area, a Too dark badge, the heading Couldn\'t compare, and two owner choices: Needs review and No action needed.', marks: [{ n: 1, y: 76.5, side: 'right' }, { n: 2, y: 93, side: 'right' }] } },
         changesLabel: 'What changes',
         changes: [
           { n: 1, t: 'Make uncertainty visible', d: 'Scena makes it clear when a photo can\'t be compared, rather than suggesting nothing changed.' },
